@@ -1,6 +1,11 @@
 package mainPackage;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.Timer;
+
+import mainPackage.storyLines.dialogues;
+import mainPackage.storyLines.questions;
 
 import java.io.*;
 
@@ -15,6 +20,7 @@ public class gameStory{
 	UserInterface ui;
 	TransitionClass sceneChanger;
 	soundManager sm;
+	storyLines lines;
 	
 	Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35);
 	Font normalFont = new Font ("Calibri", Font.PLAIN, 35);
@@ -24,75 +30,37 @@ public class gameStory{
 		int choicetextTracker = 0;
 		int letterTracker = 0;
 		int arrayNumber;
+		int pauseTime = 0;
+		int normalSpeed = 40;
+		int fastSpeed = 10;
 		char DiaGen[], choiceGen[], nameGen[];
 		String name;
-	
-	//Dialogue Content
-	String diaText[] = {
-			
-					"Could you tell us your name?",//0
-			
-					"A world opens anew.", //1
-			
-					"The sounds of birds chirping. . .  The winds, so strong. The lush flora danced to it " 
-					+ "and made little soft thuds on nearby glass panes. "
-					+ "The breeze that caved into the room felt cold, yet soothing.", //2
-					
-					"Different sensations, different moods. . .  How wonderful it was.",//3
-					
-					"You opened your eyes, greeted by your dimly lit room.  "
-					+ "The warm blanket wrapped around you "
-					+ "made this icy atmosphere comfortable, "
-					+ "reminding you of familiar and familial hugs.",//4
-					
-					"A new day, a new start, a new life it was. "
-					+ "You sat up on your bed, crawled to the nearby window "
-					+ "that was blocked by curtains, and opened them.",//5
-					
-					"The city skyline, the plethora of buildings, "
-					+ "bustling streets and avenues, and the livelihood of "
-					+ "folks starting their day, it made you feel light and happy.",//6
-					
-					"You exit the bedroom. . .",//7
-					"It's the first day of classes... Nothing is there to review...",//8
-					"Wow... The world is absolutely just gorgeous...",//9
-					"I'm still tired, I'm gonna sleep again...",//10
-					
-					" Good morning to you, dear!",//11
-					
-					"I hope you had a swell sleep. "
-					+ "You need everything for your first day at Starlight!",//12
-					
-					"GET OUT OF THAT ROOM!!! \nRIGHT THIS MOMENT!!!",//13
-					
-					"What are you doing dozing off in your room?!"
-					+ " I already heard the alarm and you aren't up yet?!", //14
-					
-					"Gosh, if only you didn't have too much MELATONIN in your system!"
-					+ " You'd wake up early!",//15
-					
-					"You go on and and do your morning routine! Don't forget to use some"
-					+ " SODIUM FLUOROPHOSPHATE (Na2PFO3) product so that you won't get cavities... Oh!"
-					+ " And some SODIUM HYDROXIDE (NaOH) BASED product too to clean up your body.",//16
-	};
-	
-	String choiceText[] = { "Hmmm... What should I do now?",//0
-							"MELATONIN? What is that associated with?",//1
-							"What is SODIUM FLUOROPHOSPHATE?"
-							+ "\nShe said something about cavities... What could it be?"//2
-	};
+		
+		JLabel bgHolder = new JLabel();
+			ImageIcon bedroomView = new ImageIcon(getClass().getClassLoader().getResource("temp2.png"));
+			ImageIcon cityView = new ImageIcon(getClass().getClassLoader().getResource("temp3.jpg"));
+			ImageIcon bayRouteView = new ImageIcon(getClass().getClassLoader().getResource("temp4.png"));
 
 	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM) {
 		
 		game = g; ui = UI; sceneChanger = sc; sm = SM;
 	}
 	
+	public void pause() {
+		try {
+			Thread.sleep(pauseTime);
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	
 	//INTRO GENERATION
-	Timer DiaTimer = new Timer(60, new ActionListener(){
+	Timer DiaTimer = new Timer(normalSpeed, new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent ie) {
 			ui.dialoguePanel.setVisible(false);
-			DiaGen = diaText[diatextTracker].toCharArray();
+			DiaGen = dialogues.diaText[diatextTracker].toCharArray();
 			arrayNumber = DiaGen.length;
 			
 				if((letterTracker%3) == 0){
@@ -117,10 +85,10 @@ public class gameStory{
 	});
 
 	//DECISION MOMENT ANIMATION
-	Timer choiceTimer = new Timer(60, new ActionListener(){
+	Timer choiceTimer = new Timer(normalSpeed, new ActionListener(){
 		public void actionPerformed(ActionEvent c) {
 			ui.dialoguePanel.setVisible(false);
-			choiceGen = choiceText[choicetextTracker].toCharArray();
+			choiceGen = questions.choiceText[choicetextTracker].toCharArray();
 			arrayNumber = choiceGen.length;
 			
 				if((letterTracker%2) == 0){
@@ -144,6 +112,7 @@ public class gameStory{
 		}
 	});
 	//For simple dialogue moments
+	
 	public void dialogueTracker(String nextDialogue) {
 		switch(nextDialogue){
 		case "intro0": intro0Game(); break; 
@@ -154,6 +123,7 @@ public class gameStory{
 		case "intro5": intro5Game(); break;
 		case "intro6": intro6Game(); break;
 		case "introEnd": amBedroom(); break;
+			
 			case "gbedroomExit12": goodbedroomExit12(); break;
 			case "gbedroomExit13": goodbedroomExit13(); break;
 			case "gbedroomExit14": goodbedroomExit14(); break;
@@ -165,8 +135,7 @@ public class gameStory{
 					case "sidefirstQuestion": sidefirstQuestion(); break;
 				
 		case "firstQuestion": firstQuestion(); break;
-		
-		
+			
 		default: intro0Game();
 		}
 	}
@@ -176,7 +145,7 @@ public class gameStory{
 		switch(nextMove) {
 			case "bedroomExit11": bedroomExit11(); sceneChanger.showDialogue(); break;
 			case "bedroomStudy11": bedroomStudy11(); sceneChanger.showDialogue(); break;		
-			case "bedroomSS11": bedroomSS11(); sceneChanger.showDialogue(); break;		
+			case "bedroomSS11": bedroomSS11(); sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); bgHolder.setIcon(cityView); break;		
 			case "bedroomSleep11": bedroomSleep11(); sceneChanger.showDialogue(); break;	
 				
 			case "correct1": break;
@@ -184,14 +153,14 @@ public class gameStory{
 		}
 	}
 	//Mostly Dialogue
-	public void intro0Game() {
+	public void intro0Game() {//Get name
 		ui.mainTextArea.setFont(normalFont);
 		ui.mainTextArea.setText("");
 		ui.dialogueBox.setText(null);
 		DiaTimer.start();
 			game.nextDialogue = "intro1";
 	}
-	public void intro1Game(){
+	public void intro1Game(){//A world a new
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 		DiaTimer.start();
@@ -199,44 +168,61 @@ public class gameStory{
 		nameGen = name.toCharArray();
 				game.nextDialogue = "intro2";
 	}
-	public void intro2Game() {
+	public void intro2Game() {//Birds chirping...
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
+			sm.se.setFile2(sm.birdsfx); 
+			sm.se.playBirdSFX(); 
 		DiaTimer.start();
 			game.nextDialogue = "intro3";
 	}
-	public void intro3Game() {
+	public void intro3Game() {//Different...
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 		DiaTimer.start();
 			game.nextDialogue = "intro4";
 	}
-	public void intro4Game() {
+	public void intro4Game() {//Bedroom
+		ui.bgPanel.setVisible(true);
+			ui.bgPanel.remove(ui.bgPic);
+				ui.bgPanel.add(bgHolder);
+				bgHolder.setIcon(bedroomView);
 		ui.mainTextArea.setFont(narrationFont);
-		ui.mainTextArea.setText("");
+		ui.mainTextArea.setText("");	
 		DiaTimer.start();
 			game.nextDialogue = "intro5";
 	}
-	public void intro5Game() {
+	public void intro5Game() {//A new day...
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 		DiaTimer.start();
 			game.nextDialogue = "intro6";
 	}
-	public void intro6Game() {
+	public void intro6Game() {//City view
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
+			ui.bgPanel.setVisible(false);
+			sm.se.setFile3(sm.curtainsfx);
+			sm.se.curtainSFX.start();
+			
+				pauseTime = 3000;
+				pause();
+				ui.bgPanel.setVisible(true);
+				bgHolder.setIcon(cityView);
+				
 		DiaTimer.start();
 			game.nextDialogue = "introEnd";	
 	}
 
 	//First choice of the game or First Scene Transition
 	public void amBedroom() {
-		ui.dialoguePanel.setVisible(false);
+		ui.choicePanel.setVisible(true);
+			bgHolder.setIcon(bedroomView);
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 		ui.dialogueBox.setText(null);
 		choiceTimer.start();
+		ui.dialoguePanel.setVisible(false);
 			ui.choice1.setText("Exit the room");
 			ui.choice2.setText("Study");
 			ui.choice3.setText("Continue sightseeing");
@@ -283,6 +269,7 @@ public class gameStory{
 
 	
 	public void goodbedroomExit12() {
+		ui.bgPanel.setVisible(false);
 		try {
 			diatextTracker = 11;
 			Thread.sleep(1500);
@@ -320,21 +307,18 @@ public class gameStory{
 	
 	
 	public void scolding11() {
-		try {
-			diatextTracker = 13;
-			ui.mainTextArea.setText("");
-			Thread.sleep(8000);
-			DiaTimer.setDelay(20);
+		diatextTracker = 13;
+		ui.mainTextArea.setText("");
+			pauseTime = 8000;
+			this.pause();
+		DiaTimer.setDelay(20);
 			ui.mainTextArea.setFont(hyperboleFont);
 			ui.mainTextArea.setText("");
 			DiaTimer.start();
 				game.nextDialogue = "bbedroomExit12";
-		}
-		catch (Exception e){
-			
-		}
 	}
 	public void badbedroomExit12() {
+		ui.bgPanel.setVisible(false);
 		DiaTimer.setDelay(60);
 		ui.mainTextArea.setFont(normalFont);
 		ui.mainTextArea.setText("");
@@ -399,7 +383,7 @@ public class gameStory{
 			ui.choice1.setText("Toothpaste");
 			ui.choice2.setText("Liquid Soap");
 			ui.choice3.setText("Bar Soap");
-			ui.choice4.setText("Toothbrush");
+			ui.choice4.setText("Shampoo");
 			
 			game.nextPosition1 = "correct1";
 			game.nextPosition2 = "incorrect1";

@@ -8,11 +8,11 @@ public class TransitionClass {
 		ui = UI;
 	}
 	
-	public void showTitleScreen(){
+		public void showTitleScreen(){
 		
 			ui.titlePanel.setVisible(true);
 			ui.startButtonPanel.setVisible(true);
-			ui.bgPanel[0].setVisible(true);
+			ui.bgPanel.setVisible(true);
 		
 			ui.mainTextPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
@@ -26,7 +26,7 @@ public class TransitionClass {
 			
 			ui.titlePanel.setVisible(false);
 			ui.startButtonPanel.setVisible(false);
-			ui.bgPanel[0].setVisible(false);
+			ui.bgPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
 			ui.choicePanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
@@ -50,7 +50,7 @@ public class TransitionClass {
 			ui.startButtonPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
 			ui.choicePanel.setVisible(false);
-			
+		
 		}
 }
 

@@ -23,8 +23,8 @@ import javax.swing.ImageIcon;
 public class UserInterface {
 
 		JFrame gameWindow;
-		JPanel titlePanel, startButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel[] = new JPanel[20], nameInputPanel;
-		JLabel titleLabel, subtitleLabel, bgLabel[] = new JLabel [20]; 
+		JPanel titlePanel, startButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel, nameInputPanel;
+		JLabel titleLabel, subtitleLabel, bgPic;
 		JButton startButton, dialogueBox, nameInputBTN, choice1, choice2, choice3, choice4;
 		JTextArea mainTextArea;
 		JTextField nameInput;
@@ -37,7 +37,8 @@ public class UserInterface {
 		Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 75);
 		Font normalFont = new Font ("Calibri", Font.PLAIN, 45);
 
-		public void makeUI(ChoiceHandler cHandler, MouseHandler mHandler, NameHandler nHandler, KeyboardHandler kbHandler, int screenWidth, int screenHeight) {
+		public void makeUI(ChoiceHandler cHandler, MouseHandler mHandler, NameHandler nHandler, KeyboardHandler kbHandler, 
+							int screenWidth, int screenHeight, storyLines lines, Game game) {
 			//Title Panel & Main Text Panel Scaling	
 			int titlePanelWidth = 1300;
 			int titlePanelHeight = 250;
@@ -122,19 +123,17 @@ public class UserInterface {
 							startButton.setActionCommand("start");
 					startButtonPanel.add(startButton);
 			//BGImage	
-			bgPanel[0] = new JPanel();
-				bgPanel[0].setBounds(0,0,screenWidth,screenHeight);
-				bgPanel[0].setBackground(Color.black);
-				
-					bgLabel[0] = new JLabel();
-					bgLabel[0].setBounds(0,0,screenWidth,screenHeight);
-						ImageIcon bgIcon = new ImageIcon(getClass().getClassLoader().getResource("temp1.png"));
-					bgLabel[0].setIcon(bgIcon);
-				bgPanel[0].add(bgLabel[0]);
+			bgPanel = new JPanel();
+				bgPanel.setBounds(0,0,screenWidth,screenHeight);
+				bgPanel.setBackground(Color.black);
+					bgPic = new JLabel();
+					bgPic.setBounds(0,0, game.screenWidth, game.screenHeight);
+						ImageIcon titlePic = new ImageIcon(getClass().getClassLoader().getResource("temp1.png"));
+					bgPic.setIcon(titlePic);
+				bgPanel.add(bgPic);
 					
 			gameWindow.add(titlePanel);
 			gameWindow.add(startButtonPanel);
-			gameWindow.add(bgPanel[0]);
 			
 			//ACTUAL GAME
 			mainTextPanel = new JPanel();
@@ -237,6 +236,7 @@ public class UserInterface {
 							choicePanel.add(choice4);
 							
 				gameWindow.add(choicePanel);		
+				gameWindow.add(bgPanel);
 			gameWindow.setVisible(true);	
 			//setFullScreen();
 		}

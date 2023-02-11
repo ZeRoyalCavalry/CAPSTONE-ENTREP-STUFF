@@ -17,6 +17,7 @@ public class Game {
 
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
+	storyLines lines = new storyLines();
 	ChoiceHandler cHandler = new ChoiceHandler();
 	MouseHandler mHandler = new MouseHandler();
 	KeyboardHandler kbHandler = new KeyboardHandler();
@@ -29,8 +30,6 @@ public class Game {
 		int screenHeight = (int)gameWindowSize.getHeight();
 		
 		int mouseClick = 0;
-		int normalSpeed = 60;
-		int fastSpeed = 10;
 	
 	String nextDialogue, nextPosition1, nextPosition2, nextPosition3, nextPosition4, playerName; 
 
@@ -39,11 +38,11 @@ public class Game {
 	}
 	
 	public Game() {
-		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, screenWidth, screenHeight);
-		tc.showTitleScreen();
+		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, screenWidth, screenHeight, lines, this);
 		sm.bgsMusic.setFile(sm.titleScreenMusic);
 		sm.bgsMusic.playMusic();
 		sm.bgsMusic.loopMusic();
+		tc.showTitleScreen();
 	}
 	
 	public class ChoiceHandler implements ActionListener{
@@ -87,11 +86,11 @@ public class Game {
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {
-			Story.DiaTimer.setDelay(fastSpeed);
+			Story.DiaTimer.setDelay(Story.fastSpeed);
 		}
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			Story.DiaTimer.setDelay(normalSpeed);
+			Story.DiaTimer.setDelay(Story.normalSpeed);
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -129,12 +128,11 @@ public class Game {
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
 		}
 		@Override
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode()==MenuKeyEvent.VK_SPACE) {
-				Story.DiaTimer.setDelay(fastSpeed);
+				Story.DiaTimer.setDelay(Story.fastSpeed);
 			}
 			if(e.getKeyCode() == 'z' || e.getKeyCode() == 'Z') {
 				sm.se.setFile(sm.buttonsfx);
@@ -145,7 +143,7 @@ public class Game {
 		@Override
 		public void keyReleased(KeyEvent e) {
 			if(e.getKeyCode()==MenuKeyEvent.VK_SPACE) {
-				Story.DiaTimer.setDelay(normalSpeed);
+				Story.DiaTimer.setDelay(Story.normalSpeed);
 			}			
 		}
 
