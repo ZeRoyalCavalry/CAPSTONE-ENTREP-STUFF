@@ -7,8 +7,7 @@ import javax.swing.Timer;
 import mainPackage.storyLines.dialogues;
 import mainPackage.storyLines.questions;
 
-import java.io.*;
-
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,20 +25,18 @@ public class gameStory{
 	Font normalFont = new Font ("Calibri", Font.PLAIN, 35);
 	Font hyperboleFont = new Font ("Papyrus", Font.BOLD, 45);
 	
-		int diatextTracker = 0;
-		int choicetextTracker = 0;
-		int letterTracker = 0;
-		int arrayNumber;
-		int pauseTime = 0;
-		int normalSpeed = 40;
-		int fastSpeed = 10;
+		int diatextTracker = 0, choicetextTracker = 0, letterTracker = 0, arrayNumber, pauseTime = 0,
+			normalSpeed = 40, fastSpeed = 10, enableKeys = 0;
+		float alphaOpacity;
+
+			ImageIcon bedroomView = new ImageIcon(getClass().getClassLoader().getResource("temp2.png"));
+			ImageIcon cityView = new ImageIcon(getClass().getClassLoader().getResource("temp3.jpg"));
+			ImageIcon bayRouteView = new ImageIcon(getClass().getClassLoader().getResource("temp4.png"));
+
 		char DiaGen[], choiceGen[], nameGen[];
 		String name;
 		
 		JLabel bgHolder = new JLabel();
-			ImageIcon bedroomView = new ImageIcon(getClass().getClassLoader().getResource("temp2.png"));
-			ImageIcon cityView = new ImageIcon(getClass().getClassLoader().getResource("temp3.jpg"));
-			ImageIcon bayRouteView = new ImageIcon(getClass().getClassLoader().getResource("temp4.png"));
 
 	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM) {
 		
@@ -54,11 +51,11 @@ public class gameStory{
 			
 		}
 	}
-	
+
 	//INTRO GENERATION
 	Timer DiaTimer = new Timer(normalSpeed, new ActionListener(){
-		@Override
 		public void actionPerformed(ActionEvent ie) {
+			enableKeys = 0;
 			ui.dialoguePanel.setVisible(false);
 			DiaGen = dialogues.diaText[diatextTracker].toCharArray();
 			arrayNumber = DiaGen.length;
@@ -80,6 +77,7 @@ public class gameStory{
 				DiaTimer.stop();
 				diatextTracker++;
 				ui.dialoguePanel.setVisible(true);
+				enableKeys = 1;
 			}
 		}
 	});
@@ -111,8 +109,8 @@ public class gameStory{
 			}
 		}
 	});
-	//For simple dialogue moments
-	
+
+	//For simple dialogue moments	
 	public void dialogueTracker(String nextDialogue) {
 		switch(nextDialogue){
 		case "intro0": intro0Game(); break; 
@@ -133,9 +131,11 @@ public class gameStory{
 				case "bbedroomExit13": badbedroomExit13(); break;
 				case "bbedroomExit14": badbedroomExit14(); break;  
 					case "sidefirstQuestion": sidefirstQuestion(); break;
-				
+						case "correct0": break;
+						case "incorrect0": break;
+
 		case "firstQuestion": firstQuestion(); break;
-			
+
 		default: intro0Game();
 		}
 	}
@@ -145,7 +145,7 @@ public class gameStory{
 		switch(nextMove) {
 			case "bedroomExit11": bedroomExit11(); sceneChanger.showDialogue(); break;
 			case "bedroomStudy11": bedroomStudy11(); sceneChanger.showDialogue(); break;		
-			case "bedroomSS11": bedroomSS11(); sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); bgHolder.setIcon(cityView); break;		
+			case "bedroomSS11": bedroomSS11(); sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); break; //bgHolder.setIcon(cityView); break;		
 			case "bedroomSleep11": bedroomSleep11(); sceneChanger.showDialogue(); break;	
 				
 			case "correct1": break;
@@ -187,6 +187,9 @@ public class gameStory{
 			ui.bgPanel.remove(ui.bgPic);
 				ui.bgPanel.add(bgHolder);
 				bgHolder.setIcon(bedroomView);
+				/*for(int i = 0; i >= 0; i--){
+					ui.bgPanel.setBackground(new Color(0,0,0,i));
+				}*/
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");	
 		DiaTimer.start();
@@ -198,7 +201,7 @@ public class gameStory{
 		DiaTimer.start();
 			game.nextDialogue = "intro6";
 	}
-	public void intro6Game() {//City view
+	public void intro6Game() {//City view]
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 			ui.bgPanel.setVisible(false);
@@ -210,6 +213,7 @@ public class gameStory{
 				ui.bgPanel.setVisible(true);
 				bgHolder.setIcon(cityView);
 				
+				
 		DiaTimer.start();
 			game.nextDialogue = "introEnd";	
 	}
@@ -217,7 +221,7 @@ public class gameStory{
 	//First choice of the game or First Scene Transition
 	public void amBedroom() {
 		ui.choicePanel.setVisible(true);
-			bgHolder.setIcon(bedroomView);
+			//bgHolder.setIcon(bedroomView);
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 		ui.dialogueBox.setText(null);

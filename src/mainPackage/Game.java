@@ -131,13 +131,16 @@ public class Game {
 		}
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if(e.getKeyCode()==MenuKeyEvent.VK_SPACE) {
-				Story.DiaTimer.setDelay(Story.fastSpeed);
-			}
-			if(e.getKeyCode() == 'z' || e.getKeyCode() == 'Z') {
-				sm.se.setFile(sm.buttonsfx);
-				sm.se.playButtonSFX();
-				Story.dialogueTracker(nextDialogue);
+				if(e.getKeyCode()==MenuKeyEvent.VK_SPACE) {
+					Story.DiaTimer.setDelay(Story.fastSpeed);
+				}
+			if(Story.enableKeys == 1) {
+				if(e.getKeyCode() == 'z' || e.getKeyCode() == 'Z') {
+					ui.mainTextArea.setText("");
+					sm.se.setFile(sm.buttonsfx);
+					sm.se.playButtonSFX();
+					Story.dialogueTracker(nextDialogue);
+				}
 			}
 		}
 		@Override
