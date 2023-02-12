@@ -18,12 +18,13 @@ public class Game {
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
 	storyLines lines = new storyLines();
+	playerStats player = new playerStats();
 	ChoiceHandler cHandler = new ChoiceHandler();
 	MouseHandler mHandler = new MouseHandler();
 	KeyboardHandler kbHandler = new KeyboardHandler();
 	NameHandler nHandler = new NameHandler();
 	TransitionClass tc = new TransitionClass(ui);
-	gameStory Story = new gameStory(this, ui, tc, sm);
+	gameStory Story = new gameStory(this, ui, tc, sm, player);
 	
 	Dimension gameWindowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int)gameWindowSize.getWidth();
@@ -39,6 +40,7 @@ public class Game {
 	
 	public Game() {
 		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, screenWidth, screenHeight, lines, this);
+		Story.startStats();
 		sm.bgsMusic.setFile(sm.titleScreenMusic);
 		sm.bgsMusic.playMusic();
 		sm.bgsMusic.loopMusic();

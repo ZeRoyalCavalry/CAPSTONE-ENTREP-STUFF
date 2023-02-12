@@ -1,6 +1,6 @@
 package mainPackage;
 
-//import java.awt.BorderLayout;
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -23,19 +23,20 @@ import javax.swing.ImageIcon;
 public class UserInterface {
 
 		JFrame gameWindow;
-		JPanel titlePanel, startButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel, nameInputPanel;
-		JLabel titleLabel, subtitleLabel, bgPic;
+		JPanel titlePanel, startButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel;
+		JLabel titleLabel, subtitleLabel, bgPic, XPLabel, XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
 		JButton startButton, dialogueBox, nameInputBTN, choice1, choice2, choice3, choice4;
 		JTextArea mainTextArea;
 		JTextField nameInput;
 		
-			Border outlinePanel = new LineBorder(Color.WHITE, 15);
+			Border outlinePanel = new LineBorder(Color.WHITE, 12);
 			Border outlineButton = new LineBorder(Color.WHITE, 5);
 			Border outlineDialogue = new LineBorder(Color.WHITE, 10);
 		
 		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 		Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 75);
-		Font normalFont = new Font ("Calibri", Font.PLAIN, 45);
+		Font statsFont = new Font("Arial", Font.BOLD, 33);
+		Font normalFont = new Font ("Arial", Font.PLAIN, 40);
 
 		public void makeUI(ChoiceHandler cHandler, MouseHandler mHandler, NameHandler nHandler, KeyboardHandler kbHandler, 
 							int screenWidth, int screenHeight, storyLines lines, Game game) {
@@ -54,13 +55,13 @@ public class UserInterface {
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
 			int mtpWidth = 1300;
-			int mtpHeight = 275;
+			int mtpHeight = 230;
 			int alignMTPX = (screenWidth/2) - (mtpWidth/2);
-			int alignMTPY = (int)Math.round(mtpHeight/0.55);
+			int alignMTPY = (int)Math.round(mtpHeight/0.48);
 			
 			//Main Text Area Scaling
 			int mtaWidth = 1200;
-			int mtaHeight = 260;
+			int mtaHeight = 215;
 			int alignMTAX = (screenWidth/2) - (mtaWidth/2);
 			int alignMTAY = (int)Math.round(mtaHeight/5);
 			
@@ -81,11 +82,16 @@ public class UserInterface {
 			int inPHeight = 100;
 			int alignINPanelX = (screenWidth/2) - (inPWidth/2); 
 			int alignINPanelY = (int)Math.round(mtaHeight/1.5);
+
+			//Player Stats Panel Scaling
+			int pspWidth = 1300; 
+			int pspHeight = 70; 
+			int alignPSPanelX = (screenWidth/2) - (pspWidth/2);
+			int alignPSPanelY = (int)Math.round(screenHeight - (pspHeight/0.444));
 			
 			//MAKE GAME WINDOW
 			gameWindow = new JFrame();
 				gameWindow.setTitle("Starlight High School 1.1");
-				//gameWindow.setSize(screenWidth, screenHeight);
 				gameWindow.setSize(screenWidth,screenHeight);
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				gameWindow.getContentPane().setBackground(Color.black);
@@ -112,7 +118,7 @@ public class UserInterface {
 				startButtonPanel.setBackground(Color.BLACK);
 				startButtonPanel.setBorder(outlineButton);
 				
-					startButton = new JButton("START");
+					startButton = new JButton("<html><center>START<center><html>");
 						startButton.setBackground(Color.BLACK);
 						startButton.setForeground(Color.WHITE);
 						startButton.setFont(subtitleFont);
@@ -171,19 +177,18 @@ public class UserInterface {
 					dialogueBox.setFocusPainted(false);
 					dialogueBox.addActionListener(cHandler);
 					dialogueBox.setActionCommand("dialogue");
-				dialoguePanel.add(dialogueBox);
+				dialoguePanel.add(dialogueBox, BorderLayout.SOUTH);
 			mainTextPanel.add(dialoguePanel);	
 			
-			//inPWidth inPHeight alignINPanelX alignINPanelY
 			nameInputPanel = new JPanel();
 				nameInputPanel.setBounds(alignINPanelX, alignINPanelY, inPWidth, inPHeight);
 				nameInputPanel.setBackground(Color.BLACK);
-				nameInputPanel.setLayout(new GridLayout(1,2));
+				nameInputPanel.setLayout(new GridLayout(2,1));
 				
 				nameInput = new JTextField();
 				nameInput.setFont(normalFont);
 			
-				nameInputBTN = new JButton("ENTER");
+				nameInputBTN = new JButton("<html><center>ENTER<center><html>");
 					nameInputBTN.setForeground(Color.BLACK);
 					nameInputBTN.setFont(normalFont);
 					nameInputBTN.addActionListener(nHandler);
@@ -233,10 +238,35 @@ public class UserInterface {
 								choice4.addActionListener(cHandler);
 								choice4.setActionCommand("c4");
 							choicePanel.add(choice4);
-							
-				gameWindow.add(choicePanel);		
-				gameWindow.add(bgPanel);
-			gameWindow.setVisible(true);	
+			
+			playerStatsPanel = new JPanel();
+				playerStatsPanel.setBounds(alignPSPanelX, alignPSPanelY, pspWidth, pspHeight);
+					playerStatsPanel.setBackground(Color.black);
+					//playerStatsPanel.setOpaque(false);
+				playerStatsPanel.setLayout(new GridLayout(1,4));
+					playerStatsPanel.setBorder(outlinePanel);
+
+			ChancePointsLabel = new JLabel("<html><center>CP:<center><html>");
+				ChancePointsLabel.setFont(statsFont);
+				ChancePointsLabel.setForeground(Color.WHITE);
+					playerStatsPanel.add(ChancePointsLabel);
+			ChancePointsNumberLabel = new JLabel();
+				ChancePointsNumberLabel.setFont(statsFont);
+				ChancePointsNumberLabel.setForeground(Color.WHITE);
+					playerStatsPanel.add(ChancePointsNumberLabel);
+			XPLabel = new JLabel("<html><center>XP:<center><html>");
+				XPLabel.setFont(statsFont);
+				XPLabel.setForeground(Color.white);
+					playerStatsPanel.add(XPLabel);
+			XPNumberLabel = new JLabel();
+				XPNumberLabel.setForeground(Color.WHITE);
+				XPNumberLabel.setFont(statsFont);
+					playerStatsPanel.add(XPNumberLabel);
+				
+			gameWindow.add(playerStatsPanel);
+			gameWindow.add(choicePanel);		
+			gameWindow.add(bgPanel);
+				gameWindow.setVisible(true);	
 			//setFullScreen();
 		}
 }

@@ -19,11 +19,12 @@ public class gameStory{
 	UserInterface ui;
 	TransitionClass sceneChanger;
 	soundManager sm;
+	playerStats player;
 	storyLines lines;
 	
 	Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35);
-	Font normalFont = new Font ("Calibri", Font.PLAIN, 35);
-	Font hyperboleFont = new Font ("Papyrus", Font.BOLD, 45);
+	Font normalFont = new Font ("Arial", Font.PLAIN, 35);
+	Font hyperboleFont = new Font ("Papyrus", Font.BOLD, 40);
 	
 		int diatextTracker = 0, choicetextTracker = 0, letterTracker = 0, arrayNumber, pauseTime = 0,
 			normalSpeed = 30, fastSpeed = 5, enableKeys = 0, alpha;
@@ -39,11 +40,19 @@ public class gameStory{
 		
 		JLabel bgHolder = new JLabel();
 
-	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM) {
+	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats) {
 		
-		game = g; ui = UI; sceneChanger = sc; sm = SM;
+		game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats;
 	}
 	
+	public void startStats(){
+		player.maxCP = 10;
+		player.XP = 0;
+			ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
+		player.CP = 10;
+			ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+	}
+
 	public void pause() {
 		try {
 			Thread.sleep(pauseTime);
@@ -123,11 +132,11 @@ public class gameStory{
 		case "intro6": intro6Game(); break;
 		case "introEnd": amBedroom(); break;
 			
-			case "gbedroomExit12": goodbedroomExit12(); break;
+			case "gbedroomExit12": sceneChanger.showDialogue(); goodbedroomExit12(); break;
 			case "gbedroomExit13": goodbedroomExit13(); break;
 			case "gbedroomExit14": goodbedroomExit14(); break;
 		
-			case "scolding11": scolding11(); break;
+			case "scolding11": sceneChanger.showDialogue(); scolding11(); break;
 				case "bbedroomExit12": badbedroomExit12(); break;
 				case "bbedroomExit13": badbedroomExit13(); break;
 				case "bbedroomExit14": badbedroomExit14(); break;  
@@ -262,7 +271,7 @@ public class gameStory{
 		ui.mainTextArea.setText("");
 		ui.dialogueBox.setText(">");
 		DiaTimer.start();
-			game.nextDialogue = "scolding11";
+				game.nextDialogue = "scolding11";
 	}
 	public void bedroomSleep11() {
 		diatextTracker = 10;
@@ -275,7 +284,6 @@ public class gameStory{
 
 	
 	public void goodbedroomExit12() {
-		ui.dialoguePanel.setVisible(true);
 		ui.bgPanel.setVisible(true);
 			bgHolder.setIcon(livingroomView);
 		try {
@@ -283,7 +291,11 @@ public class gameStory{
 			Thread.sleep(1500);
 			ui.mainTextArea.setFont(normalFont);
 			ui.mainTextArea.setText("");
-			DiaTimer.start();	
+			DiaTimer.start();
+			if(player.CP < player.maxCP){
+				player.CP = player.CP + 1;
+				ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+			}
 				ui.mainTextArea.append(name + "!");
 				game.nextDialogue = "gbedroomExit13";
 		}
@@ -319,14 +331,19 @@ public class gameStory{
 		ui.mainTextArea.setText("");
 			pauseTime = 8000;
 			this.pause();
-		DiaTimer.setDelay(20);
+				ui.mainTextPanel.setVisible(true);
+				ui.playerStatsPanel.setVisible(true);
+		DiaTimer.setDelay(7);
 			ui.mainTextArea.setFont(hyperboleFont);
 			ui.mainTextArea.setText("");
 			DiaTimer.start();
+			if(player.CP > 0){
+				player.CP = player.CP - 1;
+				ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+			}
 				game.nextDialogue = "bbedroomExit12";
 	}
 	public void badbedroomExit12() {
-		ui.dialoguePanel.setVisible(true);
 		ui.bgPanel.setVisible(true);
 			bgHolder.setIcon(livingroomView);
 		DiaTimer.setDelay(60);
@@ -408,22 +425,33 @@ public class gameStory{
 	}
 	
 	public void rightMelatonin() {
+		diatextTracker = 21;
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		DiaTimer.start();
+		if(player.CP < player.maxCP){
+			player.CP = player.CP + 1;
+				ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+		}
+			player.XP+=3;
+				ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
+
+			game.nextDialogue = "preFirstQuestion";
+	}
+	public void wrongMelatonin(){
 		diatextTracker = 22;
 		ui.mainTextArea.setFont(normalFont);
 		ui.mainTextArea.setText("");
 		DiaTimer.start();
-			game.nextDialogue = "sfcorrect0";
-	}
-	public void wrongMelatonin(){
-		diatextTracker = 23;
-		ui.mainTextArea.setFont(normalFont);
-		ui.mainTextArea.setText("");
-		DiaTimer.start();
-			game.nextDialogue = "sfincorrect0";
+		if(player.CP > 0){
+			player.CP = player.CP - 1;
+				ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+		}
+			game.nextDialogue = "preFirstQuestion";
 	}
 
 	public void preFirstQuestion(){
-		diatextTracker = 24;
+		diatextTracker = 23;
 		ui.mainTextArea.setFont(normalFont);
 		ui.mainTextArea.setText("");
 		DiaTimer.start();

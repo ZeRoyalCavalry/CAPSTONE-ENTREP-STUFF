@@ -31,7 +31,7 @@ public class storyLines {
 				
 				//Result for each of the four options
 				"You exit the bedroom. . .",//7
-				"It's the first day of classes... Nothing is there to review...",//8
+				"It's the first day of classes... Nothing is there to review... \nYou exit the bedroom",//8
 				"Wow... The world is absolutely just gorgeous...",//9
 				"I'm still tired, I'm gonna sleep again...",//10
 				
@@ -62,12 +62,12 @@ public class storyLines {
 				"Melatonin is assocaited with Aggressiveness, right",//20
 
 				//Results for the Choices
-				"Why yes, good that you remember. Now, go on with your routine.",//22, right answer
+				"Why yes, good that you remember. Now, go on with your routine.",//21, right answer
 				"NO!!! How could you forget? Melatonin is associated with Sleepiness!"
-				+ "\nDon't you forget it! Just do your routine now and get ready for school.",//23, wrong answer
+				+ "\nDon't you forget it! Just do your routine now and get ready for school.",//22, wrong answer
 
 				"Hold on... What did mom say about that?"
-				+ "\nSODIUM FLUOROPHOSPHATE (Na2PFO3) and SODIUM HYDROXIDE (NaOH) BASED product...",//24
+				+ "\nSODIUM FLUOROPHOSPHATE (Na2PFO3) and SODIUM HYDROXIDE (NaOH) BASED product...",//23
 
 				//For the Toothpaste Question
 				""
@@ -89,5 +89,4 @@ public class storyLines {
 
 		};
 	}
-	
 }

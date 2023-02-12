@@ -18,12 +18,14 @@ public class TransitionClass {
 			ui.dialoguePanel.setVisible(false);
 			ui.choicePanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
+			ui.playerStatsPanel.setVisible(false);
 		}
 	
 		public void showDialogue(){
 		
 			ui.mainTextPanel.setVisible(true);
-			
+			ui.playerStatsPanel.setVisible(true);
+
 			ui.titlePanel.setVisible(false);
 			ui.startButtonPanel.setVisible(false);
 			ui.bgPanel.setVisible(false);
@@ -35,6 +37,7 @@ public class TransitionClass {
 		public void showChoices() {
 			ui.mainTextPanel.setVisible(true);
 			ui.choicePanel.setVisible(true);
+			ui.playerStatsPanel.setVisible(true);
 			
 			ui.titlePanel.setVisible(false);
 			ui.startButtonPanel.setVisible(false);
@@ -45,12 +48,12 @@ public class TransitionClass {
 		public void showName() {
 			ui.mainTextPanel.setVisible(true);
 			ui.nameInputPanel.setVisible(true);
+			ui.playerStatsPanel.setVisible(false);
 			
 			ui.titlePanel.setVisible(false);
 			ui.startButtonPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
 			ui.choicePanel.setVisible(false);
-		
 		}
 }
 
