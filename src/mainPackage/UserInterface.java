@@ -82,7 +82,6 @@ public class UserInterface {
 			int alignINPanelX = (screenWidth/2) - (inPWidth/2); 
 			int alignINPanelY = (int)Math.round(mtaHeight/1.5);
 			
-			//Need to make this scalable soon
 			//MAKE GAME WINDOW
 			gameWindow = new JFrame();
 				gameWindow.setTitle("Starlight High School 1.1");

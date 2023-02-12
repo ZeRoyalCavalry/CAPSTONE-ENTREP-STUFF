@@ -26,12 +26,13 @@ public class gameStory{
 	Font hyperboleFont = new Font ("Papyrus", Font.BOLD, 45);
 	
 		int diatextTracker = 0, choicetextTracker = 0, letterTracker = 0, arrayNumber, pauseTime = 0,
-			normalSpeed = 40, fastSpeed = 10, enableKeys = 0;
+			normalSpeed = 30, fastSpeed = 5, enableKeys = 0, alpha;
 		float alphaOpacity;
 
 			ImageIcon bedroomView = new ImageIcon(getClass().getClassLoader().getResource("temp2.png"));
 			ImageIcon cityView = new ImageIcon(getClass().getClassLoader().getResource("temp3.jpg"));
 			ImageIcon bayRouteView = new ImageIcon(getClass().getClassLoader().getResource("temp4.png"));
+			ImageIcon livingroomView = new ImageIcon(getClass().getClassLoader().getResource("temp5.png"));
 
 		char DiaGen[], choiceGen[], nameGen[];
 		String name;
@@ -131,12 +132,12 @@ public class gameStory{
 				case "bbedroomExit13": badbedroomExit13(); break;
 				case "bbedroomExit14": badbedroomExit14(); break;  
 					case "sidefirstQuestion": sidefirstQuestion(); break;
-						case "correct0": break;
-						case "incorrect0": break;
-
+						case "sfcorrect0": rightMelatonin(); break;
+						case "sfincorrect0": wrongMelatonin(); break;
+						
+		case "preFirstQuestion": preFirstQuestion(); break;
 		case "firstQuestion": firstQuestion(); break;
 
-		default: intro0Game();
 		}
 	}
 	
@@ -145,9 +146,14 @@ public class gameStory{
 		switch(nextMove) {
 			case "bedroomExit11": bedroomExit11(); sceneChanger.showDialogue(); break;
 			case "bedroomStudy11": bedroomStudy11(); sceneChanger.showDialogue(); break;		
-			case "bedroomSS11": bedroomSS11(); sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); break; //bgHolder.setIcon(cityView); break;		
+			case "bedroomSS11": bedroomSS11(); sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); bgHolder.setIcon(cityView); break;		
 			case "bedroomSleep11": bedroomSleep11(); sceneChanger.showDialogue(); break;	
 				
+			case "sfhincorrect0": answerHappiness(); sceneChanger.showDialogue(); break;
+			case "sfpincorrect0": answerPleasure(); sceneChanger.showDialogue(); break;
+			case "sfscorrect0": answerSleepiness(); sceneChanger.showDialogue(); break;
+			case "sfaincorrect0": answerAggressiveness(); sceneChanger.showDialogue(); break;
+
 			case "correct1": break;
 			case "incorrect1": break;
 		}
@@ -187,9 +193,6 @@ public class gameStory{
 			ui.bgPanel.remove(ui.bgPic);
 				ui.bgPanel.add(bgHolder);
 				bgHolder.setIcon(bedroomView);
-				/*for(int i = 0; i >= 0; i--){
-					ui.bgPanel.setBackground(new Color(0,0,0,i));
-				}*/
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");	
 		DiaTimer.start();
@@ -201,7 +204,7 @@ public class gameStory{
 		DiaTimer.start();
 			game.nextDialogue = "intro6";
 	}
-	public void intro6Game() {//City view]
+	public void intro6Game() {//City view
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 			ui.bgPanel.setVisible(false);
@@ -213,7 +216,6 @@ public class gameStory{
 				ui.bgPanel.setVisible(true);
 				bgHolder.setIcon(cityView);
 				
-				
 		DiaTimer.start();
 			game.nextDialogue = "introEnd";	
 	}
@@ -221,7 +223,7 @@ public class gameStory{
 	//First choice of the game or First Scene Transition
 	public void amBedroom() {
 		ui.choicePanel.setVisible(true);
-			//bgHolder.setIcon(bedroomView);
+			bgHolder.setIcon(bedroomView);
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 		ui.dialogueBox.setText(null);
@@ -273,7 +275,9 @@ public class gameStory{
 
 	
 	public void goodbedroomExit12() {
-		ui.bgPanel.setVisible(false);
+		ui.dialoguePanel.setVisible(true);
+		ui.bgPanel.setVisible(true);
+			bgHolder.setIcon(livingroomView);
 		try {
 			diatextTracker = 11;
 			Thread.sleep(1500);
@@ -322,7 +326,9 @@ public class gameStory{
 				game.nextDialogue = "bbedroomExit12";
 	}
 	public void badbedroomExit12() {
-		ui.bgPanel.setVisible(false);
+		ui.dialoguePanel.setVisible(true);
+		ui.bgPanel.setVisible(true);
+			bgHolder.setIcon(livingroomView);
 		DiaTimer.setDelay(60);
 		ui.mainTextArea.setFont(normalFont);
 		ui.mainTextArea.setText("");
@@ -357,24 +363,73 @@ public class gameStory{
 			ui.choice3.setText("Sleepiness");
 			ui.choice4.setText("Aggressiveness");
 			
-			game.nextPosition1 = "incorrect0";
-			game.nextPosition2 = "incorrect0";
-			game.nextPosition3 = "correct0";
-			game.nextPosition4 = "incorrect0";
+			game.nextPosition1 = "sfhincorrect0";
+			game.nextPosition2 = "sfpincorrect0";
+			game.nextPosition3 = "sfscorrect0";
+			game.nextPosition4 = "sfaincorrect0";
+	}
+
+
+	public void answerHappiness(){
+		diatextTracker = 17;
+		ui.dialoguePanel.setVisible(true);
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		ui.dialogueBox.setText(">");
+		DiaTimer.start();
+			game.nextDialogue = "sfincorrect0";
+	}
+	public void answerPleasure(){
+		diatextTracker = 18;
+		ui.dialoguePanel.setVisible(true);
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		ui.dialogueBox.setText(">");
+		DiaTimer.start();
+			game.nextDialogue = "sfincorrect0";
+	}
+	public void answerSleepiness(){
+		diatextTracker = 19;
+		ui.dialoguePanel.setVisible(true);
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		ui.dialogueBox.setText(">");
+		DiaTimer.start();
+			game.nextDialogue = "sfcorrect0";
+	}
+	public void answerAggressiveness(){
+		diatextTracker = 20;
+		ui.dialoguePanel.setVisible(true);
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		ui.dialogueBox.setText(">");
+		DiaTimer.start();
+			game.nextDialogue = "sfincorrect0";
 	}
 	
-	public void Happiness() {
-		
+	public void rightMelatonin() {
+		diatextTracker = 22;
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		DiaTimer.start();
+			game.nextDialogue = "sfcorrect0";
 	}
-	public void Pleasure() {
-		
+	public void wrongMelatonin(){
+		diatextTracker = 23;
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		DiaTimer.start();
+			game.nextDialogue = "sfincorrect0";
 	}
-	public void Sleepiness() {
-		
+
+	public void preFirstQuestion(){
+		diatextTracker = 24;
+		ui.mainTextArea.setFont(normalFont);
+		ui.mainTextArea.setText("");
+		DiaTimer.start();
+			game.nextDialogue = "firstQuestion";
 	}
-	public void Aggressiveness() {
-		
-	}
+	
 	
 	//First Question but second choice
 	public void firstQuestion() {

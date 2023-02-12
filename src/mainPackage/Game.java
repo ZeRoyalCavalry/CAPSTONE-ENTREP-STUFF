@@ -117,6 +117,7 @@ public class Game {
 						Story.dialogueTracker(nextDialogue);
 					}
 					else {
+						Story.diatextTracker = 0;
 						tc.showName();
 						Story.intro0Game();
 					}
