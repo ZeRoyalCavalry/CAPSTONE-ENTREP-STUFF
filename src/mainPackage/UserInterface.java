@@ -79,7 +79,7 @@ public class UserInterface {
 			
 			//Name Input Panel Scaling
 			int inPWidth = 900; 
-			int inPHeight = 100;
+			int inPHeight = 130;
 			int alignINPanelX = (screenWidth/2) - (inPWidth/2); 
 			int alignINPanelY = (int)Math.round(mtaHeight/1.5);
 
