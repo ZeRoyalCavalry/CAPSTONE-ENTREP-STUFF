@@ -55,5 +55,12 @@ public class TransitionClass {
 			ui.dialoguePanel.setVisible(false);
 			ui.choicePanel.setVisible(false);
 		}
+
+		public void fade(){
+			ui.gameWindow.remove(ui.mainTextPanel);
+			ui.gameWindow.remove(ui.playerStatsPanel);
+			ui.gameWindow.remove(ui.dialoguePanel);
+			ui.gameWindow.remove(ui.choicePanel);
+		}
 }
 

@@ -57,7 +57,7 @@ public class UserInterface {
 			int mtpWidth = 1300;
 			int mtpHeight = 230;
 			int alignMTPX = (screenWidth/2) - (mtpWidth/2);
-			int alignMTPY = (int)Math.round(mtpHeight/0.48);
+			int alignMTPY = (int)Math.round(screenHeight - (mtpHeight/0.63));
 			
 			//Main Text Area Scaling
 			int mtaWidth = 1200;
@@ -87,15 +87,15 @@ public class UserInterface {
 			int pspWidth = 1300; 
 			int pspHeight = 70; 
 			int alignPSPanelX = (screenWidth/2) - (pspWidth/2);
-			int alignPSPanelY = (int)Math.round(screenHeight - (pspHeight/0.444));
+			int alignPSPanelY = (int)Math.round(screenHeight - (pspHeight/0.48));
 			
 			//MAKE GAME WINDOW
 			gameWindow = new JFrame();
 				gameWindow.setTitle("Starlight High School 1.1");
 				gameWindow.setSize(screenWidth,screenHeight);
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				gameWindow.getContentPane().setBackground(Color.black);
-				gameWindow.setLayout(null);
+				gameWindow.getContentPane().setBackground(Color.BLACK);;
+				//gameWindow.setLayout(null);
 				gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				
 			//TITLE SCREEN

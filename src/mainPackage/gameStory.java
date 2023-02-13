@@ -7,6 +7,7 @@ import javax.swing.Timer;
 import mainPackage.storyLines.dialogues;
 import mainPackage.storyLines.questions;
 
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -21,6 +22,8 @@ public class gameStory{
 	soundManager sm;
 	playerStats player;
 	storyLines lines;
+	Screen screen = new Screen();
+
 	
 	Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35);
 	Font normalFont = new Font ("Arial", Font.PLAIN, 35);
@@ -129,7 +132,8 @@ public class gameStory{
 		case "intro3": intro3Game(); break;
 		case "intro4": intro4Game(); break;
 		case "intro5": intro5Game(); break;
-		case "intro6": intro6Game(); break;
+		case "intro5to6": intro5to6(); break;
+		case "intro6": sceneChanger.showDialogue(); intro6Game(); break;
 		case "introEnd": amBedroom(); break;
 			
 			case "gbedroomExit12": sceneChanger.showDialogue(); goodbedroomExit12(); break;
@@ -155,7 +159,7 @@ public class gameStory{
 		switch(nextMove) {
 			case "bedroomExit11": bedroomExit11(); sceneChanger.showDialogue(); break;
 			case "bedroomStudy11": bedroomStudy11(); sceneChanger.showDialogue(); break;		
-			case "bedroomSS11": bedroomSS11(); sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); bgHolder.setIcon(cityView); break;		
+			case "bedroomSS11": bedroomSS11();  sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); bgHolder.setIcon(cityView); break;		
 			case "bedroomSleep11": bedroomSleep11(); sceneChanger.showDialogue(); break;	
 				
 			case "sfhincorrect0": answerHappiness(); sceneChanger.showDialogue(); break;
@@ -173,6 +177,7 @@ public class gameStory{
 		ui.mainTextArea.setText("");
 		ui.dialogueBox.setText(null);
 		DiaTimer.start();
+		enableKeys = 0;
 			game.nextDialogue = "intro1";
 	}
 	public void intro1Game(){//A world a new
@@ -211,20 +216,28 @@ public class gameStory{
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
 		DiaTimer.start();
+			game.nextDialogue = "intro5to6";
+			
+	}
+	public void intro5to6(){
+		Screen screen = new Screen();
+		ui.bgPanel.remove(bgHolder);
+		ui.gameWindow.add(screen);
 			game.nextDialogue = "intro6";
 	}
 	public void intro6Game() {//City view
+		ui.gameWindow.remove(screen);
 		ui.mainTextArea.setFont(narrationFont);
 		ui.mainTextArea.setText("");
-			ui.bgPanel.setVisible(false);
 			sm.se.setFile3(sm.curtainsfx);
 			sm.se.curtainSFX.start();
-			
+
 				pauseTime = 3000;
 				pause();
+				ui.bgPanel.add(bgHolder);
 				ui.bgPanel.setVisible(true);
 				bgHolder.setIcon(cityView);
-				
+	
 		DiaTimer.start();
 			game.nextDialogue = "introEnd";	
 	}
