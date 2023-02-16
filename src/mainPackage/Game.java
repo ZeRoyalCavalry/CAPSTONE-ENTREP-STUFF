@@ -56,6 +56,7 @@ public class Game {
 			
 				switch(theChoice) {
 					case "start":
+						ui.bgPanel.remove(ui.bgPic);
 						tc.showDialogue();
 						Story.intro0Game();
 						tc.showName();

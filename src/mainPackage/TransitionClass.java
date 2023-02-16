@@ -23,13 +23,13 @@ public class TransitionClass {
 	
 		public void showDialogue(){
 		
+			ui.bgPanel.setVisible(false);
+			ui.dialoguePanel.setVisible(false);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 
 			ui.titlePanel.setVisible(false);
 			ui.startButtonPanel.setVisible(false);
-			ui.bgPanel.setVisible(false);
-			ui.dialoguePanel.setVisible(false);
 			ui.choicePanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
 		}
@@ -57,10 +57,10 @@ public class TransitionClass {
 		}
 
 		public void fade(){
-			ui.gameWindow.remove(ui.mainTextPanel);
-			ui.gameWindow.remove(ui.playerStatsPanel);
-			ui.gameWindow.remove(ui.dialoguePanel);
-			ui.gameWindow.remove(ui.choicePanel);
+			UserInterface.gameWindow.remove(ui.mainTextPanel);
+			UserInterface.gameWindow.remove(ui.playerStatsPanel);
+			UserInterface.gameWindow.remove(ui.dialoguePanel);
+			UserInterface.gameWindow.remove(ui.choicePanel);
 		}
 }
 

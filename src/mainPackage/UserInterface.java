@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 public class UserInterface {
 
-		JFrame gameWindow;
+		static JFrame gameWindow;
 		JPanel titlePanel, startButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel;
 		JLabel titleLabel, subtitleLabel, bgPic, XPLabel, XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
 		JButton startButton, dialogueBox, nameInputBTN, choice1, choice2, choice3, choice4;
@@ -94,7 +94,7 @@ public class UserInterface {
 				gameWindow.setTitle("Starlight High School 1.1");
 				gameWindow.setSize(screenWidth,screenHeight);
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				gameWindow.getContentPane().setBackground(Color.BLACK);;
+				gameWindow.getContentPane().setBackground(Color.BLACK);
 				//gameWindow.setLayout(null);
 				gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				

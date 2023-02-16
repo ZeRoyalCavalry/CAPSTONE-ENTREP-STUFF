@@ -13,23 +13,25 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Screen extends JPanel implements ActionListener{
-	
+
 	Timer alphaTimer = new Timer(20, this);
-	BufferedImage buffImage;
+	BufferedImage buffImage = null;
 	float alphaValue = 1f;
-	
-	public Screen() {
+	String imageName;
+
+	public Screen(String imageName) {
 		
+		this.imageName = imageName;
 		loadBufferedImage();
 		alphaTimer.start();
 		
 	}
 	
 	public void loadBufferedImage() {
-		
-		buffImage = null;
+		this.buffImage = null;
 		try {
-			buffImage = ImageIO.read(getClass().getClassLoader().getResource("temp2.png"));
+			//buffImage = ImageIO.read(getClass().getClassLoader().getResource("temp2.png"));
+			this.buffImage = ImageIO.read(getClass().getClassLoader().getResource(this.imageName));
 		}
 		catch(IOException e) {
 			
@@ -41,12 +43,11 @@ public class Screen extends JPanel implements ActionListener{
 		
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
 		
-		g2d.drawImage(buffImage, 0, 0, null);
+		g2d.drawImage(this.buffImage, 0, 0, null);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		alphaValue-=0.01f;
 		if(alphaValue < 0) {
 			alphaValue = 0;
@@ -54,7 +55,7 @@ public class Screen extends JPanel implements ActionListener{
 		}
 		repaint();
 	}
-
 }
+
 
 
