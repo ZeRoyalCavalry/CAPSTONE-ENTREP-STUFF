@@ -1,11 +1,11 @@
 package mainPackage;
 
-public class playerStats {
+public class playerStats implements java.io.Serializable{
     
     //Showable  Stats
-    public int XP, CP, maxCP;
+    int XP, CP, maxCP;
 
     //Not showable, probably a different screen?
-    public int namingMastery, stoichMastery;
+    static int namingMastery, stoichMastery;
 
 }

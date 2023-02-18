@@ -14,13 +14,14 @@ import javax.swing.Timer;
 
 public class Screen extends JPanel implements ActionListener{
 
+	gameStory Story;
+
 	Timer alphaTimer = new Timer(20, this);
 	BufferedImage buffImage = null;
 	float alphaValue = 1f;
 	String imageName;
 
 	public Screen(String imageName) {
-		
 		this.imageName = imageName;
 		loadBufferedImage();
 		alphaTimer.start();

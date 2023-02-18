@@ -8,23 +8,33 @@ import java.awt.event.KeyListener;
 import javax.swing.event.MenuKeyEvent;
 import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MouseInputListener;
-import java.awt.event.MouseEvent;
 
+import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class Game {
+public class Game implements java.io.Serializable{
 
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
 	storyLines lines = new storyLines();
 	playerStats player = new playerStats();
+	TransitionClass tc = new TransitionClass(ui);
+	gameStory Story = new gameStory(this, ui, tc, sm, player);
+
 	ChoiceHandler cHandler = new ChoiceHandler();
 	MouseHandler mHandler = new MouseHandler();
 	KeyboardHandler kbHandler = new KeyboardHandler();
 	NameHandler nHandler = new NameHandler();
-	TransitionClass tc = new TransitionClass(ui);
-	gameStory Story = new gameStory(this, ui, tc, sm, player);
+
+	SaveLoadHandler saveloadHandler = new SaveLoadHandler();
+	DataStorage dStorage = new DataStorage();
 	
 	Dimension gameWindowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int)gameWindowSize.getWidth();
@@ -32,14 +42,15 @@ public class Game {
 		
 		int mouseClick = 0;
 	
-	String nextDialogue, nextPosition1, nextPosition2, nextPosition3, nextPosition4, playerName; 
+	String currentDialogue, currentQuestion, nextDialogue, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
+	static String playerName; 
 
 	public static void main(String[] args) {
 		new Game();
 	}
 	
 	public Game() {
-		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, screenWidth, screenHeight, lines, this);
+		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, screenWidth, screenHeight, lines, this);
 		Story.startStats();
 		sm.bgsMusic.setFile(sm.titleScreenMusic);
 		sm.bgsMusic.playMusic();
@@ -62,6 +73,9 @@ public class Game {
 						tc.showName();
 						sm.bgsMusic.stopMusic();
 						break;
+					case "continue":
+						loadAction();
+						break;
 					case "dialogue":
 						sm.se.setFile(sm.buttonsfx);
 						sm.se.playButtonSFX();
@@ -82,7 +96,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	public class MouseHandler implements MouseInputListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {	
@@ -154,5 +168,92 @@ public class Game {
 			}			
 		}
 
+	}
+
+	public class SaveLoadHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent SaveOrLoad) {
+			String loadSLMenu = SaveOrLoad.getActionCommand();
+			sm.se.setFile(sm.buttonsfx);
+			sm.se.playButtonSFX();
+
+				switch(loadSLMenu){
+					case "save":
+						saveAction();
+						break;
+					case "load":
+						loadAction();
+						break;
+				}	
+		}
+	}
+	public void saveAction(){
+		try{
+			FileOutputStream fos = new FileOutputStream("save.dat");
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			ObjectOutputStream oos = new ObjectOutputStream(bos);
+
+			dStorage.playerName = playerName;
+
+			dStorage.playerCP = player.CP;
+			dStorage.playerXP = player.XP;
+			dStorage.playermaxCP = player.maxCP;
+
+			dStorage.dialogueTracker = Story.diatextTracker;
+			dStorage.playerDialogue = currentDialogue;
+			dStorage.nextStoryDialogue = nextDialogue;
+
+			dStorage.questionTracker = Story.questiontextTracker;
+			dStorage.playerQuestion = currentQuestion;
+
+			oos.writeObject(dStorage);
+			oos.close();
+			System.out.println("SAVE COMPLETE:");
+			System.out.println("CP: " + dStorage.playerCP + " | " + "XP: " + dStorage.playerXP + " | ");
+			System.out.println("Current Position: " + dStorage.playerDialogue + " | " + "Dialogue Tracker Number: " + dStorage.dialogueTracker + " | "
+								+ "Next Position: " + dStorage.nextStoryDialogue);
+		}
+		catch(Exception saveError){
+			System.out.println("SAVE ERROR");
+		}
+	}
+	public void loadAction(){
+		try{
+			FileInputStream fis = new FileInputStream("save.dat");
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			ObjectInputStream ois = new ObjectInputStream(bis);
+
+			playerName = dStorage.playerName;
+
+			player.CP = dStorage.playerCP;
+			player.XP = dStorage.playerXP;
+			player.maxCP = dStorage.playermaxCP;
+
+			Story.diatextTracker = dStorage.dialogueTracker;
+			currentDialogue = dStorage.playerDialogue;
+			nextDialogue = dStorage.nextStoryDialogue;
+
+			Story.questiontextTracker = dStorage.questionTracker;
+			currentQuestion = dStorage.playerQuestion;
+
+			ois.close();
+			System.out.println("LOAD COMPLETE:");
+			System.out.println("CP: " + player.CP + " | " + "XP: " + player.XP + " | ");
+			System.out.println("Current Position: " + currentDialogue + " | " + "Dialogue Tracker Number: " + Story.diatextTracker + " | " + "Next Position: " + nextDialogue);
+			update();
+		}
+		catch(Exception LoadError){
+			System.out.println("LOAD ERROR");
+		}
+	}
+	public void update(){
+		ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
+		ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+		Story.dialogueTracker(currentDialogue);
+		Story.progressTracker(currentQuestion);
+	}
+
+	public void continueGame(){
+		
 	}
 }

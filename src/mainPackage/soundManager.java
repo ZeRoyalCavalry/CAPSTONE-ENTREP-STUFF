@@ -6,16 +6,16 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class soundManager {
+public class soundManager implements java.io.Serializable {
 
-	soundEffect se = new soundEffect();
+	public soundEffect se = new soundEffect();
 	bgSceneMusic bgsMusic = new bgSceneMusic();
 	
 	String buttonsfx = ".//resource//button_Universfield.wav";
 	String titleScreenMusic = ".//resource//titleScreenMusic_ZRC.wav";
 	String typesfx = ".//resource//typesound_SennaFoxy.wav";
-	String birdsfx = ".//resource//birdschirpping_nektaria909.wav";
-	String curtainsfx = ".//resource//curtainopen_jeneveev.wav";
+	public String birdsfx = ".//resource//birdschirpping_nektaria909.wav";
+	public String curtainsfx = ".//resource//curtainopen_jeneveev.wav";
 	
 	public class soundEffect{
 		
@@ -67,7 +67,7 @@ public class soundManager {
 			birdSFX.start();
 		}
 		
-		Clip curtainSFX;
+		public Clip curtainSFX;
 		public void setFile3(String sfx3Name) {
 			try {
 				File curtainfile = new File(sfx3Name);

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -14,10 +15,13 @@ import javax.swing.Timer;
 
 public class fadeIn extends JPanel implements ActionListener {
 
+    gameStory Story;
+
     Timer fadeInTimer = new Timer(20, this);
     BufferedImage fadeInImage;
     float fadeInValue = 0.01f;
     String bgImage;
+
 
     public fadeIn(String bgImage){
         this.bgImage = bgImage;

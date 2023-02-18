@@ -10,6 +10,7 @@ import mainPackage.Game.ChoiceHandler;
 import mainPackage.Game.KeyboardHandler;
 import mainPackage.Game.MouseHandler;
 import mainPackage.Game.NameHandler;
+import mainPackage.Game.SaveLoadHandler;
 
 import javax.swing.border.*;
 import javax.swing.JFrame;
@@ -20,26 +21,25 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
-public class UserInterface {
+public class UserInterface implements java.io.Serializable{
 
-		static JFrame gameWindow;
-		JPanel titlePanel, startButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel;
-		JLabel titleLabel, subtitleLabel, bgPic, XPLabel, XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
-		JButton startButton, dialogueBox, nameInputBTN, choice1, choice2, choice3, choice4;
-		JTextArea mainTextArea;
-		JTextField nameInput;
+		public JFrame gameWindow;
+		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel;
+		public JLabel titleLabel, subtitleLabel, bgPic, XPLabel, XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
+		public JButton startButton, continueButton, dialogueBox, nameInputBTN, choice1, choice2, choice3, choice4, saveButton, loadButton;
+		public JTextArea mainTextArea;
+		public JTextField nameInput;
 		
-			Border outlinePanel = new LineBorder(Color.WHITE, 12);
-			Border outlineButton = new LineBorder(Color.WHITE, 5);
-			Border outlineDialogue = new LineBorder(Color.WHITE, 10);
+			Border outlinePanel = new LineBorder(Color.WHITE, 12), 
+					outlineButton = new LineBorder(Color.WHITE, 5),
+					outlineDialogue = new LineBorder(Color.WHITE, 10), 
+					outlineStatsPanel = new LineBorder(Color.white, 1);
 		
-		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
-		Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 75);
-		Font statsFont = new Font("Arial", Font.BOLD, 33);
-		Font normalFont = new Font ("Arial", Font.PLAIN, 40);
+		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90), subtitleFont = new Font("Times New Roman", Font.PLAIN, 68),
+			 statsFont = new Font("Arial", Font.BOLD, 33), normalFont = new Font ("Arial", Font.PLAIN, 40);
 
 		public void makeUI(ChoiceHandler cHandler, MouseHandler mHandler, NameHandler nHandler, KeyboardHandler kbHandler, 
-							int screenWidth, int screenHeight, storyLines lines, Game game) {
+							SaveLoadHandler SLHandler, int screenWidth, int screenHeight, storyLines lines, Game game) {
 			//Title Panel & Main Text Panel Scaling	
 			int titlePanelWidth = 1300;
 			int titlePanelHeight = 250;
@@ -47,11 +47,17 @@ public class UserInterface {
 			int aligntitleY = (screenHeight/6);
 			
 			//Start Button Panel Scaling
-			int SBPanelWidth = 290;
-			int SBPanelHeight = 117;
+			int SBPanelWidth = 375;
+			int SBPanelHeight = 115;
 			int alignSBX = (screenWidth/2) - (SBPanelWidth/2);
-			int alignSBY = (int)Math.round(screenHeight/1.5);
+			int alignSBY = (int)Math.round(screenHeight/1.75);
 			
+			//Continue Button Panel Scaling
+			int CBPanelWidth = 375;
+			int CBPanelHeight = 115;
+			int alignCBX = (screenWidth/2) - (CBPanelWidth/2);
+			int alignCBY = (int)Math.round(screenHeight/1.38);
+
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
 			int mtpWidth = 1300;
@@ -127,6 +133,23 @@ public class UserInterface {
 							startButton.addActionListener(cHandler);
 							startButton.setActionCommand("start");
 					startButtonPanel.add(startButton);
+	
+			//CONTINUE BUTTON
+			continueButtonPanel = new JPanel();
+				continueButtonPanel.setBounds(alignCBX, alignCBY, CBPanelWidth, CBPanelHeight);
+				continueButtonPanel.setBackground(Color.BLACK);
+				continueButtonPanel.setBorder(outlineButton);
+
+					continueButton = new JButton("<html><center>CONTINUE<center><html>");
+						continueButton.setBackground(Color.BLACK);
+						continueButton.setForeground(Color.WHITE);
+						continueButton.setFont(subtitleFont);
+						continueButton.setFocusPainted(false);
+						continueButton.setBorder(null);
+								continueButton.addActionListener(cHandler);
+								continueButton.setActionCommand("continue");
+					continueButtonPanel.add(continueButton);
+
 			//BGImage	
 			bgPanel = new JPanel();
 				bgPanel.setBounds(0,0,screenWidth,screenHeight);
@@ -139,6 +162,7 @@ public class UserInterface {
 					
 			gameWindow.add(titlePanel);
 			gameWindow.add(startButtonPanel);
+			gameWindow.add(continueButtonPanel);
 			
 			//ACTUAL GAME
 			mainTextPanel = new JPanel();
@@ -243,26 +267,49 @@ public class UserInterface {
 				playerStatsPanel.setBounds(alignPSPanelX, alignPSPanelY, pspWidth, pspHeight);
 					playerStatsPanel.setBackground(Color.black);
 					//playerStatsPanel.setOpaque(false);
-				playerStatsPanel.setLayout(new GridLayout(1,4));
+				playerStatsPanel.setLayout(new GridLayout(1,6));
 					playerStatsPanel.setBorder(outlinePanel);
+
 
 			ChancePointsLabel = new JLabel("<html><center>CP:<center><html>");
 				ChancePointsLabel.setFont(statsFont);
+				ChancePointsLabel.setBorder(outlineStatsPanel);
 				ChancePointsLabel.setForeground(Color.WHITE);
 					playerStatsPanel.add(ChancePointsLabel);
 			ChancePointsNumberLabel = new JLabel();
 				ChancePointsNumberLabel.setFont(statsFont);
+				ChancePointsNumberLabel.setBorder(outlineStatsPanel);
 				ChancePointsNumberLabel.setForeground(Color.WHITE);
 					playerStatsPanel.add(ChancePointsNumberLabel);
 			XPLabel = new JLabel("<html><center>XP:<center><html>");
 				XPLabel.setFont(statsFont);
 				XPLabel.setForeground(Color.white);
+				XPLabel.setBorder(outlineStatsPanel);
 					playerStatsPanel.add(XPLabel);
 			XPNumberLabel = new JLabel();
 				XPNumberLabel.setForeground(Color.WHITE);
 				XPNumberLabel.setFont(statsFont);
+				XPNumberLabel.setBorder(outlineStatsPanel);
 					playerStatsPanel.add(XPNumberLabel);
+
+			saveButton = new JButton("<html><center>SAVE<center><html>");
+				saveButton.setFont(statsFont);
+				saveButton.setBackground(Color.black);
+				saveButton.setForeground(Color.white);
+				saveButton.setBorder(outlineStatsPanel);
+				saveButton.addActionListener(SLHandler);
+				saveButton.setActionCommand("save");
+					playerStatsPanel.add(saveButton);
+			loadButton = new JButton("<html><center>LOAD<center><html>");
+				loadButton.setFont(statsFont);
+				loadButton.setBackground(Color.black);
+				loadButton.setForeground(Color.white);
+				continueButton.setBorder(outlineStatsPanel);
+				loadButton.addActionListener(SLHandler);
+				loadButton.setActionCommand("load");
+					playerStatsPanel.add(loadButton);
 				
+
 			gameWindow.add(playerStatsPanel);
 			gameWindow.add(choicePanel);		
 			gameWindow.add(bgPanel);

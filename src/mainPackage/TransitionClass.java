@@ -1,6 +1,6 @@
 package mainPackage;
 
-public class TransitionClass {	
+public class TransitionClass implements java.io.Serializable {	
 	
 	UserInterface ui;
 	
@@ -30,6 +30,7 @@ public class TransitionClass {
 
 			ui.titlePanel.setVisible(false);
 			ui.startButtonPanel.setVisible(false);
+			ui.continueButtonPanel.setVisible(false);
 			ui.choicePanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
 		}
@@ -57,10 +58,10 @@ public class TransitionClass {
 		}
 
 		public void fade(){
-			UserInterface.gameWindow.remove(ui.mainTextPanel);
-			UserInterface.gameWindow.remove(ui.playerStatsPanel);
-			UserInterface.gameWindow.remove(ui.dialoguePanel);
-			UserInterface.gameWindow.remove(ui.choicePanel);
+			ui.gameWindow.remove(ui.mainTextPanel);
+			ui.gameWindow.remove(ui.playerStatsPanel);
+			ui.gameWindow.remove(ui.dialoguePanel);
+			ui.gameWindow.remove(ui.choicePanel);
 		}
 }
 
