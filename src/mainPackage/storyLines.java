@@ -31,7 +31,7 @@ public class storyLines implements java.io.Serializable{
 				
 				//Result for each of the four options
 				"You exit the bedroom. . .",//7
-				"It's the first day of classes... Nothing is there to review... \nYou exit the bedroom",//8
+				"It's the first day of classes... Nothing is there to review...",//8
 				"Wow... The world is absolutely just gorgeous...",//9
 				"I'm still tired, I'm gonna sleep again...",//10
 				
@@ -49,7 +49,7 @@ public class storyLines implements java.io.Serializable{
 
 				"Because of that, you also lost some CP or Chance Points!",//15
 
-				"Wait, deary, check your CP... Do you know what those are? They determine how many"
+				"Wait, deary, remember to check your CP... Do you know what those are? They determine how many"
 				+ " times you can make mistakes left before you have to restart.",//16
 
 				"And I assume you know what XP is?",//17
@@ -100,6 +100,44 @@ public class storyLines implements java.io.Serializable{
 				+ "Bye bye now.",//34
 
 				"You exit your house...",//35
+
+				//A WALK TO SCHOOL contributiong of CHY and Pablo
+				"It's time to rush, your friends are waiting for you. "
+				+ "You wanted to meet up with your friends as the church just as you planned. "
+				+ "Instead, you went directly to school of meeting up with your friends.", //36
+
+				"It suddenly rained heavily while you were going to school "
+				+ "that's why you went to the nearest shelter, "
+				+ "so that you won't get wet and you can also have a time to take out your umbrella.",//37
+				
+				"Now that I have my umbrella with me it's time to walk straight to school before things gets worst."
+				+ "Suddenly, you saw your crush stranded on a small roof sheltering waiting for the rain to stop", //38
+				
+				//CRUSH SITUATION of CHY and Pablo
+
+				"Hey! Excuse me! We go to the same school, do you think we could share that umbrella? I forgot mine eh...",//crush, 39
+				
+				//Chose to help
+				"Oh thank God, you are exactly what I need at this time.",//crush, 40
+				"Is this really true, am I dreaming, I can't believe it!",//character in his mind, 41, narrationFont
+				"Uh hey, let's go now.", // 42
+				"Oh sorry, right right, it's time for us to go.", //43, right or offered help
+				
+				//Ignored
+				"Oh no!, I should have just helped them, I feel guilty now, I wonder what they will think of me!"
+				+ "I hope he is not late for school ", //44
+				
+				//At school
+				"You finally arrived at the school", //40
+
+				//friend1
+				"It's about time, what makes you late today huh? "
+				+ "Argh! I woke up late, I almost forgot that we had school today. Actually I even lost my mind.", //41
+				
+				//friend2
+				"Enough with those explanations, lets just go in because we're going to be late." 
+				+ " Okay! ",//42 //character and friend1 together
+				
 		};
 	}
 	
@@ -115,7 +153,9 @@ public class storyLines implements java.io.Serializable{
 				"What is SODIUM FLUOROPHOSPHATE?"
 				+ " She said something about cavities... What could it be?",//2
 
-				"What about SODIUM HYDROXIDE? Isn't that just..."//3
+				"What about SODIUM HYDROXIDE? Isn't that just...",//3
+
+				"Should I share my umbrella with a higher probability of getting wet?"//4
 		};
 	}
 }

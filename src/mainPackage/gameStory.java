@@ -22,23 +22,23 @@ public class gameStory implements java.io.Serializable{
 	Screen screen;
 	playerStats player;
 	storyLines lines;
-	static String defaultBg = "temp1.png", bedroom = "temp2.png", city = "temp3.jpg", bayRoute = "temp4.png", livingroom = "temp5.png", identifier;
+	static String defaultBg = "temp1.png", bedroom = "bedroom.png", 
+					city = "temp3.jpg", bayRoute = "temp4.png", 
+					livingroom = "livingRoom.jpg", identifier;
 	
 	Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35);
 	Font normalFont = new Font ("Arial", Font.PLAIN, 35);
 	Font hyperboleFont = new Font ("Papyrus", Font.BOLD, 40);
 	
-		int letterTracker = 0, arrayNumber, pauseTime = 0,
-			normalSpeed = 30, fastSpeed = 5, enableKeys = 0, increaseXP = 0, increaseCP = 0, decreaseCP = 0,
-			number = 0;
+		int letterTracker = 0, arrayNumber, pauseTime = 0, normalSpeed = 30, fastSpeed = 5, enableKeys = 0, 
+			increaseXP = 0, increaseCP = 0, decreaseCP = 0, number = 0;
 
-		int diatextTracker = 0;
-		int questiontextTracker = 0;
+		int diatextTracker = 0, questiontextTracker = 0;
 
-			ImageIcon bedroomView = new ImageIcon(getClass().getClassLoader().getResource("temp2.png"));
-			ImageIcon cityView = new ImageIcon(getClass().getClassLoader().getResource("temp3.jpg"));
-			ImageIcon bayRouteView = new ImageIcon(getClass().getClassLoader().getResource("temp4.png"));
-			ImageIcon livingroomView = new ImageIcon(getClass().getClassLoader().getResource("temp5.png"));
+			ImageIcon bedroomView = new ImageIcon(getClass().getClassLoader().getResource("bedroom.png")),
+					cityView = new ImageIcon(getClass().getClassLoader().getResource("temp3.jpg")),
+					bayRouteView = new ImageIcon(getClass().getClassLoader().getResource("temp4.png")),
+					livingroomView = new ImageIcon(getClass().getClassLoader().getResource("livingRoom.jpg"));
 
 		char DiaGen[], choiceGen[], nameGen[];
 		String name;
@@ -155,7 +155,7 @@ public class gameStory implements java.io.Serializable{
 					case "sfcorrect0": rightMelatonin(); break;
 					case "sfincorrect0": wrongMelatonin(); break;
 
-
+		case "setupFirstQuestion": setupFirstQuestion(); break;
 		case "preFirstQuestion": preFirstQuestion(); break;
 		case "firstQuestion": firstQuestion(); break;
 		case "secondQuestion": secondQuestion(); break;
@@ -221,6 +221,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "intro1";
 	}
 	public void intro1Game(){//A world a new
+		game.saveAction();
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro1";
 		diatextTracker = 1;
@@ -240,15 +241,18 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "intro3";
 	}
 	public void intro3Game() {//Different...
+		sm.se.birdSFX.stop();
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro3";
 		diatextTracker = 3;
 		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
+		startDialogue(); 
 			game.nextDialogue = "intro3to4";
 			//game.nextDialogue = "intro4";
 	}
 	public void intro3to4(){//Fade In
+		sm.se.setFile4(sm.alarmclocksfx);
+		sm.se.alarmclockSFX.start();
 		game.currentDialogue = "intro3to4";
 		fadeIn bedroomIn = new fadeIn(bedroom);
 		ui.gameWindow.add(bedroomIn);
@@ -256,9 +260,11 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "intro4";
 	}
 	public void intro4Game() {//Bedroom
+		sm.se.alarmclockSFX.stop();
 		game.currentDialogue = "intro4";
 		diatextTracker = 4;
 		fadeIn bedroomIn = new fadeIn(bedroom);
+		bedroomIn.fadeInTimer.stop();
 		ui.gameWindow.remove(bedroomIn);
 				ui.bgPanel.add(bgHolder);
 				bgHolder.setIcon(bedroomView);
@@ -269,12 +275,15 @@ public class gameStory implements java.io.Serializable{
 	public void intro5Game() {//A new day...
 		game.currentDialogue = "intro5";
 		diatextTracker = 5;
+		bgHolder.setIcon(bedroomView);
 		ui.mainTextArea.setFont(narrationFont);
 		startDialogue();
 			game.nextDialogue = "intro5to6";
 			
 	}
 	public void intro5to6(){
+		sm.se.setFile5(sm.outofbedsfx);
+		sm.se.outofbedSFX.start();
 		game.currentDialogue = "intro5to6";
 		ui.bgPanel.remove(bgHolder);
 		Screen bedroomFadeOut = new Screen(bedroom);
@@ -286,12 +295,12 @@ public class gameStory implements java.io.Serializable{
 		game.currentDialogue = "intro6";
 		diatextTracker = 6;
 		Screen bedroomFadeOut = new Screen(bedroom);
+		bedroomFadeOut.alphaTimer.stop();
 		//ui.gameWindow.remove(bedroomFadeOut);
 		ui.gameWindow.remove(bedroomFadeOut);
 		ui.mainTextArea.setFont(narrationFont);
 			sm.se.setFile3(sm.curtainsfx);
 			sm.se.curtainSFX.start();
-
 				pauseTime = 3000;
 				pause();
 				ui.bgPanel.add(bgHolder);
@@ -302,6 +311,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "intro6toEnd";	
 	}
 	public void intro6toEnd(){
+		sm.se.curtainSFX.stop();
 		game.currentDialogue = "intro6toEnd";
 		ui.bgPanel.remove(bgHolder);
 		Screen cityFadeOut = new Screen(city);
@@ -313,6 +323,7 @@ public class gameStory implements java.io.Serializable{
 	//First choice of the game or First Scene Transition
 	public void amBedroom() {
 		game.currentDialogue = "introEnd";
+		enableKeys = 0;
 		questiontextTracker = 0;
 		ui.choicePanel.setVisible(true);
 			ui.bgPanel.add(bgHolder);
@@ -335,36 +346,48 @@ public class gameStory implements java.io.Serializable{
 	}
 	//Second Scene Transition
 	public void bedroomExit11() {
+		bgHolder.setIcon(bedroomView);
 		game.currentDialogue = "bedroomExit11";
+		enableKeys = 1;
 		diatextTracker = 7;
 		ui.mainTextArea.setFont(narrationFont);
 		startDialogue();
 			game.nextDialogue = "gbedroomExit12";
 	}
 	public void bedroomStudy11() {
+		bgHolder.setIcon(bedroomView);
 		diatextTracker = 8;
+		enableKeys = 1;
 		game.currentDialogue = "bedroomStudy11";
 		ui.mainTextArea.setFont(narrationFont);
 		startDialogue();
 			game.nextDialogue = "gbedroomExit12";
 	}
 	public void bedroomSS11() {
+		bgHolder.setIcon(cityView);
 		game.currentDialogue = "bedroomSS11";
 		diatextTracker = 9;
+		enableKeys = 1;
 		ui.mainTextArea.setFont(narrationFont);
 		startDialogue();
 				game.nextDialogue = "scolding11";
 	}
 	public void bedroomSleep11() {
+		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "bedroomSleep11";
 		diatextTracker = 10;
+		enableKeys = 1;
 		ui.mainTextArea.setFont(narrationFont);
 		startDialogue();
 			game.nextDialogue = "scolding11";
 	}
 
-	
 	public void goodbedroomExit12() {
+		bgHolder.setIcon(livingroomView);
+		sm.se.setFile7(sm.doorsfx);
+		sm.se.doorSFX.start();
+		pauseTime = 3000;
+		pause();
 		game.currentDialogue = "gbedroomExit12";
 		diatextTracker = 11;
 		ui.bgPanel.setVisible(true);
@@ -380,6 +403,7 @@ public class gameStory implements java.io.Serializable{
 				game.nextDialogue = "gbedroomExit13";
 	}
 	public void goodbedroomExit13() {
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "gbedroomExit13";	
 		diatextTracker = 12;
 			pauseTime=750;
@@ -390,6 +414,7 @@ public class gameStory implements java.io.Serializable{
 	}	
 	
 	public void scolding11() {
+		bgHolder.setIcon(bedroomView);
 		game.currentDialogue = "scolding11";
 		diatextTracker = 13;
 		ui.mainTextArea.setText("");
@@ -405,6 +430,11 @@ public class gameStory implements java.io.Serializable{
 				game.nextDialogue = "bbedroomExit12";
 	}
 	public void badbedroomExit12() {
+		bgHolder.setIcon(livingroomView);
+		sm.se.setFile7(sm.doorsfx);
+		sm.se.doorSFX.start();
+		pauseTime = 3000;
+		pause();
 		game.currentDialogue = "bbedroomExit12";
 		diatextTracker = 14;
 		ui.bgPanel.setVisible(true);
@@ -415,6 +445,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "bbedroomExit13";
 	}
 	public void badbedroomExit13() {
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "bbedroomExit13";
 		diatextTracker = 15;
 		ui.mainTextArea.setFont(normalFont);
@@ -423,6 +454,7 @@ public class gameStory implements java.io.Serializable{
 	}
 
 	public void explanation1(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "explanation1";
 		diatextTracker = 16;
 		ui.mainTextArea.setFont(normalFont);
@@ -430,6 +462,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "explanation2";
 	}
 	public void explanation2(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "explanation2";
 		diatextTracker = 17;
 		ui.mainTextArea.setFont(normalFont);
@@ -437,12 +470,13 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "explanation3";
 	}
 	public void explanation3(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "explanation3";
 		diatextTracker = 18;
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
 			if(player.CP == player.maxCP){
-				game.nextDialogue = "preFirstQuestion";
+				game.nextDialogue = "setupFirstQuestion";
 			}
 			else{
 				game.nextDialogue = "bbedroomExit14";
@@ -450,6 +484,7 @@ public class gameStory implements java.io.Serializable{
 	}
 
 	public void badbedroomExit14() {
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "bbedroomExit14";
 		diatextTracker = 19;
 		ui.mainTextArea.setFont(normalFont);
@@ -457,7 +492,17 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "sidefirstQuestion";
 	}
 
+	public void setupFirstQuestion(){
+		bgHolder.setIcon(livingroomView);
+		game.currentDialogue = "setupFirstQuestion";
+		diatextTracker = 20;
+		ui.mainTextArea.setFont(normalFont);
+		startDialogue();
+			game.nextDialogue = "prefirstQuestion";
+	}
+
 	public void sidefirstQuestion() {
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sidefirstQuestion";
 		questiontextTracker = 1;
 		ui.dialoguePanel.setVisible(false);
@@ -477,6 +522,7 @@ public class gameStory implements java.io.Serializable{
 	}
 
 	public void answerHappiness(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfhincorrect0";
 		diatextTracker = 21;
 		ui.dialoguePanel.setVisible(true);
@@ -485,6 +531,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "sfincorrect0";
 	}
 	public void answerPleasure(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfpincorrect0";
 		diatextTracker = 22;
 		ui.dialoguePanel.setVisible(true);
@@ -493,6 +540,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "sfincorrect0";
 	}
 	public void answerSleepiness(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfscorrect0";
 		diatextTracker = 23;
 		ui.dialoguePanel.setVisible(true);
@@ -501,6 +549,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "sfcorrect0";
 	}
 	public void answerAggressiveness(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfaincorrect0";
 		diatextTracker = 24;
 		ui.dialoguePanel.setVisible(true);
@@ -510,6 +559,7 @@ public class gameStory implements java.io.Serializable{
 	}
 	
 	public void rightMelatonin() {
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfcorrect0";
 		diatextTracker = 25;
 		ui.mainTextArea.setFont(normalFont);
@@ -519,10 +569,11 @@ public class gameStory implements java.io.Serializable{
 			player.XP+=2;
 			ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
 
-			game.nextDialogue = "preFirstQuestion";
+			game.nextDialogue = "setupFirstQuestion";
 	}
 	public void wrongMelatonin(){
-		game.currentDialogue = "sfincorrect0";
+		bgHolder.setIcon(livingroomView);
+		game.currentDialogue = "preFirstQuestion";
 		diatextTracker = 26;
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
@@ -532,6 +583,7 @@ public class gameStory implements java.io.Serializable{
 	}
 
 	public void preFirstQuestion(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "preFirstQuestion";
 		diatextTracker = 27;
 		ui.mainTextArea.setFont(normalFont);
@@ -541,6 +593,7 @@ public class gameStory implements java.io.Serializable{
 	
 	//First Question but second choice
 	public void firstQuestion() {
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "firstQuestion";
 		questiontextTracker = 2;
 		ui.dialoguePanel.setVisible(false);
@@ -559,6 +612,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextPosition4 = "incorrect1";
 	}
 	public void rightFirst(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "correct1";
 		diatextTracker = 28;
 		ui.mainTextArea.setFont(normalFont);
@@ -571,6 +625,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "secondQuestion";
 	}
 	public void wrongFirst(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "incorrect1";
 		diatextTracker = 29;
 		ui.mainTextArea.setFont(normalFont);
@@ -582,6 +637,7 @@ public class gameStory implements java.io.Serializable{
 
 	//Second Question
 	public void secondQuestion(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "secondQuestion";
 		questiontextTracker = 3;
 		ui.dialoguePanel.setVisible(false);
@@ -600,6 +656,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextPosition4 = "incorrect2";
 	}
 	public void rightSecond(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "correct2";
 		diatextTracker = 30;
 		ui.mainTextArea.setFont(normalFont);
@@ -612,6 +669,7 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "afterQAOne";
 	}
 	public void wrongSecond(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "incorrect2";
 		diatextTracker = 31;
 		ui.mainTextArea.setFont(normalFont);
@@ -620,14 +678,27 @@ public class gameStory implements java.io.Serializable{
 		selectedWrong();
 			game.nextDialogue = "afterQAOne";
 	}
+
 	public void afterQAOne(){
+		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "afterQAOne";
 		diatextTracker = 32;
+			sm.se.setFile8(sm.brushteethsfx);
+			sm.se.brushteethSFX.start();
+				pauseTime = 9000;
+				pause();
+			sm.se.setFile6(sm.showersfx);
+			sm.se.showerSFX.start();
+				pauseTime = 8000;
+				pause();
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
 			game.nextDialogue = "sceneOneEnd";
 	}
 	public void sceneOneEnd(){
+		bgHolder.setIcon(livingroomView);
+		sm.se.brushteethSFX.stop();
+		sm.se.showerSFX.stop();
 		game.currentDialogue = "sceneOneEnd";
 		if(player.CP>= 8){
 			diatextTracker = 33;
@@ -642,6 +713,11 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "exitHouse";
 	}
 	public void exitHouse(){
+		ui.bgPanel.setBackground(Color.BLACK);
+		sm.se.setFile7(sm.doorsfx);
+		sm.se.doorSFX.start();
+		pauseTime = 3000;
+		pause();
 		game.currentDialogue = "exitHouse";
 		diatextTracker = 35;
 		ui.mainTextArea.setFont(narrationFont);

@@ -16,7 +16,7 @@ public class Screen extends JPanel implements ActionListener{
 
 	gameStory Story;
 
-	Timer alphaTimer = new Timer(20, this);
+	Timer alphaTimer = new Timer(18, this);
 	BufferedImage buffImage = null;
 	float alphaValue = 1f;
 	String imageName;

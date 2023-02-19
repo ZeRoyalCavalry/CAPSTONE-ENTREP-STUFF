@@ -4,16 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.event.MenuKeyEvent;
-import javax.swing.event.MenuKeyListener;
+//import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MouseInputListener;
 
-import java.awt.event.MouseEvent;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.Dimension;
@@ -34,8 +35,7 @@ public class Game implements java.io.Serializable{
 	NameHandler nHandler = new NameHandler();
 
 	SaveLoadHandler saveloadHandler = new SaveLoadHandler();
-	DataStorage dStorage = new DataStorage();
-	
+
 	Dimension gameWindowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int)gameWindowSize.getWidth();
 		int screenHeight = (int)gameWindowSize.getHeight();
@@ -74,6 +74,9 @@ public class Game implements java.io.Serializable{
 						sm.bgsMusic.stopMusic();
 						break;
 					case "continue":
+						ui.bgPanel.remove(ui.bgPic);
+						sm.bgsMusic.stopMusic();
+						tc.showDialogue();
 						loadAction();
 						break;
 					case "dialogue":
@@ -193,6 +196,8 @@ public class Game implements java.io.Serializable{
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			ObjectOutputStream oos = new ObjectOutputStream(bos);
 
+			DataStorage dStorage = new DataStorage();
+
 			dStorage.playerName = playerName;
 
 			dStorage.playerCP = player.CP;
@@ -208,10 +213,14 @@ public class Game implements java.io.Serializable{
 
 			oos.writeObject(dStorage);
 			oos.close();
+			System.out.println();
 			System.out.println("SAVE COMPLETE:");
+			System.out.println("Player Name: " + dStorage.playerName);
 			System.out.println("CP: " + dStorage.playerCP + " | " + "XP: " + dStorage.playerXP + " | ");
-			System.out.println("Current Position: " + dStorage.playerDialogue + " | " + "Dialogue Tracker Number: " + dStorage.dialogueTracker + " | "
+			System.out.println("Current Position: " + dStorage.playerDialogue + " | " 
+								+ "Dialogue Tracker Number: " + dStorage.dialogueTracker + " | "
 								+ "Next Position: " + dStorage.nextStoryDialogue);
+			System.out.println();
 		}
 		catch(Exception saveError){
 			System.out.println("SAVE ERROR");
@@ -222,6 +231,8 @@ public class Game implements java.io.Serializable{
 			FileInputStream fis = new FileInputStream("save.dat");
 			BufferedInputStream bis = new BufferedInputStream(fis);
 			ObjectInputStream ois = new ObjectInputStream(bis);
+
+			DataStorage dStorage = (DataStorage)ois.readObject();
 
 			playerName = dStorage.playerName;
 
@@ -237,23 +248,31 @@ public class Game implements java.io.Serializable{
 			currentQuestion = dStorage.playerQuestion;
 
 			ois.close();
+			System.out.println();
 			System.out.println("LOAD COMPLETE:");
+			System.out.println("Player Name: " + playerName);
 			System.out.println("CP: " + player.CP + " | " + "XP: " + player.XP + " | ");
-			System.out.println("Current Position: " + currentDialogue + " | " + "Dialogue Tracker Number: " + Story.diatextTracker + " | " + "Next Position: " + nextDialogue);
+			System.out.println("Current Position: " + currentDialogue + " | " 
+								+ "Dialogue Tracker Number: " + Story.diatextTracker 
+								+ " | " + "Next Position: " + nextDialogue);
+			System.out.println();
+		
 			update();
+
 		}
-		catch(Exception LoadError){
+		catch(IOException LoadError){
 			System.out.println("LOAD ERROR");
 		}
+		catch(ClassNotFoundException missing){
+			System.out.println("MISSING FILE");
+		}
 	}
+	
 	public void update(){
+		Story.name = playerName;
 		ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
 		ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
 		Story.dialogueTracker(currentDialogue);
 		Story.progressTracker(currentQuestion);
-	}
-
-	public void continueGame(){
-		
 	}
 }

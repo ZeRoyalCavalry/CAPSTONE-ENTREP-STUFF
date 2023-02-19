@@ -17,7 +17,7 @@ public class fadeIn extends JPanel implements ActionListener {
 
     gameStory Story;
 
-    Timer fadeInTimer = new Timer(20, this);
+    Timer fadeInTimer = new Timer(18, this);
     BufferedImage fadeInImage;
     float fadeInValue = 0.01f;
     String bgImage;
