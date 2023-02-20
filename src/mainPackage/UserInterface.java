@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridLayout;
 //import java.awt.event.KeyListener;
+import java.awt.Image;
 
 import mainPackage.Game.ChoiceHandler;
 import mainPackage.Game.KeyboardHandler;
@@ -19,14 +20,23 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 public class UserInterface implements java.io.Serializable{
 
 		public JFrame gameWindow;
-		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel;
-		public JLabel titleLabel, subtitleLabel, bgPic, XPLabel, XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
-		public JButton startButton, continueButton, dialogueBox, nameInputBTN, choice1, choice2, choice3, choice4, saveButton, loadButton;
+
+		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, 
+						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
+						introPanel;
+
+		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, 
+						XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
+
+		public JButton startButton, continueButton, dialogueBox, nameInputBTN, 
+						choice1, choice2, choice3, choice4, saveButton, loadButton;
+
 		public JTextArea mainTextArea;
 		public JTextField nameInput;
 		
@@ -35,28 +45,28 @@ public class UserInterface implements java.io.Serializable{
 					outlineDialogue = new LineBorder(Color.WHITE, 10), 
 					outlineStatsPanel = new LineBorder(Color.white, 1);
 		
-		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90), subtitleFont = new Font("Times New Roman", Font.PLAIN, 68),
+		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90), subtitleFont = new Font("Times New Roman", Font.PLAIN, 55),
 			 statsFont = new Font("Arial", Font.BOLD, 33), normalFont = new Font ("Arial", Font.PLAIN, 40);
 
 		public void makeUI(ChoiceHandler cHandler, MouseHandler mHandler, NameHandler nHandler, KeyboardHandler kbHandler, 
 							SaveLoadHandler SLHandler, int screenWidth, int screenHeight, storyLines lines, Game game) {
-			//Title Panel & Main Text Panel Scaling	
-			int titlePanelWidth = 1300;
-			int titlePanelHeight = 250;
-			int aligntitleX = (screenWidth/2) - (titlePanelWidth/2);
-			int aligntitleY = (screenHeight/6);
+			// //Title Panel & Main Text Panel Scaling	
+			// int titlePanelWidth = 1300;
+			// int titlePanelHeight = 250;
+			// int aligntitleX = (screenWidth/2) - (titlePanelWidth/2);
+			// int aligntitleY = (screenHeight/6);
 			
 			//Start Button Panel Scaling
-			int SBPanelWidth = 375;
-			int SBPanelHeight = 115;
-			int alignSBX = (screenWidth/2) - (SBPanelWidth/2);
-			int alignSBY = (int)Math.round(screenHeight/1.75);
+			int SBPanelWidth = 340;
+			int SBPanelHeight = 90;
+			int alignSBX = (int)Math.round((screenWidth/3) - (SBPanelWidth/1.5));
+			int alignSBY = (int)Math.round(screenHeight/1.30);
 			
 			//Continue Button Panel Scaling
-			int CBPanelWidth = 375;
-			int CBPanelHeight = 115;
-			int alignCBX = (screenWidth/2) - (CBPanelWidth/2);
-			int alignCBY = (int)Math.round(screenHeight/1.38);
+			int CBPanelWidth = 340;
+			int CBPanelHeight = 90;
+			int alignCBX = (int)Math.round((screenWidth/1.5) - (CBPanelWidth/3));
+			int alignCBY = (int)Math.round(screenHeight/1.30);
 
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
@@ -103,19 +113,30 @@ public class UserInterface implements java.io.Serializable{
 				gameWindow.getContentPane().setBackground(Color.BLACK);
 				//gameWindow.setLayout(null);
 				gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			
+			//Intro with GIF
+			introPanel = new JPanel();
+			introPanel.setBounds(-1,-1,screenWidth,screenHeight);
+			introPanel.setBackground(Color.black);
+				introGIF = new JLabel();
+				introGIF.setBounds(0,-1, screenWidth, screenHeight);
+						ImageIcon gameIntro = new ImageIcon(getClass().getClassLoader().getResource("gameIntro.gif"));
+					introGIF.setIcon(gameIntro);
+				introPanel.add(introGIF);
+			gameWindow.add(introPanel);
+
+			// //TITLE SCREEN
+			// titlePanel = new JPanel();
+			// 	//titlePanel.setBounds(120,160,1300,250);
+			// 	titlePanel.setBounds(aligntitleX, aligntitleY, titlePanelWidth, titlePanelHeight);
+			// 	titlePanel.setBorder(outlinePanel);
+			// 	titlePanel.setBackground(Color.black);
 				
-			//TITLE SCREEN
-			titlePanel = new JPanel();
-				//titlePanel.setBounds(120,160,1300,250);
-				titlePanel.setBounds(aligntitleX, aligntitleY, titlePanelWidth, titlePanelHeight);
-				titlePanel.setBorder(outlinePanel);
-				titlePanel.setBackground(Color.black);
-				
-			titleLabel = new JLabel("<html><center>STARLIGHT HIGH SCHOOL <br/>AND ITS CURIOUS CASES<center><html>");
-				titleLabel.setForeground(Color.white);
-				titleLabel.setFont(titleFont);
-				//titleLabel.setBorder(outlinePanel);
-				titlePanel.add(titleLabel);
+			// titleLabel = new JLabel("<html><center>STARLIGHT HIGH SCHOOL <br/>AND ITS CURIOUS CASES<center><html>");
+			// 	titleLabel.setForeground(Color.white);
+			// 	titleLabel.setFont(titleFont);
+			// 	//titleLabel.setBorder(outlinePanel);
+			// 	titlePanel.add(titleLabel);
 				
 			//START BUTTON
 			startButtonPanel = new JPanel();
@@ -129,7 +150,7 @@ public class UserInterface implements java.io.Serializable{
 						startButton.setForeground(Color.WHITE);
 						startButton.setFont(subtitleFont);
 						startButton.setFocusPainted(false);
-						startButton.setBorder(null);
+						startButton.setBorderPainted(false);
 							startButton.addActionListener(cHandler);
 							startButton.setActionCommand("start");
 					startButtonPanel.add(startButton);
@@ -145,7 +166,7 @@ public class UserInterface implements java.io.Serializable{
 						continueButton.setForeground(Color.WHITE);
 						continueButton.setFont(subtitleFont);
 						continueButton.setFocusPainted(false);
-						continueButton.setBorder(null);
+						continueButton.setBorderPainted(false);
 								continueButton.addActionListener(cHandler);
 								continueButton.setActionCommand("continue");
 					continueButtonPanel.add(continueButton);
@@ -155,12 +176,12 @@ public class UserInterface implements java.io.Serializable{
 				bgPanel.setBounds(0,0,screenWidth,screenHeight);
 				bgPanel.setBackground(Color.black);
 					bgPic = new JLabel();
-					bgPic.setBounds(0,0, game.screenWidth, game.screenHeight);
-						ImageIcon titlePic = new ImageIcon(getClass().getClassLoader().getResource("temp1.png"));
+					bgPic.setBounds(0,0, screenWidth, screenHeight);
+						ImageIcon titlePic = new ImageIcon(getClass().getClassLoader().getResource("titlescreenOfficial.png"));
 					bgPic.setIcon(titlePic);
 				bgPanel.add(bgPic);
 					
-			gameWindow.add(titlePanel);
+			//gameWindow.add(titlePanel);
 			gameWindow.add(startButtonPanel);
 			gameWindow.add(continueButtonPanel);
 			
@@ -304,7 +325,7 @@ public class UserInterface implements java.io.Serializable{
 				loadButton.setFont(statsFont);
 				loadButton.setBackground(Color.black);
 				loadButton.setForeground(Color.white);
-				continueButton.setBorder(outlineStatsPanel);
+				loadButton.setBorder(outlineStatsPanel);
 				loadButton.addActionListener(SLHandler);
 				loadButton.setActionCommand("load");
 					playerStatsPanel.add(loadButton);
