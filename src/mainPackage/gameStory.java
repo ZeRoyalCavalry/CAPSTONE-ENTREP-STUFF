@@ -745,7 +745,6 @@ public class gameStory implements Serializable{
 	}
 	public void sceneOneEnd(){
 		bgHolder.setIcon(images.livingroomView);
-		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sceneOneEnd";
 		if(player.CP>= 8){
 			diatextTracker = 33;
