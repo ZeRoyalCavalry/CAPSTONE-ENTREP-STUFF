@@ -51,12 +51,12 @@ public class Game implements java.io.Serializable{
 	
 	public Game() {
 		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, screenWidth, screenHeight, lines, this);
-		tc.introSequence();
+		// tc.introSequence();
 			sm.bgsMusic.setFile(sm.titleScreenMusic);
 			sm.bgsMusic.playMusic();
 			sm.bgsMusic.loopMusic();
-				Story.pauseTime = 16000;
-				Story.pause();
+				// Story.pauseTime = 17000;
+				// Story.pause();
 				Story.startStats();
 		tc.showTitleScreen();
 	}
@@ -75,6 +75,7 @@ public class Game implements java.io.Serializable{
 						Story.intro0Game();
 						tc.showName();
 						sm.bgsMusic.stopMusic();
+						saveAction();
 						break;
 					case "continue":
 						ui.bgPanel.remove(ui.bgPic);
@@ -138,6 +139,7 @@ public class Game implements java.io.Serializable{
 					if(playerName != null) {
 						Story.name = playerName;
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 					}
 					else {
 						Story.diatextTracker = 0;
@@ -212,7 +214,7 @@ public class Game implements java.io.Serializable{
 			dStorage.nextStoryDialogue = nextDialogue;
 
 			dStorage.questionTracker = Story.questiontextTracker;
-			dStorage.playerQuestion = currentQuestion;
+			//dStorage.playerQuestion = currentQuestion;
 
 			oos.writeObject(dStorage);
 			oos.close();
@@ -248,7 +250,7 @@ public class Game implements java.io.Serializable{
 			nextDialogue = dStorage.nextStoryDialogue;
 
 			Story.questiontextTracker = dStorage.questionTracker;
-			currentQuestion = dStorage.playerQuestion;
+			//currentQuestion = dStorage.playerQuestion;
 
 			ois.close();
 			System.out.println();

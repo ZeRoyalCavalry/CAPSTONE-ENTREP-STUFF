@@ -20,7 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 public class UserInterface implements java.io.Serializable{
@@ -29,13 +28,14 @@ public class UserInterface implements java.io.Serializable{
 
 		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, 
 						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
-						introPanel;
+						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel;
 
 		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, 
 						XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
 
 		public JButton startButton, continueButton, dialogueBox, nameInputBTN, 
-						choice1, choice2, choice3, choice4, saveButton, loadButton;
+						choice1, choice2, choice3, choice4, saveButton, loadButton,
+						maleButton, femaleButton, inclusiveButton;
 
 		public JTextArea mainTextArea;
 		public JTextField nameInput;
@@ -55,18 +55,26 @@ public class UserInterface implements java.io.Serializable{
 			// int titlePanelHeight = 250;
 			// int aligntitleX = (screenWidth/2) - (titlePanelWidth/2);
 			// int aligntitleY = (screenHeight/6);
-			
+
+			int buttonPanelWidth = 340;
+			int buttonPanelHeight = 90;
 			//Start Button Panel Scaling
-			int SBPanelWidth = 340;
-			int SBPanelHeight = 90;
-			int alignSBX = (int)Math.round((screenWidth/3) - (SBPanelWidth/1.5));
-			int alignSBY = (int)Math.round(screenHeight/1.30);
+			int alignSBX = (int)Math.round((screenWidth/2.7) - (buttonPanelWidth/1.5));
+			int alignSBY = (int)Math.round(screenHeight/1.34);
 			
 			//Continue Button Panel Scaling
-			int CBPanelWidth = 340;
-			int CBPanelHeight = 90;
-			int alignCBX = (int)Math.round((screenWidth/1.5) - (CBPanelWidth/3));
-			int alignCBY = (int)Math.round(screenHeight/1.30);
+			int alignCBX = (int)Math.round((screenWidth/1.6) - (buttonPanelWidth/2.7));
+			int alignCBY = (int)Math.round(screenHeight/1.34);
+
+			//Sex/Gender Select Panels Scaling
+			int alignMBX = (int)Math.round((screenWidth/3) - (buttonPanelWidth/1.2));
+			int alignMBY = (screenHeight/2) - (buttonPanelHeight/2);
+
+			int alignFBX = (screenWidth/2) - (buttonPanelWidth/2);
+			int alignFBY = (screenHeight/2) - (buttonPanelHeight/2);;
+
+			int alignNBX = (int)Math.round((screenWidth/1.2) - (buttonPanelWidth/3));
+			int alignNBY = (screenHeight/2) - (buttonPanelHeight/2);
 
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
@@ -121,6 +129,9 @@ public class UserInterface implements java.io.Serializable{
 				introGIF = new JLabel();
 				introGIF.setBounds(0,-1, screenWidth, screenHeight);
 						ImageIcon gameIntro = new ImageIcon(getClass().getClassLoader().getResource("gameIntro.gif"));
+								Image gameGIF = gameIntro.getImage();
+								Image resizedIntro = gameGIF.getScaledInstance(screenWidth, screenHeight, Image.SCALE_DEFAULT);
+								gameIntro = new ImageIcon(resizedIntro);
 					introGIF.setIcon(gameIntro);
 				introPanel.add(introGIF);
 			gameWindow.add(introPanel);
@@ -141,7 +152,7 @@ public class UserInterface implements java.io.Serializable{
 			//START BUTTON
 			startButtonPanel = new JPanel();
 				//startButtonPanel.setBounds(605,500,290,117);
-				startButtonPanel.setBounds(alignSBX, alignSBY, SBPanelWidth, SBPanelHeight);
+				startButtonPanel.setBounds(alignSBX, alignSBY, buttonPanelWidth, buttonPanelHeight);
 				startButtonPanel.setBackground(Color.BLACK);
 				startButtonPanel.setBorder(outlineButton);
 				
@@ -157,7 +168,7 @@ public class UserInterface implements java.io.Serializable{
 	
 			//CONTINUE BUTTON
 			continueButtonPanel = new JPanel();
-				continueButtonPanel.setBounds(alignCBX, alignCBY, CBPanelWidth, CBPanelHeight);
+				continueButtonPanel.setBounds(alignCBX, alignCBY, buttonPanelWidth, buttonPanelHeight);
 				continueButtonPanel.setBackground(Color.BLACK);
 				continueButtonPanel.setBorder(outlineButton);
 
@@ -171,13 +182,38 @@ public class UserInterface implements java.io.Serializable{
 								continueButton.setActionCommand("continue");
 					continueButtonPanel.add(continueButton);
 
+			//Sex or Gender Select
+			maleSelectPanel = new JPanel();
+				maleSelectPanel.setBounds(alignMBX, alignMBY, buttonPanelWidth, buttonPanelHeight);
+				maleSelectPanel.setBackground(Color.BLACK);
+				maleSelectPanel.setBorder(outlineButton);
+								
+					maleButton = new JButton("<html><center>MALE<center><html>");
+
+			femaleSelectPanel = new JPanel();
+				maleSelectPanel.setBounds(alignFBX, alignFBY, buttonPanelWidth, buttonPanelHeight);
+				maleSelectPanel.setBackground(Color.BLACK);
+				maleSelectPanel.setBorder(outlineButton);
+
+					femaleButton = new JButton("<html><center>FEMALE<center><html>");
+
+			nonSelectPanel = new JPanel();
+				nonSelectPanel.setBounds(alignNBX, alignNBY, buttonPanelWidth, buttonPanelHeight);
+				nonSelectPanel.setBackground(Color.BLACK);
+				nonSelectPanel.setBorder(outlineButton);
+
+				inclusiveButton = new JButton("<html><center>OTHERS<center><html>");
+
 			//BGImage	
 			bgPanel = new JPanel();
 				bgPanel.setBounds(0,0,screenWidth,screenHeight);
-				bgPanel.setBackground(Color.black);
+				//bgPanel.setBackground(Color.black);
 					bgPic = new JLabel();
 					bgPic.setBounds(0,0, screenWidth, screenHeight);
 						ImageIcon titlePic = new ImageIcon(getClass().getClassLoader().getResource("titlescreenOfficial.png"));
+								Image titleImage = titlePic.getImage();
+								Image resizedTitle = titleImage.getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH);
+								titlePic = new ImageIcon(resizedTitle);
 					bgPic.setIcon(titlePic);
 				bgPanel.add(bgPic);
 					

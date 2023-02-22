@@ -12,8 +12,9 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.io.Serializable;
 
-public class gameStory implements java.io.Serializable{
+public class gameStory implements Serializable{
 	
 	Game game;
 	UserInterface ui;
@@ -89,7 +90,6 @@ public class gameStory implements java.io.Serializable{
 			if(letterTracker == arrayNumber) {
 				letterTracker = 0;
 				DiaTimer.stop();
-				diatextTracker++;
 				ui.dialoguePanel.setVisible(true);
 				enableKeys = 1;
 			}
@@ -118,7 +118,6 @@ public class gameStory implements java.io.Serializable{
 			if(letterTracker == arrayNumber) {
 				letterTracker = 0;
 				choiceTimer.stop();
-				questiontextTracker++;
 				sceneChanger.showChoices();
 			}
 		}
@@ -156,7 +155,7 @@ public class gameStory implements java.io.Serializable{
 					case "sfincorrect0": wrongMelatonin(); break;
 
 		case "setupFirstQuestion": setupFirstQuestion(); break;
-		case "preFirstQuestion": preFirstQuestion(); break;
+		//case "preFirstQuestion": preFirstQuestion(); break;
 		case "firstQuestion": firstQuestion(); break;
 		case "secondQuestion": secondQuestion(); break;
 
@@ -221,7 +220,6 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "intro1";
 	}
 	public void intro1Game(){//A world a new
-		game.saveAction();
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro1";
 		diatextTracker = 1;
@@ -241,7 +239,6 @@ public class gameStory implements java.io.Serializable{
 			game.nextDialogue = "intro3";
 	}
 	public void intro3Game() {//Different...
-		sm.se.birdSFX.stop();
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro3";
 		diatextTracker = 3;
@@ -254,6 +251,7 @@ public class gameStory implements java.io.Serializable{
 		sm.se.setFile4(sm.alarmclocksfx);
 		sm.se.alarmclockSFX.start();
 		game.currentDialogue = "intro3to4";
+		ui.bgPanel.remove(bgHolder);
 		fadeIn bedroomIn = new fadeIn(bedroom);
 		ui.gameWindow.add(bedroomIn);
 		ui.gameWindow.setVisible(true);
@@ -323,6 +321,7 @@ public class gameStory implements java.io.Serializable{
 	//First choice of the game or First Scene Transition
 	public void amBedroom() {
 		game.currentDialogue = "introEnd";
+		game.currentQuestion = "firstQ";
 		enableKeys = 0;
 		questiontextTracker = 0;
 		ui.choicePanel.setVisible(true);
@@ -498,8 +497,16 @@ public class gameStory implements java.io.Serializable{
 		diatextTracker = 20;
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
-			game.nextDialogue = "prefirstQuestion";
+			game.nextDialogue = "firstQuestion";
 	}
+	// public void preFirstQuestion(){
+	// 	bgHolder.setIcon(livingroomView);
+	// 	game.currentDialogue = "preFirstQuestion";
+	// 	diatextTracker = 21;
+	// 	ui.mainTextArea.setFont(normalFont);
+	// 	startDialogue();
+	// 		game.nextDialogue = "firstQuestion";
+	// }
 
 	public void sidefirstQuestion() {
 		bgHolder.setIcon(livingroomView);
@@ -524,7 +531,7 @@ public class gameStory implements java.io.Serializable{
 	public void answerHappiness(){
 		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfhincorrect0";
-		diatextTracker = 21;
+		diatextTracker = 22;
 		ui.dialoguePanel.setVisible(true);
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
@@ -533,7 +540,7 @@ public class gameStory implements java.io.Serializable{
 	public void answerPleasure(){
 		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfpincorrect0";
-		diatextTracker = 22;
+		diatextTracker = 23;
 		ui.dialoguePanel.setVisible(true);
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
@@ -542,7 +549,7 @@ public class gameStory implements java.io.Serializable{
 	public void answerSleepiness(){
 		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfscorrect0";
-		diatextTracker = 23;
+		diatextTracker = 24;
 		ui.dialoguePanel.setVisible(true);
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
@@ -551,7 +558,7 @@ public class gameStory implements java.io.Serializable{
 	public void answerAggressiveness(){
 		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfaincorrect0";
-		diatextTracker = 24;
+		diatextTracker = 25;
 		ui.dialoguePanel.setVisible(true);
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
@@ -561,7 +568,7 @@ public class gameStory implements java.io.Serializable{
 	public void rightMelatonin() {
 		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "sfcorrect0";
-		diatextTracker = 25;
+		diatextTracker = 26;
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
 		increaseCP = 1; 
@@ -574,21 +581,12 @@ public class gameStory implements java.io.Serializable{
 	public void wrongMelatonin(){
 		bgHolder.setIcon(livingroomView);
 		game.currentDialogue = "preFirstQuestion";
-		diatextTracker = 26;
+		diatextTracker = 27;
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
 		decreaseCP = 1;
 		selectedWrong();
 			game.nextDialogue = "preFirstQuestion";
-	}
-
-	public void preFirstQuestion(){
-		bgHolder.setIcon(livingroomView);
-		game.currentDialogue = "preFirstQuestion";
-		diatextTracker = 27;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "firstQuestion";
 	}
 	
 	//First Question but second choice
@@ -697,8 +695,6 @@ public class gameStory implements java.io.Serializable{
 	}
 	public void sceneOneEnd(){
 		bgHolder.setIcon(livingroomView);
-		sm.se.brushteethSFX.stop();
-		sm.se.showerSFX.stop();
 		game.currentDialogue = "sceneOneEnd";
 		if(player.CP>= 8){
 			diatextTracker = 33;
@@ -722,11 +718,11 @@ public class gameStory implements java.io.Serializable{
 		diatextTracker = 35;
 		ui.mainTextArea.setFont(narrationFont);
 		startDialogue();
-			game.nextDialogue = "preHelp1";
+			game.nextDialogue = "sceneTwoStart";
 	}
 
 	//Scene Two (Offering Help)
-	public void preHelp1(){
-
+	public void sceneTwoStart(){
+		bgHolder.setIcon(bayRouteView);
 	}
 }
