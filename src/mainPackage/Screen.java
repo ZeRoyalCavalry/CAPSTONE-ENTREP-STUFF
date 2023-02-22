@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Screen extends JPanel implements ActionListener{
-
+	
 	gameStory Story;
 
 	Timer alphaTimer = new Timer(18, this);

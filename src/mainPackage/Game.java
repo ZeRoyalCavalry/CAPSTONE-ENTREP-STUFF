@@ -22,12 +22,17 @@ import java.awt.Toolkit;
 
 public class Game implements java.io.Serializable{
 
+	Dimension gameWindowSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenWidth = (int)gameWindowSize.getWidth();
+		int screenHeight = (int)gameWindowSize.getHeight();
+
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
 	storyLines lines = new storyLines();
 	playerStats player = new playerStats();
 	TransitionClass tc = new TransitionClass(ui);
-	gameStory Story = new gameStory(this, ui, tc, sm, player);
+	ImageManager imgManage = new ImageManager(this, screenWidth, screenHeight);
+	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage);
 
 	ChoiceHandler cHandler = new ChoiceHandler();
 	MouseHandler mHandler = new MouseHandler();
@@ -35,15 +40,11 @@ public class Game implements java.io.Serializable{
 	NameHandler nHandler = new NameHandler();
 
 	SaveLoadHandler saveloadHandler = new SaveLoadHandler();
-
-	Dimension gameWindowSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenWidth = (int)gameWindowSize.getWidth();
-		int screenHeight = (int)gameWindowSize.getHeight();
 		
 		int mouseClick = 0;
 	
 	String currentDialogue, currentQuestion, nextDialogue, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
-	static String playerName; 
+	static String playerName, gender; 
 
 	public static void main(String[] args) {
 		new Game();
@@ -51,12 +52,12 @@ public class Game implements java.io.Serializable{
 	
 	public Game() {
 		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, screenWidth, screenHeight, lines, this);
-		tc.introSequence();
 			sm.bgsMusic.setFile(sm.titleScreenMusic);
 			sm.bgsMusic.playMusic();
 			sm.bgsMusic.loopMusic();
-				Story.pauseTime = 16000;
-				Story.pause();
+				//tc.introSequence();
+				//Story.pauseTime = 19000;
+				//Story.pause();
 				Story.startStats();
 		tc.showTitleScreen();
 	}
@@ -75,6 +76,7 @@ public class Game implements java.io.Serializable{
 						Story.intro0Game();
 						tc.showName();
 						sm.bgsMusic.stopMusic();
+						saveAction();
 						break;
 					case "continue":
 						ui.bgPanel.remove(ui.bgPic);
@@ -85,6 +87,21 @@ public class Game implements java.io.Serializable{
 					case "dialogue":
 						sm.se.setFile(sm.buttonsfx);
 						sm.se.playButtonSFX();
+						Story.dialogueTracker(nextDialogue);
+						break;
+					case "male":
+						gender = "she";
+						storyLines.subInGender = gender;
+						Story.dialogueTracker(nextDialogue);
+						break;
+					case "female":
+						gender = "he";
+						storyLines.subInGender = gender;
+						Story.dialogueTracker(nextDialogue);
+						break;					
+					case "inclusive":
+						gender = "they";
+						storyLines.subInGender = gender;
 						Story.dialogueTracker(nextDialogue);
 						break;
 					case "c1":
@@ -138,6 +155,7 @@ public class Game implements java.io.Serializable{
 					if(playerName != null) {
 						Story.name = playerName;
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 					}
 					else {
 						Story.diatextTracker = 0;
@@ -212,7 +230,7 @@ public class Game implements java.io.Serializable{
 			dStorage.nextStoryDialogue = nextDialogue;
 
 			dStorage.questionTracker = Story.questiontextTracker;
-			dStorage.playerQuestion = currentQuestion;
+			//dStorage.playerQuestion = currentQuestion;
 
 			oos.writeObject(dStorage);
 			oos.close();
@@ -248,7 +266,7 @@ public class Game implements java.io.Serializable{
 			nextDialogue = dStorage.nextStoryDialogue;
 
 			Story.questiontextTracker = dStorage.questionTracker;
-			currentQuestion = dStorage.playerQuestion;
+			//currentQuestion = dStorage.playerQuestion;
 
 			ois.close();
 			System.out.println();

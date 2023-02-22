@@ -7,15 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class fadeIn extends JPanel implements ActionListener {
-
-    gameStory Story;
 
     Timer fadeInTimer = new Timer(18, this);
     BufferedImage fadeInImage;
