@@ -67,14 +67,18 @@ public class storyLines implements java.io.Serializable{
 				+ " SODIUM FLUOROPHOSPHATE (Na2PFO3) product so that you won't get cavities... Oh!"
 				+ " And some SODIUM HYDROXIDE (NaOH) based product too to clean up your body.",//20
 
+				"Oh... What did mom say about that?"
+				+ " SODIUM FLUOROPHOSPHATE (Na2PFO3) and SODIUM HYDROXIDE (NaOH) BASED product...",//21
+
 				//For the Melatonin Question
-				"Melatonin is associated with Happiness, right?",//21
-				"Melatonin is associated with Pleasure, right?",//22
-				"Melatonin is associated with Sleepiness, right?",//23
-				"Melatonin is assocaited with Aggressiveness, right?",//24
+				"Melatonin is associated with Happiness, right?",//22
+				"Melatonin is associated with Pleasure, right?",//23
+				"Melatonin is associated with Sleepiness, right?",//24
+				"Melatonin is assocaited with Aggressiveness, right?",//25
 
 				//Results for the Choices
 				"Why yes, good that you remember.",//25, right answer
+				"Why yes, good that you remember. Now, go on with your routine.",//26, right answer
 				"No!!! How could you forget? Melatonin is associated with Sleepiness! "
 				+ "Don't you forget it! Just do your routine now and get ready for school.",//26, wrong answer
 
@@ -126,7 +130,8 @@ public class storyLines implements java.io.Serializable{
 				"Blanking out from its surrealness, " + subInGender + " had to get your attention. . .", //43, right or offered help
 				
 				//Ignored
-				"You felt the guilt of not being to able to help " + subInGender + ", you have regrets in a way.", //44
+				"Oh no!, I should have just helped them, I feel guilty now, I wonder what they will think of me!"
+				+ "I hope he is not late for school ", //44
 				
 				//At school
 				"You finally arrived at the school", //45, narration
@@ -136,46 +141,10 @@ public class storyLines implements java.io.Serializable{
 				
 				"Enough with those explanations, lets just go in because we're going to be late.", //48, friend2
 				
-				"Okay!",//49, character and friend1 together
+				//friend2
+				"Enough with those explanations, lets just go in because we're going to be late." 
+				+ " Okay! ",//42 //character and friend1 together
 				
-				//CAFETERIA
-				"It's lunchtime. You and your friends went to the cafeteria to eat", //50, narrationFont
-				"Over there! I see a table, hurry before someone gets there before us", //51, Friend 1
-				"As the rest brought their meals and drinks, you brought over a "
-				+ "Chicken Combo Meal and a bottle of Softdrink", //52, narrationFont
-
-				//For Softdrinks question
-				"OH MY GOSH!! Is that really you? didn't expect you to get that" , //53 right
-				"NOO! Have you forgotten this already it was in our exams! + It looks like we need to have lessons while eating our meals" ,  //54  wrong
-
-				"And what about the chocolate bar you're having for dessert? What's the chemical name and formula of sugar in it?", //Friend 2 //55
-
-				//For sugar question
-				"Alright alright you beat me into it, you're a genius!" , //56 right
-				"Are you for real?? Sugar?? We intake this almost everyday. You should know this by now!! + It's just sucrose with the chemical formula of C12H22O11" ,  //48  wrong
-
-				"I'm envious of you, your meals are all delicious!!! All i got is Noodles with spam and water. " 
-				+ "I have a question for both of you and if you get it right you can have my spam, now what is the chemical formula of sodium?",  //Friend1 //49
-
-				//For sodium question
-				"DARN IT! I shouldn't have promised now my spam is gone T_T" , //50 right
-				"Well atleast my spam won't be gone hohoho ^-^ but since you tried the chemical formula for sodium is Na, better luck next time!!" ,  //51  wrong
-
-				"Goodluck with your lunch study sessions, I'm outta here to buy myself a food in the cafeteria" ,  //Friend 2
-				"Hey, wait a minute let's wash our hands first we forgot to do this important step before eating.", //Character
-				"Yep! It almost slipped my mind, thank God you're here!!" , //Friend 2 //52
-
-				//WASHROOM
-				"It's always important to practice good hygiene, especially before eating. "
-				+ "We should wash our hands with soap and water for at least 20 seconds to ensure that we're removing "
-				+ "any dirt, germs, or bacteria that might be on our hands. Now do you know the chemical name and formula or hand liquid soap?" ,  //Character //53
-
-				//For hand liquid soap question
-				"Well done! now apply it properly on your hands so we can safely eat after this" , //50 right
-				"Too bad, well its a hard on anway but while applying it let me inform you that it's chemical name is Sodium Hydroxide with the C17H35COONa as its chemical formula" ,  //51  wrong
-
-				"That's so refreshing!! Let's go back now to our table, I'm feeling so hungry right now" ///52
-
 		};
 	}
 	

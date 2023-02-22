@@ -52,12 +52,15 @@ public class Game implements java.io.Serializable{
 	
 	public Game() {
 		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, screenWidth, screenHeight, lines, this);
+		// tc.introSequence();
 			sm.bgsMusic.setFile(sm.titleScreenMusic);
 			sm.bgsMusic.playMusic();
 			sm.bgsMusic.loopMusic();
 				//tc.introSequence();
 				//Story.pauseTime = 19000;
 				//Story.pause();
+				// Story.pauseTime = 17000;
+				// Story.pause();
 				Story.startStats();
 		tc.showTitleScreen();
 	}

@@ -107,7 +107,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.gameWindow.remove(ui.playerStatsPanel);
 			ui.gameWindow.remove(ui.dialoguePanel);
 			ui.gameWindow.remove(ui.choicePanel);
-			ui.gameWindow.remove(ui.bgPanel);
 		}
 }
 

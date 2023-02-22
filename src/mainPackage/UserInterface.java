@@ -29,11 +29,14 @@ public class UserInterface implements java.io.Serializable{
 		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, 
 						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
 						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel;
+						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel;
 
 		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, 
 						XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
 
 		public JButton startButton, continueButton, dialogueBox, nameInputBTN, 
+						choice1, choice2, choice3, choice4, saveButton, loadButton,
+						maleButton, femaleButton, inclusiveButton;
 						choice1, choice2, choice3, choice4, saveButton, loadButton,
 						maleButton, femaleButton, inclusiveButton;
 

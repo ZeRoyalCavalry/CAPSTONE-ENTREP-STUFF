@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class fadeIn extends JPanel implements ActionListener {
+public class fadeIn extends JPanel implements ActionListener, Serializable {
 
     Timer fadeInTimer = new Timer(18, this);
     BufferedImage fadeInImage;
