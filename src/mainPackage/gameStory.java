@@ -28,8 +28,7 @@ public class gameStory implements Serializable{
 					city = "temp3.jpg", bayRoute = "temp4.png", 
 					livingroom = "livingRoom.jpg", identifier;
 	
-	Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35);
-	Font normalFont = new Font ("Arial", Font.PLAIN, 35);
+	Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35), normalFont = new Font ("Arial", Font.PLAIN, 35);
 	Font hyperboleFont = new Font ("Papyrus", Font.BOLD, 40);
 	
 		int letterTracker = 0, arrayNumber, pauseTime = 0, normalSpeed = 30, fastSpeed = 5, enableKeys = 0, 
@@ -40,7 +39,7 @@ public class gameStory implements Serializable{
 		char DiaGen[], choiceGen[], nameGen[];
 		String name;
 		
-		JLabel bgHolder = new JLabel();
+		JLabel bgHolder = new JLabel(); JLabel charHolder = new JLabel();
 
 	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats, ImageManager imgManage) {	
 				game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats; images = imgManage;
@@ -420,18 +419,20 @@ public class gameStory implements Serializable{
 	}
 
 	public void goodbedroomExit12() {
-		bgHolder.setIcon(images.livingroomView);
 		sm.se.setFile7(sm.doorsfx);
 		sm.se.doorSFX.start();
 		pauseTime = 3000;
 		pause();
 		game.currentDialogue = "gbedroomExit12";
 		diatextTracker = 11;
+		ui.CharPanel.setVisible(true);
+			ui.CharPanel.add(charHolder);
+			charHolder.setIcon(images.momSprite);
 		ui.bgPanel.setVisible(true);
 			bgHolder.setIcon(images.livingroomView);
-			diatextTracker = 11;
-			ui.mainTextArea.setFont(normalFont);
-			startDialogue();
+		diatextTracker = 11;
+		ui.mainTextArea.setFont(normalFont);
+		startDialogue();
 			increaseCP = 1;
 			selectedRight();
 				ui.mainTextArea.append(name + "!");

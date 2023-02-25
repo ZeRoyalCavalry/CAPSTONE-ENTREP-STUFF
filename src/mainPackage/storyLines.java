@@ -130,8 +130,8 @@ public class storyLines implements java.io.Serializable{
 				"Blanking out from its surrealness, " + subInGender + " had to get your attention. . .", //43, right or offered help
 				
 				//Ignored
-				"Oh no!, I should have just helped them, I feel guilty now, I wonder what they will think of me!"
-				+ "I hope he is not late for school ", //44
+				"Oh no!, I should have just helped " + subInGender + ", I feel guilty now, I wonder what they will think of me!"
+				+ "I hope " + subInGender + " is not late for school ", //44
 				
 				//At school
 				"You finally arrived at the school", //45, narration

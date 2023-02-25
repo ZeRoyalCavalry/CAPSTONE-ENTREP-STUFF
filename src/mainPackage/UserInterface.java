@@ -28,7 +28,7 @@ public class UserInterface implements java.io.Serializable{
 
 		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, 
 						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
-						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel;
+						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, CharPanel;
 
 		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, 
 						XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
@@ -75,6 +75,11 @@ public class UserInterface implements java.io.Serializable{
 
 			int alignNBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2));
 			int alignNBY = (int)Math.round(screenHeight/1.60);
+			
+			//Character Panel Scaling 
+			int CharPanelW = 430; int CharPanelH = 1300;
+			int alignCharPanelX = (int)Math.round(screenWidth/4.2); 
+			int alignCharPanelY = (int)Math.round(screenHeight);
 
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
@@ -250,6 +255,13 @@ public class UserInterface implements java.io.Serializable{
 			gameWindow.add(continueButtonPanel);
 			
 			//ACTUAL GAME
+
+			//Character Image Holder
+			CharPanel = new JPanel();
+				CharPanel.setBounds(alignCharPanelX, alignCharPanelY, CharPanelW, CharPanelH);
+				CharPanel.setBackground(Color.black);					
+			
+			//Text Area Holder
 			mainTextPanel = new JPanel();
 				//mainTextPanel.setBounds(120,160,1300,250);
 				mainTextPanel.setBounds(alignMTPX, alignMTPY, mtpWidth, mtpHeight);
@@ -259,7 +271,7 @@ public class UserInterface implements java.io.Serializable{
 				mainTextPanel.addKeyListener(kbHandler);
 			gameWindow.add(mainTextPanel);	
 			
-			//Text Making
+			//Text Area
 			mainTextArea = new JTextArea("");
 				//mainTextArea.setBounds(150,185,1200,230);
 				mainTextArea.setBounds(alignMTAX,alignMTAY,mtaWidth,mtaHeight);
@@ -398,6 +410,7 @@ public class UserInterface implements java.io.Serializable{
 			gameWindow.add(playerStatsPanel);
 			gameWindow.add(choicePanel);		
 			gameWindow.add(bgPanel);
+			gameWindow.add(CharPanel);
 				gameWindow.setVisible(true);	
 			//setFullScreen();
 		}

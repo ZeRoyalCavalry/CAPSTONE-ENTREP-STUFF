@@ -59,8 +59,6 @@ public class Game implements java.io.Serializable{
 				//tc.introSequence();
 				//Story.pauseTime = 19000;
 				//Story.pause();
-				// Story.pauseTime = 17000;
-				// Story.pause();
 				Story.startStats();
 		tc.showTitleScreen();
 	}

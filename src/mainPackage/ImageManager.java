@@ -1,16 +1,21 @@
 package mainPackage;
 
 import java.awt.Image;
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
-public class ImageManager {
+public class ImageManager implements Serializable{
 
     Game game;
     public ImageIcon bedroomView, cityView, bayRouteView, livingroomView;
 
+    public ImageIcon momSprite;
+
     public ImageManager(Game game2, int screenWidth, int screenHeight) {
         game = game2;
 
+        //Background Images
         bedroomView = new ImageIcon(getClass().getClassLoader().getResource("bedroom.png"));
             Image newBedroom = bedroomView.getImage();
             Image resizedBedroom = newBedroom.getScaledInstance(game.screenWidth, game.screenHeight, Image.SCALE_SMOOTH);
@@ -30,5 +35,11 @@ public class ImageManager {
             Image newLivingRoom = livingroomView.getImage();
             Image resizedLivingRoom = newLivingRoom.getScaledInstance(game.screenWidth, game.screenHeight, Image.SCALE_SMOOTH);
             livingroomView = new ImageIcon(resizedLivingRoom);
+
+        //Character Images
+        momSprite = new ImageIcon(getClass().getClassLoader().getResource("momSprite.png"));
+            Image newMom = momSprite.getImage();
+            Image resizedMom = newMom.getScaledInstance(game.screenWidth, game.screenHeight, Image.SCALE_SMOOTH);
+            momSprite = new ImageIcon(resizedMom);
     }
 }

@@ -14,11 +14,11 @@ public class soundManager implements java.io.Serializable {
 	bgSceneMusic bgsMusic = new bgSceneMusic();
 	
 	//ALL SOUUND EFFECTS AND MUSIC ARE FREE TO USE
-	String titleScreenMusic = ".//resource//titleScreenMusic_ZRC.wav", buttonsfx = ".//resource//button_Universfield.wav",
-			typesfx = ".//resource//typesound_SennaFoxy.wav", birdsfx = ".//resource//birdschirpping_nektaria909.wav",
-			curtainsfx = ".//resource//curtainopen_jeneveev.wav",alarmclocksfx = ".//resource//alarmclock_ZyryTSounds.wav", 
-			outofbedsfx = ".//resource//outofbed_LOTWStudios.wav", showersfx = ".//resource//shower_vmgraw.wav",
-			doorsfx = ".//resource//door_Zeinel.wav", brushteethsfx = ".//resource//brushteeth_shelbyshark.wav";
+	String titleScreenMusic = ".//Sounds//titleScreenMusic_ZRC.wav", buttonsfx = ".//Sounds//button_Universfield.wav",
+			typesfx = ".//Sounds//typesound_SennaFoxy.wav", birdsfx = ".//Sounds//birdschirpping_nektaria909.wav",
+			curtainsfx = ".//Sounds//curtainopen_jeneveev.wav",alarmclocksfx = ".//Sounds//alarmclock_ZyryTSounds.wav", 
+			outofbedsfx = ".//Sounds//outofbed_LOTWStudios.wav", showersfx = ".//Sounds//shower_vmgraw.wav",
+			doorsfx = ".//Sounds//door_Zeinel.wav", brushteethsfx = ".//Sounds//brushteeth_shelbyshark.wav";
 
 	
 	public class soundEffect{
