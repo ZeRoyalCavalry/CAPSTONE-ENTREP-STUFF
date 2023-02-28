@@ -11,7 +11,6 @@ public class TransitionClass implements java.io.Serializable {
 		public void introSequence(){
 			ui.introPanel.setVisible(true);
 			
-			//ui.CharPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
 			ui.nonSelectPanel.setVisible(false);
@@ -26,7 +25,6 @@ public class TransitionClass implements java.io.Serializable {
 		}
 		public void showTitleScreen(){
 			
-			ui.CharPanel.setVisible(true);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
 			ui.nonSelectPanel.setVisible(false);
@@ -47,7 +45,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.nameInputPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(false);
 			
-			ui.CharPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
 			ui.nonSelectPanel.setVisible(false);
@@ -62,7 +59,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.femaleSelectPanel.setVisible(true);
 			ui.nonSelectPanel.setVisible(true);
 
-			ui.CharPanel.setVisible(false);
 			ui.introPanel.setVisible(false);
 			ui.mainTextPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
@@ -78,7 +74,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 
-			ui.CharPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
 			ui.nonSelectPanel.setVisible(false);
@@ -97,7 +92,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.choicePanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 			
-			ui.CharPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
 			ui.nonSelectPanel.setVisible(false);
@@ -106,13 +100,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.startButtonPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
-		}
-
-		public void fade(){
-			ui.gameWindow.remove(ui.mainTextPanel);
-			ui.gameWindow.remove(ui.playerStatsPanel);
-			ui.gameWindow.remove(ui.dialoguePanel);
-			ui.gameWindow.remove(ui.choicePanel);
 		}
 }
 

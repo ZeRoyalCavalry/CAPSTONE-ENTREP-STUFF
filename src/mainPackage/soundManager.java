@@ -11,10 +11,10 @@ public class soundManager implements java.io.Serializable {
 	gameStory Story;
 
 	public soundEffect se = new soundEffect();
-	bgSceneMusic bgsMusic = new bgSceneMusic();
+	public bgSceneMusic bgsMusic = new bgSceneMusic();
 	
 	//ALL SOUUND EFFECTS AND MUSIC ARE FREE TO USE
-	String titleScreenMusic = ".//Sounds//titleScreenMusic_ZRC.wav", buttonsfx = ".//Sounds//button_Universfield.wav",
+	public String titleScreenMusic = ".//Sounds//titleScreenMusic_ZRC.wav", buttonsfx = ".//Sounds//button_Universfield.wav",
 			typesfx = ".//Sounds//typesound_SennaFoxy.wav", birdsfx = ".//Sounds//birdschirpping_nektaria909.wav",
 			curtainsfx = ".//Sounds//curtainopen_jeneveev.wav",alarmclocksfx = ".//Sounds//alarmclock_ZyryTSounds.wav", 
 			outofbedsfx = ".//Sounds//outofbed_LOTWStudios.wav", showersfx = ".//Sounds//shower_vmgraw.wav",
@@ -23,7 +23,8 @@ public class soundManager implements java.io.Serializable {
 	
 	public class soundEffect{
 		
-		Clip btnSFX;
+		public Clip btnSFX, typeSFX, birdSFX, curtainSFX, alarmclockSFX, outofbedSFX, showerSFX, brushteethSFX, doorSFX;
+		
 		public void setFile(String sfx0Name) {
 			try {
 				File btnfile = new File(sfx0Name);
@@ -39,7 +40,6 @@ public class soundManager implements java.io.Serializable {
 			btnSFX.start();
 		}
 		
-		Clip typeSFX;
 		public void setFile1(String sfx1Name) {
 			try {
 				File typefile = new File(sfx1Name);
@@ -55,7 +55,6 @@ public class soundManager implements java.io.Serializable {
 			typeSFX.start();
 		}
 		
-		Clip birdSFX;
 		public void setFile2(String sfx2Name) {
 			try {
 				File birdfile = new File(sfx2Name);
@@ -71,7 +70,6 @@ public class soundManager implements java.io.Serializable {
 			birdSFX.start();
 		}
 		
-		Clip curtainSFX;
 		public void setFile3(String sfx3Name) {
 			try {
 				File curtainfile = new File(sfx3Name);
@@ -87,7 +85,6 @@ public class soundManager implements java.io.Serializable {
 			curtainSFX.start();
 		}
 
-		Clip alarmclockSFX;
 		public void setFile4(String sfx4Name){
 			try{
 				File alarmclockFile = new File(sfx4Name);
@@ -103,7 +100,6 @@ public class soundManager implements java.io.Serializable {
 			alarmclockSFX.start();
 		}
 
-		Clip outofbedSFX;
 		public void setFile5(String sfx5Name){
 			try{
 				File oobFile = new File(sfx5Name);
@@ -119,7 +115,6 @@ public class soundManager implements java.io.Serializable {
 			outofbedSFX.start();
 		}
 
-		Clip showerSFX;
 		public void setFile6(String sfx6Name){
 			try{
 				File showerFile = new File(sfx6Name);
@@ -134,7 +129,7 @@ public class soundManager implements java.io.Serializable {
 			showerSFX.setFramePosition(0);
 			showerSFX.start();
 		}
-		Clip doorSFX;
+
 		public void setFile7(String sfx7Name){
 			try{
 				File doorFile = new File(sfx7Name);
@@ -150,7 +145,6 @@ public class soundManager implements java.io.Serializable {
 			showerSFX.start();
 		}
 
-		Clip brushteethSFX;
 		public void setFile8(String sfx8Name){
 			try{
 				File brushteethFile = new File(sfx8Name);
@@ -168,7 +162,7 @@ public class soundManager implements java.io.Serializable {
 	}
 	
 	public class bgSceneMusic{
-		Clip backgroundMusic;
+		public Clip backgroundMusic;
 		public void setFile(String bgName) {
 			try {
 				File file = new File(bgName);

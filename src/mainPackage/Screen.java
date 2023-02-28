@@ -16,10 +16,10 @@ public class Screen extends JPanel implements ActionListener{
 	
 	gameStory Story;
 
-	Timer alphaTimer = new Timer(18, this);
-	BufferedImage buffImage = null;
-	float alphaValue = 1f;
-	String imageName;
+	public Timer alphaTimer = new Timer(18, this);
+	public BufferedImage buffImage = null;
+	public float alphaValue = 1f;
+	public String imageName;
 
 	public Screen(String imageName) {
 		this.imageName = imageName;

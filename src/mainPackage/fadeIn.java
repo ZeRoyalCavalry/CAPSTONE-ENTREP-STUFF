@@ -14,10 +14,10 @@ import javax.swing.Timer;
 
 public class fadeIn extends JPanel implements ActionListener {
 
-    Timer fadeInTimer = new Timer(18, this);
-    BufferedImage fadeInImage;
-    float fadeInValue = 0.01f;
-    String bgImage;
+    public Timer fadeInTimer = new Timer(18, this);
+    public BufferedImage fadeInImage;
+    public float fadeInValue = 0.01f;
+    public String bgImage;
 
 
     public fadeIn(String bgImage){

@@ -1,59 +1,46 @@
 package mainPackage;
 
 import javax.swing.JLabel;
-import javax.swing.Timer;
 
-import mainPackage.storyLines.dialogues;
-import mainPackage.storyLines.questions;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import scenes.introScene;
+import scenes.sceneOne;
 
 import java.io.Serializable;
 
 public class gameStory implements Serializable{
 	
-	Game game;
-	UserInterface ui;
-	TransitionClass sceneChanger;
-	soundManager sm;
-	Screen screen;
-	playerStats player;
-	storyLines lines;
+	introScene intro; sceneOne scOne;
+	
+	Game game; UserInterface ui;
+	TransitionClass sceneChanger; soundManager sm;
+	playerStats player; storyLines lines;
 	ImageManager images;
-
-	static String defaultBg = "temp1.png", bedroom = "bedroom.png", 
-					city = "temp3.jpg", bayRoute = "temp4.png", 
-					livingroom = "livingRoom.jpg", identifier;
 	
-	Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35), normalFont = new Font ("Arial", Font.PLAIN, 35);
-	Font hyperboleFont = new Font ("Papyrus", Font.BOLD, 40);
-	
-		int letterTracker = 0, arrayNumber, pauseTime = 0, normalSpeed = 30, fastSpeed = 5, enableKeys = 0, 
-			increaseXP = 0, increaseCP = 0, decreaseCP = 0, number = 0;
+		public static int  pauseTime = 0;
+		public static int increaseCP = 0,  increaseXP = 0, decreaseCP = 0;
+		public int number = 0;
 
-		int diatextTracker = 0, questiontextTracker = 0;
-
-		char DiaGen[], choiceGen[], nameGen[];
-		String name;
+		public static String name;
 		
-		JLabel bgHolder = new JLabel(); JLabel charHolder = new JLabel();
+		public static JLabel bgHolder = new JLabel();
+		public static JLabel charHolder = new JLabel(); 
 
-	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats, ImageManager imgManage) {	
-				game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats; images = imgManage;
+	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats, ImageManager imgManage, 
+					introScene intro2, sceneOne homeOne) {	
+				game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats; images = imgManage; 
+				
+				intro = intro2; scOne = homeOne;
 	}
 	
 	public void startStats(){
-		player.maxCP = 10;
-		player.XP = 0;
-			ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
-		player.CP = 10;
-			ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+		playerStats.maxCP = 10;
+		playerStats.XP = 0;
+			ui.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+			playerStats.CP = 10;
+			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
 	}
 
-	public void pause() {
+	public static void pause() {
 		try {
 			Thread.sleep(pauseTime);
 		}
@@ -62,108 +49,52 @@ public class gameStory implements Serializable{
 		}
 	}
 
-	//INTRO GENERATION
-	Timer DiaTimer = new Timer(normalSpeed, new ActionListener(){
-		public void actionPerformed(ActionEvent ie) {
-			enableKeys = 0;
-			ui.dialoguePanel.setVisible(false);
-			DiaGen = dialogues.diaText[diatextTracker].toCharArray();
-			arrayNumber = DiaGen.length;
-			
-				if((letterTracker%3) == 0){
-					sm.se.setFile1(sm.typesfx);
-					sm.se.playTypeSFX();
-				}
-				
-			String letterGen = "";
-			String space = "";
-		
-			letterGen = space + DiaGen[letterTracker]; 
-			ui.mainTextArea.append(letterGen);
-			
-			letterTracker++;
-			if(letterTracker == arrayNumber) {
-				letterTracker = 0;
-				DiaTimer.stop();
-				//diatextTracker++;
-				ui.dialoguePanel.setVisible(true);
-				enableKeys = 1;
-			}
-		}
-	});
-
-	//DECISION MOMENT ANIMATION
-	Timer choiceTimer = new Timer(normalSpeed, new ActionListener(){
-		public void actionPerformed(ActionEvent c) {
-			ui.dialoguePanel.setVisible(false);
-			choiceGen = questions.questionText[questiontextTracker].toCharArray();
-			arrayNumber = choiceGen.length;
-			
-				if((letterTracker%2) == 0){
-					sm.se.setFile1(sm.typesfx);
-					sm.se.playTypeSFX();
-				}
-				
-			String letterGen = "";
-			String space = "";
-			
-			letterGen = space + choiceGen[letterTracker]; 
-			ui.mainTextArea.append(letterGen);
-			
-			letterTracker++;
-			if(letterTracker == arrayNumber) {
-				letterTracker = 0;
-				choiceTimer.stop();
-				//questiontextTracker++;
-				sceneChanger.showChoices();
-			}
-		}
-	});
-
 	//For simple dialogue moments	
 	public void dialogueTracker(String nextDialogue) {
 		switch(nextDialogue){
-		case "intro0":    	intro0Game(); break; 
-		case "genderSelect": sceneChanger.genderSelect(); genderSelect(); break;
-		case "intro1":   	sceneChanger.showDialogue(); intro1Game(); break;
-		case "intro2":    	intro2Game(); break;
-		case "intro3":    	intro3Game(); break;
-		case "intro3to4": 	intro3to4(); break;
-		case "intro4":    	sceneChanger.showDialogue(); intro4Game(); break;
-		case "intro5": 	  	intro5Game(); break;
-		case "intro5to6": 	intro5to6(); break;
-		case "intro6":    	sceneChanger.showDialogue(); intro6Game(); break;
-		case "intro6toEnd": intro6toEnd(); break;
-		case "introEnd":  	amBedroom(); break;
+		case "intro0":    	intro.intro0Game(); break; 
+		case "genderSelect": sceneChanger.genderSelect(); intro.genderSelect(); break;
+		case "intro1":   	sceneChanger.showDialogue(); intro.intro1Game(); break;
+		case "intro2":    	intro.intro2Game(); break;
+		case "intro3":    	intro.intro3Game(); break;
+		case "intro3to4": 	game.enableKeys = 1; intro.intro3to4(); break;
+		case "intro4":    	sceneChanger.showDialogue(); intro.intro4Game(); break;
+		case "intro5": 	  	intro.intro5Game(); break;
+		case "intro5to6": 	intro.intro5to6(); break;
+		case "intro6":    	sceneChanger.showDialogue(); intro.intro6Game(); break;
+		case "intro6toEnd": intro.intro6toEnd(); break;
+
+		case "introEnd":  	scOne.amBedroom(); break;
 			
-			case "gbedroomExit12": sceneChanger.showDialogue(); goodbedroomExit12(); break;
-			case "gbedroomExit13": goodbedroomExit13(); break;
+			case "gbedroomExit12": sceneChanger.showDialogue(); scOne.goodbedroomExit12(); break;
+			case "gbedroomExit13": scOne.goodbedroomExit13(); break;
 		
-			case "scolding11": sceneChanger.showDialogue(); scolding11(); break;
-				case "bbedroomExit12": badbedroomExit12(); break;
-				case "bbedroomExit13": badbedroomExit13(); break;
+			case "scolding11": sceneChanger.showDialogue(); scOne.scolding11(); break;
+				case "bbedroomExit12": scOne.badbedroomExit12(); break;
+				case "bbedroomExit13": scOne.badbedroomExit13(); break;
 
-			case "explanation1": explanation1(); break;
-			case "explanation2": explanation2(); break;
-			case "explanation3": explanation3(); break;
+			case "explanation1": scOne.explanation1(); break;
+			case "explanation2": scOne.explanation2(); break;
+			case "explanation3": scOne.explanation3(); break;
 
-				case "bbedroomExit14": badbedroomExit14(); break;  
-				case "sidefirstQuestion": sidefirstQuestion(); break;
-					case "sfcorrect0": rightMelatonin(); break;
-					case "sfincorrect0": wrongMelatonin(); break;
+				case "bbedroomExit14": 	  scOne.badbedroomExit14(); break;  
+				case "sidefirstQuestion": scOne.sidefirstQuestion(); break;
+					case "sfcorrect0":    scOne.rightMelatonin(); break;
+					case "sfincorrect0":  scOne.wrongMelatonin(); break;
 
-		case "setupFirstQuestion": setupFirstQuestion(); break;
-		case "preFirstQuestion": preFirstQuestion(); break;
+		case "setupFirstQuestion": scOne.setupFirstQuestion(); break;
+		case "preFirstQuestion": scOne.preFirstQuestion(); break;
 
-		//case "preFirstQuestion": preFirstQuestion(); break;
-		case "firstQuestion": firstQuestion(); break;
-		case "secondQuestion": secondQuestion(); break;
+		case "firstQuestion": scOne.firstQuestion(); break;
+		case "secondQuestion": scOne.secondQuestion(); break;
 
-		case "afterQAOne": afterQAOne(); break;
-		case "sceneOneEnd": sceneOneEnd(); break;
+		case "afterQAOne": scOne.afterQAOne(); break;
+		case "sceneOneEnd": scOne.sceneOneEnd(); break;
 
-		case "exitHouse": exitHouse(); break;
-
+		case "exitHouse": scOne.exitHouse(); break;
+		}
+	}
+		/*
 		case "sceneTwoStart": sceneTwoStart(); break;
 		case "suddenRain": suddenRain(); break;
 		case "suddenRain2": suddenRain2(); break;
@@ -189,60 +120,51 @@ public class gameStory implements Serializable{
 		case "cafeteria3": cafeteria3(); break;
 		case "cafeteria4": cafeteria4(); break;
 	}
-}
+}*/
 	
 	//For choice making moments
 	public void progressTracker(String nextMove) {
 		switch(nextMove) {
-			case "afterBed": amBedroom(); break;
-				case "bedroomExit11": bedroomExit11(); sceneChanger.showDialogue(); break;
-				case "bedroomStudy11": bedroomStudy11(); sceneChanger.showDialogue(); break;		
-				case "bedroomSS11": bedroomSS11();  sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); 
+			case "afterBed": scOne.amBedroom(); break;
+				case "bedroomExit11": scOne.bedroomExit11(); sceneChanger.showDialogue(); break;
+				case "bedroomStudy11": scOne.bedroomStudy11(); sceneChanger.showDialogue(); break;		
+				case "bedroomSS11": scOne.bedroomSS11();  sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); 
 									bgHolder.setIcon(images.cityView); break;		
-				case "bedroomSleep11": bedroomSleep11(); sceneChanger.showDialogue(); break;	
+				case "bedroomSleep11": scOne.bedroomSleep11(); sceneChanger.showDialogue(); break;	
 				
-			case "sidefirstQuestion": sidefirstQuestion(); break;
-				case "sfhincorrect0": answerHappiness(); sceneChanger.showDialogue(); break;
-				case "sfpincorrect0": answerPleasure(); sceneChanger.showDialogue(); break;
-				case "sfscorrect0": answerSleepiness(); sceneChanger.showDialogue(); break;
-				case "sfaincorrect0": answerAggressiveness(); sceneChanger.showDialogue(); break;
+			case "sidefirstQuestion": scOne.sidefirstQuestion(); break;
+				case "sfhincorrect0": scOne.answerHappiness(); sceneChanger.showDialogue(); break;
+				case "sfpincorrect0": scOne.answerPleasure(); sceneChanger.showDialogue(); break;
+				case "sfscorrect0":   scOne.answerSleepiness(); sceneChanger.showDialogue(); break;
+				case "sfaincorrect0": scOne.answerAggressiveness(); sceneChanger.showDialogue(); break;
 			
-			case "firstQuestion": firstQuestion(); break;
-				case "correct1": rightFirst(); sceneChanger.showDialogue(); break;
-				case "incorrect1": wrongFirst(); sceneChanger.showDialogue(); break;
+			case "firstQuestion": scOne.firstQuestion(); break;
+				case "correct1": 	scOne.rightFirst(); sceneChanger.showDialogue(); break;
+				case "incorrect1":  scOne.wrongFirst(); sceneChanger.showDialogue(); break;
 
-			case "secondQuestion": secondQuestion(); break;
-				case "correct2": rightSecond(); sceneChanger.showDialogue(); break;
-				case "incorrect2": wrongSecond(); sceneChanger.showDialogue(); break;
+			case "secondQuestion": scOne.secondQuestion(); break;
+				case "correct2": 	scOne.rightSecond(); sceneChanger.showDialogue(); break;
+				case "incorrect2":  scOne.wrongSecond(); sceneChanger.showDialogue(); break;
 			
-			case "HelpOrIgnore": HelpOrIgnore(); break;
+			/*case "HelpOrIgnore": HelpOrIgnore(); break;
 				case "helped": crushHelped1(); sceneChanger.showDialogue(); break;
-				case "ignored": crushIgnored(); sceneChanger.showDialogue(); break;
+				case "ignored": crushIgnored(); sceneChanger.showDialogue(); break;*/
 		}
 	}
-	public void startDialogue(){
-		number++;
-		increaseCP = 0; decreaseCP = 0;
-		ui.mainTextArea.setText("");
-		ui.dialogueBox.setText(">");
-		DiaTimer.start();
-		enableKeys = 0;
-		System.out.println("DIALOGUE SUCCESS: " + number);
-	}
-	public void selectedRight(){
-		if(player.CP < player.maxCP){
-			player.CP = player.CP + increaseCP;
-			ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+	public static void selectedRight(){
+		if(playerStats.CP < playerStats.maxCP){
+			playerStats.CP = playerStats.CP + increaseCP;
+			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
 		}
 	}
-	public void selectedWrong(){
-		if(player.CP > 0){
-			player.CP = player.CP - decreaseCP;
-			ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+	public static void selectedWrong(){
+		if(playerStats.CP > 0){
+			playerStats.CP = playerStats.CP - decreaseCP;
+			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
 		}
 	}
-
-	//Mostly Dialogue
+}
+	/*Mostly Dialogue
 	public void intro0Game() {//Get name
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro0";
@@ -425,11 +347,8 @@ public class gameStory implements Serializable{
 		pause();
 		game.currentDialogue = "gbedroomExit12";
 		diatextTracker = 11;
-		ui.CharPanel.setVisible(true);
-			ui.CharPanel.add(charHolder);
-			charHolder.setIcon(images.momSprite);
-		ui.bgPanel.setVisible(true);
-			bgHolder.setIcon(images.livingroomView);
+			CutsceneMaker livingroomCutscene = new CutsceneMaker(momSprite, livingroom);
+				ui.gameWindow.add(livingroomCutscene);
 		diatextTracker = 11;
 		ui.mainTextArea.setFont(normalFont);
 		startDialogue();
@@ -937,4 +856,4 @@ public class gameStory implements Serializable{
 		startDialogue();
 			game.nextDialogue = "cafeteria4";
 	}
-}
+}*/

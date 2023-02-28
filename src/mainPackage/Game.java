@@ -1,14 +1,21 @@
 package mainPackage;
 
+import scenes.introScene;
+import scenes.sceneOne;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
+import javax.swing.Timer;
 import javax.swing.event.MenuKeyEvent;
 //import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MouseInputListener;
+
+import mainPackage.storyLines.dialogues;
+import mainPackage.storyLines.questions;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -18,6 +25,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 
 public class Game implements java.io.Serializable{
@@ -25,26 +33,44 @@ public class Game implements java.io.Serializable{
 	Dimension gameWindowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int)gameWindowSize.getWidth();
 		int screenHeight = (int)gameWindowSize.getHeight();
-
+		
+	public Font narrationFont = new Font("Times New Roman", Font.ITALIC, 35), normalFont = new Font ("Arial", Font.PLAIN, 35),
+			hyperboleFont = new Font ("Papyrus", Font.BOLD, 40);
+		
+	//Game Mechanics/Essentials
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
 	storyLines lines = new storyLines();
 	playerStats player = new playerStats();
 	TransitionClass tc = new TransitionClass(ui);
 	ImageManager imgManage = new ImageManager(this, screenWidth, screenHeight);
-	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage);
-
+		
+	//Scene Management
+		introScene intro = new introScene(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		sceneOne homeOne = new sceneOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+	
+	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, homeOne);
+	
+	//Input Handlers
 	ChoiceHandler cHandler = new ChoiceHandler();
 	MouseHandler mHandler = new MouseHandler();
 	KeyboardHandler kbHandler = new KeyboardHandler();
 	NameHandler nHandler = new NameHandler();
 
+	//Save-Load Button (VERY IMPORTANT)
 	SaveLoadHandler saveloadHandler = new SaveLoadHandler();
-		
-		int mouseClick = 0;
 	
-	String currentDialogue, currentQuestion, nextDialogue, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
-	static String playerName, gender; 
+		int click = 0;
+	
+	public String currentDialogue, currentQuestion, nextDialogue, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
+	public static String playerName, gender, selected; 
+	
+	public int diatextTracker = 0, questiontextTracker = 0, enableKeys = 0, letterTracker = 0, arrayNumber,
+				normalSpeed = 30, fastSpeed = 5;
+
+	public char DiaGen[], choiceGen[], nameGen[];
+	
+	public Timer DiaTimer, choiceTimer;
 
 	public static void main(String[] args) {
 		new Game();
@@ -52,13 +78,13 @@ public class Game implements java.io.Serializable{
 	
 	public Game() {
 		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, screenWidth, screenHeight, lines, this);
-		// tc.introSequence();
-			sm.bgsMusic.setFile(sm.titleScreenMusic);
-			sm.bgsMusic.playMusic();
-			sm.bgsMusic.loopMusic();
-				//tc.introSequence();
-				//Story.pauseTime = 19000;
-				//Story.pause();
+		// // tc.introSequence();
+		 	sm.bgsMusic.setFile(sm.titleScreenMusic);
+		// 	sm.bgsMusic.playMusic();
+		// 	sm.bgsMusic.loopMusic();
+		// 		//tc.introSequence();
+		// 		//Story.pauseTime = 19000;
+		// 		//Story.pause();
 				Story.startStats();
 		tc.showTitleScreen();
 	}
@@ -72,66 +98,141 @@ public class Game implements java.io.Serializable{
 			
 				switch(theChoice) {
 					case "start":
+						textGeneration();
 						ui.bgPanel.remove(ui.bgPic);
 						tc.showDialogue();
-						Story.intro0Game();
+						intro.intro0Game();
+						//Story.goodbedroomExit12();
 						tc.showName();
-						sm.bgsMusic.stopMusic();
 						saveAction();
 						break;
 					case "continue":
+						textGeneration();
 						ui.bgPanel.remove(ui.bgPic);
 						sm.bgsMusic.stopMusic();
 						tc.showDialogue();
 						loadAction();
 						break;
+						
 					case "dialogue":
 						sm.se.setFile(sm.buttonsfx);
 						sm.se.playButtonSFX();
 						Story.dialogueTracker(nextDialogue);
 						break;
+						
 					case "male":
+						selected = "HE";
 						gender = "she";
 						storyLines.subInGender = gender;
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 						break;
 					case "female":
+						selected = "SHE";
 						gender = "he";
 						storyLines.subInGender = gender;
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 						break;					
 					case "inclusive":
+						selected = "THEY";
 						gender = "they";
 						storyLines.subInGender = gender;
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 						break;
+						
 					case "c1":
-						Story.progressTracker(nextPosition1);
-						break;
+						Story.progressTracker(nextPosition1); break;
 					case "c2":
-						Story.progressTracker(nextPosition2);
-						break;
+						Story.progressTracker(nextPosition2); break;
 					case "c3":
-						Story.progressTracker(nextPosition3);
-						break;
+						Story.progressTracker(nextPosition3); break;
 					case "c4":
-						Story.progressTracker(nextPosition4);
-						break;		
+						Story.progressTracker(nextPosition4); break;	
 			}
 		}
 	}
 
+	public void textGeneration() {
+		//INTRO GENERATION
+		DiaTimer = new Timer(normalSpeed, new ActionListener(){
+			public void actionPerformed(ActionEvent ie) {
+				enableKeys = 0;
+				ui.dialoguePanel.setVisible(false);
+				DiaGen = dialogues.diaText[diatextTracker].toCharArray();
+				arrayNumber = DiaGen.length;
+				
+					if((letterTracker%3) == 0){
+						sm.se.setFile1(sm.typesfx);
+						sm.se.playTypeSFX();
+					}
+					
+				String letterGen = ""; String space = "";
+			
+				letterGen = space + DiaGen[letterTracker]; 
+				ui.mainTextArea.append(letterGen);
+				
+				letterTracker++;
+				if(letterTracker == arrayNumber) {
+					letterTracker = 0;
+					DiaTimer.stop();
+					diatextTracker++;
+					ui.dialoguePanel.setVisible(true);
+					enableKeys = 1;
+				}
+			}
+		});
+
+		//DECISION MOMENT ANIMATION
+		choiceTimer = new Timer(normalSpeed, new ActionListener(){
+			public void actionPerformed(ActionEvent c) {
+				ui.dialoguePanel.setVisible(false);
+				choiceGen = questions.questionText[questiontextTracker].toCharArray();
+				arrayNumber = choiceGen.length;
+				
+					if((letterTracker%2) == 0){
+						sm.se.setFile1(sm.typesfx);
+						sm.se.playTypeSFX();
+					}
+					
+				String letterGen = ""; String space = "";
+				
+				letterGen = space + choiceGen[letterTracker]; 
+				ui.mainTextArea.append(letterGen);
+				
+				letterTracker++;
+				if(letterTracker == arrayNumber) {
+					letterTracker = 0;
+					choiceTimer.stop();
+					questiontextTracker++;
+					tc.showChoices();
+				}
+			}
+		});
+	}
+	
+	public void startDialogue(){
+		Story.number++;
+		gameStory.increaseCP = 0; gameStory.decreaseCP = 0;
+		ui.mainTextArea.setText("");
+		ui.dialogueBox.setText(">");
+		DiaTimer.start();
+		enableKeys = 0;
+		System.out.println("DIALOGUE SUCCESS: " + Story.number);
+	}
+	
 	public class MouseHandler implements MouseInputListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {	
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {
-			Story.DiaTimer.setDelay(Story.fastSpeed);
+			DiaTimer.setDelay(fastSpeed);
 		}
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			Story.DiaTimer.setDelay(Story.normalSpeed);
+			DiaTimer.setDelay(normalSpeed);
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -153,15 +254,16 @@ public class Game implements java.io.Serializable{
 				sm.se.setFile(sm.buttonsfx);
 				sm.se.playButtonSFX(); // STANDARD BUTTON NOISE
 					playerName = ui.nameInput.getText();
-					if(playerName != null) {
-						Story.name = playerName;
-						Story.dialogueTracker(nextDialogue);
-						saveAction();
+					if(ui.nameInput == null) {
+						Story.dialogueTracker("intro0");
+						diatextTracker = 0;
+						tc.showName();
+						intro.intro0Game();
 					}
 					else {
-						Story.diatextTracker = 0;
-						tc.showName();
-						Story.intro0Game();
+						gameStory.name = playerName;
+						Story.dialogueTracker(nextDialogue);
+						saveAction();
 					}
 			}
 		}
@@ -175,21 +277,23 @@ public class Game implements java.io.Serializable{
 		@Override
 		public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==MenuKeyEvent.VK_SPACE) {
-					Story.DiaTimer.setDelay(Story.fastSpeed);
+					DiaTimer.setDelay(fastSpeed);
 				}
-			if(Story.enableKeys == 1) {
-				if(e.getKeyCode() == 'z' || e.getKeyCode() == 'Z') {
-					ui.mainTextArea.setText("");
-					sm.se.setFile(sm.buttonsfx);
-					sm.se.playButtonSFX();
-					Story.dialogueTracker(nextDialogue);
-				}
+				if(enableKeys == 1) {
+					if(e.getKeyCode() == 'z' || e.getKeyCode() == 'Z') {
+						click++;
+						sm.se.setFile(sm.buttonsfx);
+						sm.se.playButtonSFX();
+						DiaTimer.stop();
+						ui.mainTextArea.setText("");
+						Story.dialogueTracker(nextDialogue);
+				}	
 			}
 		}
 		@Override
 		public void keyReleased(KeyEvent e) {
 			if(e.getKeyCode()==MenuKeyEvent.VK_SPACE) {
-				Story.DiaTimer.setDelay(Story.normalSpeed);
+				DiaTimer.setDelay(normalSpeed);
 			}			
 		}
 
@@ -221,24 +325,25 @@ public class Game implements java.io.Serializable{
 			DataStorage dStorage = new DataStorage();
 
 			dStorage.playerName = playerName;
+			dStorage.selectedGender = selected;
 
-			dStorage.playerCP = player.CP;
-			dStorage.playerXP = player.XP;
-			dStorage.playermaxCP = player.maxCP;
+			dStorage.playerCP = playerStats.CP;
+			dStorage.playerXP = playerStats.XP;
+			dStorage.playermaxCP = playerStats.maxCP;
 
-			dStorage.dialogueTracker = Story.diatextTracker;
+			dStorage.dialogueTracker = diatextTracker;
 			dStorage.playerDialogue = currentDialogue;
 			dStorage.nextStoryDialogue = nextDialogue;
 
-			dStorage.questionTracker = Story.questiontextTracker;
-			//dStorage.playerQuestion = currentQuestion;
+			dStorage.questionTracker = questiontextTracker;
+			dStorage.playerQuestion = currentQuestion;
 
 			oos.writeObject(dStorage);
 			oos.close();
 			System.out.println();
 			System.out.println("SAVE COMPLETE:");
 			System.out.println("Player Name: " + dStorage.playerName);
-			System.out.println("CP: " + dStorage.playerCP + " | " + "XP: " + dStorage.playerXP + " | ");
+			System.out.println("CP: " + dStorage.playerCP + " | " + "XP: " + dStorage.playerXP + " | " + "GENDER: " + dStorage.selectedGender + " | ");
 			System.out.println("Current Position: " + dStorage.playerDialogue + " | " 
 								+ "Dialogue Tracker Number: " + dStorage.dialogueTracker + " | "
 								+ "Next Position: " + dStorage.nextStoryDialogue);
@@ -257,25 +362,26 @@ public class Game implements java.io.Serializable{
 			DataStorage dStorage = (DataStorage)ois.readObject();
 
 			playerName = dStorage.playerName;
+			
+			selected = dStorage.selectedGender;
+			playerStats.CP = dStorage.playerCP;
+			playerStats.XP = dStorage.playerXP;
+			playerStats.maxCP = dStorage.playermaxCP;
 
-			player.CP = dStorage.playerCP;
-			player.XP = dStorage.playerXP;
-			player.maxCP = dStorage.playermaxCP;
-
-			Story.diatextTracker = dStorage.dialogueTracker;
+			diatextTracker = dStorage.dialogueTracker;
 			currentDialogue = dStorage.playerDialogue;
 			nextDialogue = dStorage.nextStoryDialogue;
 
-			Story.questiontextTracker = dStorage.questionTracker;
-			//currentQuestion = dStorage.playerQuestion;
+			questiontextTracker = dStorage.questionTracker;
+			currentQuestion = dStorage.playerQuestion;
 
 			ois.close();
 			System.out.println();
 			System.out.println("LOAD COMPLETE:");
 			System.out.println("Player Name: " + playerName);
-			System.out.println("CP: " + player.CP + " | " + "XP: " + player.XP + " | ");
+			System.out.println("CP: " + playerStats.CP + " | " + "XP: " + playerStats.XP + " | " + "GENDER: " + selected + " | ");
 			System.out.println("Current Position: " + currentDialogue + " | " 
-								+ "Dialogue Tracker Number: " + Story.diatextTracker 
+								+ "Dialogue Tracker Number: " + diatextTracker 
 								+ " | " + "Next Position: " + nextDialogue);
 			System.out.println();
 		
@@ -291,9 +397,9 @@ public class Game implements java.io.Serializable{
 	}
 	
 	public void update(){
-		Story.name = playerName;
-		ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
-		ui.ChancePointsNumberLabel.setText("<html><center>" + player.CP + "<center><html>");
+		gameStory.name = playerName;
+		ui.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+		UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
 		Story.dialogueTracker(currentDialogue);
 		Story.progressTracker(currentQuestion);
 	}

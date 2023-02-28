@@ -24,14 +24,16 @@ import javax.swing.ImageIcon;
 
 public class UserInterface implements java.io.Serializable{
 
-		public JFrame gameWindow;
+		public static JFrame gameWindow;
 
 		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, 
 						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
-						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, CharPanel;
+						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, SpritePanel;
 
-		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, 
-						XPNumberLabel, ChancePointsLabel, ChancePointsNumberLabel;
+		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, characterSprite,
+						XPNumberLabel, ChancePointsLabel;
+
+		public static JLabel ChancePointsNumberLabel;
 
 		public JButton startButton, continueButton, dialogueBox, nameInputBTN, 
 						choice1, choice2, choice3, choice4, saveButton, loadButton,
@@ -75,11 +77,10 @@ public class UserInterface implements java.io.Serializable{
 
 			int alignNBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2));
 			int alignNBY = (int)Math.round(screenHeight/1.60);
-			
-			//Character Panel Scaling 
-			int CharPanelW = 430; int CharPanelH = 1300;
-			int alignCharPanelX = (int)Math.round(screenWidth/4.2); 
-			int alignCharPanelY = (int)Math.round(screenHeight);
+
+			//Character Sprite Panel
+			int SpriteWidth = 900, SpriteHeight = 1000,
+				SpriteX = (int)Math.round(screenWidth/5), SpriteY = (int)Math.round(screenHeight);
 
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
@@ -120,7 +121,7 @@ public class UserInterface implements java.io.Serializable{
 			
 			//MAKE GAME WINDOW
 			gameWindow = new JFrame();
-				gameWindow.setTitle("Starlight High School 1.1");
+				gameWindow.setTitle("Starlight High School and Its Curious Cases");
 				gameWindow.setSize(screenWidth,screenHeight);
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				gameWindow.getContentPane().setBackground(Color.BLACK);
@@ -255,12 +256,12 @@ public class UserInterface implements java.io.Serializable{
 			gameWindow.add(continueButtonPanel);
 			
 			//ACTUAL GAME
+			//Character Sprite Holder 
+			SpritePanel = new JPanel();
+				SpritePanel.setBounds(SpriteX, SpriteY, SpriteWidth, SpriteHeight);
+				SpritePanel.setBackground(Color.BLACK);
+					SpritePanel.setOpaque(false);
 
-			//Character Image Holder
-			CharPanel = new JPanel();
-				CharPanel.setBounds(alignCharPanelX, alignCharPanelY, CharPanelW, CharPanelH);
-				CharPanel.setBackground(Color.black);					
-			
 			//Text Area Holder
 			mainTextPanel = new JPanel();
 				//mainTextPanel.setBounds(120,160,1300,250);
@@ -408,9 +409,8 @@ public class UserInterface implements java.io.Serializable{
 				
 
 			gameWindow.add(playerStatsPanel);
-			gameWindow.add(choicePanel);		
+			gameWindow.add(choicePanel);
 			gameWindow.add(bgPanel);
-			gameWindow.add(CharPanel);
 				gameWindow.setVisible(true);	
 			//setFullScreen();
 		}
