@@ -68,10 +68,9 @@ public class storyLines implements java.io.Serializable{
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Transition to First Lesson
 
-"Anyway, I heard that you're going to be heavy on Chemistry for a few weeks. "
-+ "Having heard that, I took the liberty to review some old school notes of mine to get you ready!",//19
+"Anyway, I heard that you're going to be heavy on Chemistry for a few weeks.",//19
 
-"So then, let's have a bit of a lesson then, shall we?",//20
+"So, let's have a bit of a lesson then, shall we?",//20
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //First Lesson Result
@@ -151,80 +150,80 @@ public class storyLines implements java.io.Serializable{
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Transition to Third Lesson
 
-"Let's end this talk with the last basic information I can impart to you, dear.", //38
+"Let's end this talk with the last basic information I can impart to you, dear.", //39
 
 "The Protons, Electrons, and Neutrons can actually help you bits of information "
 + " such as the element's Atomic Number and Mass Number. "
-+ "Additionally, the number of PROTONS is equal to the number of ELECTRONS/", //39
++ "Additionally, the number of PROTONS is equal to the number of ELECTRONS.", //40
 
-"Let's dive right in to figuring out how to determine those!", //40
+"Let's dive right in to figuring out how to determine those!", //41
 
-"First of all, the Atomic Number of an Element is actually equal to the number of protons it has!", //41
+"First of all, the Atomic Number of an Element is actually equal to the number of protons it has!", //42
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Third Lesson Part 1 Results
 
 //Right
-"Well done! It has 65 Protons, meaning it would have an Atomic Number of 65.", // 42
+"Well done! It has 65 Protons, meaning it would have an Atomic Number of 65.", // 43
 
 //Wrong
-"Oh, not really, dear. The Atomic Number is the same as the NUMBER OF PROTONS, meaning it's 65.", // 43
+"Oh, not really, dear. The Atomic Number is the same as the NUMBER OF PROTONS, meaning it's 65.", // 44
 
 //Reminder
-"Always remember, ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 44
+"Always remember, ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 45
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Third Lesson Part 2 Results
 
 //Right
-"Correcto mundo! An Element with an ATOMIC NUMBER of 118 has 118 PROTONS!", // 45
+"Correcto mundo! An Element with an ATOMIC NUMBER of 118 has 118 PROTONS!", // 46
 
 //Wrong
-"Aw. . . Dear, it is simply 118 PROTONS because its ATOMIC NUMBER is 118.", // 46
+"Aw. . . Dear, it is simply 118 PROTONS because its ATOMIC NUMBER is 118.", // 47
 
 //Reminder
-"PLEASE REMEMBER! ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 47
+"PLEASE REMEMBER! ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 48
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Transition to Fourth Lesson
 
-"Now then, let's go discuss the Mass Number, which requires a bit of Math that I know you can do!", //48
+"Now then, let's go discuss the Mass Number, which requires a bit of Math that I know you can do!", //49
 
 "To calculate the Mass Number of an Element, you would need to add the TOTAL NUMBER OF PROTONS "
-+ "AND THE TOTAL NUMBER OF NEUTRONS.", //49
++ "AND THE TOTAL NUMBER OF NEUTRONS.", //50
 
 "Sometimes, it may get confusing as some elements would be positively or negatively charged which "
-+ "would CHANGE the number of Protons and Electrons. You should use the number of electrons instead!", //50
++ "would CHANGE the number of Protons and Electrons. You should use the number of electrons instead!", //51
 
-"To simplify it, MASS NUMBER = NO. OF PROTONS + NO. OF NEUTRONS or NO. OF ELECTRONS + NO OF NEUTRONS!", //51
+"To simplify it, MASS NUMBER = NO. OF PROTONS + NO. OF NEUTRONS or NO. OF ELECTRONS + NO OF NEUTRONS!", //52
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Fourth Lesson Part 1 Results
 
 //Right
-"Sugoi! The right answer is indeed 207! Good job, dear!", // 52
+"Sugoi! The right answer is indeed 207! Good job, dear!", // 53
 
 //Wrong
-"Uhm... not quite, honey. The answer is 207 because of (82 + 125 = Mass Number).", // 53
+"Uhm... not quite, honey. The answer is 207 because of (82 + 125 = Mass Number).", // 54
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Fourth Lesson Part 2 Results
 
 //Right
-"Great insight and detective work! You got the right Mass Number of 195!", // 54
+"Great insight and detective work! You got the right Mass Number of 195!", // 55
 
 //Wrong
-"I see, it kind of got confusing a bit, no? I'll explain it to you then.", // 55
+"I see, it kind of got confusing a bit, no? I'll explain it to you then.", // 56
 
 //Explanation of how to solve
-"First of all, it is positively charged by 4, meaning you would have to reduce the number of electrons by 4.", // 56
+"First of all, it is positively charged by 4, meaning you would have to reduce the number of electrons by 4.", // 57
 
-"And, remember that ATOMIC NUMBER is EQUAL to the NUMBER OF PROTONS, and the NUMBER OF PROTONS is equal to NUMBER OF ELECTRONS!", // 57
+"And, remember that ATOMIC NUMBER is EQUAL to the NUMBER OF PROTONS, and the NUMBER OF PROTONS is equal to NUMBER OF ELECTRONS!", // 58
 
 "With that logic, an Element with the Atomic Number of 78 has 78 PROTONS, which means it would also have 78 ELECTRONS! "
-+ "But because it is positively charged by 4, it would then only have 74 ELECTRONS.", // 58
++ "But because it is positively charged by 4, it would then only have 74 ELECTRONS.", // 59
 
-"So, the equation becomes MASS NUMBER = (78 - 4) + 121 = 74 + 121 = 195 for the Mass Number!", //59
+"So, the equation becomes MASS NUMBER = (78 - 4) + 121 = 74 + 121 = 195 for the Mass Number!", //60
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Transition to the near the End of Scene One
@@ -232,45 +231,45 @@ public class storyLines implements java.io.Serializable{
 //Continuation of Main Lines
 "Anyway, you go on and and do your morning routine! Don't forget to use some"
 + " SODIUM FLUOROPHOSPHATE (Na2PFO3) product so that you won't get cavities... Oh!"
-+ " And some SODIUM HYDROXIDE (NaOH) based product too to clean up your body.", //60
++ " And some SODIUM HYDROXIDE (NaOH) based product too to clean up your body.", //61
 
 "Oh... What did mom say about that?"
-+ " SODIUM FLUOROPHOSPHATE (Na2PFO3) and SODIUM HYDROXIDE (NaOH) BASED product...", //61
++ " SODIUM FLUOROPHOSPHATE (Na2PFO3) and SODIUM HYDROXIDE (NaOH) BASED product...", //62
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Toothpaste Question Results
 
 //Right
-"Yes! We still have some by the sink! It's the one labeled MaxWhite!", //62
+"Yes! We still have some by the sink! It's the one labeled MaxWhite!", //63
 
 //Wrong
-"Excuse me? So simple! It's toothpaste! It's over there!", //63
+"Excuse me? So simple! It's toothpaste! It's over there!", //64
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Bar Soap Question Results
 
 //Right
-"It's quite odd that you are asking all of these, but yes, it is that. ", // 64
+"It's quite odd that you are asking all of these, but yes, it is that. ", // 65
 
 //Wrong
 "How many times must I correct you in a single morning? It's BAR SOAP! The SODIUM HYDROXIDE " 
-+ "based product is BAR SOAP!", //65
++ "based product is BAR SOAP!", //66
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //End of Scene One
 
-"You start brushing your teeth... then followed by a bath.",//66
+"You start brushing your teeth... then followed by a bath.",//67
 
 "Now you're ready. The world awaits for you, deary. "
 + "Go on and have fun learning at STARLIGHT HIGHSCHOOL! "
-+ "Bye bye now! Sending some love from me to you!", //67
++ "Bye bye now! Sending some love from me to you!", //68
 
 "Finally, you're ready. You best be going now, you are "
 + "in serious need of learning after all of that. "
 + "I'm saying this not to hurt you, but to make you realize that there's a lot to learn. "
-+ "Bye bye now.",//68
++ "Bye bye now.",//69
 
-"You exit your house...",//69
+"You exit your house...",//70
 				
 		};
 	}
@@ -317,7 +316,7 @@ public class storyLines implements java.io.Serializable{
 
 "A negatively charged particle is called?", //7, 3
 
-"The latest of three that James Chadwick discovered in 1932!", //8, 4
+"The latest of three that James Chadwick discovered in 1932?", //8, 4
 
 "It was discovered by J.J. Thompson, in 1897, what is it?", //9, 5
 
@@ -326,22 +325,22 @@ public class storyLines implements java.io.Serializable{
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Third Lesson Part 1 Question
 
-"With that, what is the ATOMIC NUMBER of an element with 65 PROTONS?", // 11
+"With that, what is the ATOMIC NUMBER of an element with 65 PROTONS? (Input the number only)", // 11
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Third Lesson Part 2 Question
 
-"If an element has an ATOMIC NUMBER of 118, how many PROTONS does it have?", // 12
+"If an element has an ATOMIC NUMBER of 118, how many PROTONS does it have? (Just the number only)", // 12
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Fourth Lesson Part 1 Question
 
-"Now then, if an Element has 82 PROTONS and 125 NEUTRONS, what would be its MASS NUMBER?", // 13
+"Now then, if an Element has 82 PROTONS and 125 NEUTRONS, what would be its MASS NUMBER? (Just the number only)", // 13
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Fourth Lesson Part 2 Question
 
-"Let's try an Element(+4) or is POSITIVELY CHARGED by 4 with an ATOMIC NUMBER of 78 and 121 NEUTRONS, what is the MASS NUMBER?", // 14
+"Let's try an Element(+4) or is POSITIVELY CHARGED by 4 with an ATOMIC NUMBER of 78 and 121 NEUTRONS, what is the MASS NUMBER? (Just the number only)", // 14
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Toothpaste Question

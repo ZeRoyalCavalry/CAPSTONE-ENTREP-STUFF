@@ -2,6 +2,7 @@ package mainPackage;
 
 import scenes.introScene;
 import scenes.sceneOnePartOne;
+import scenes.sceneOnePartTwo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,14 +49,16 @@ public class Game implements java.io.Serializable{
 	//Scene Management
 		introScene intro = new introScene(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		sceneOnePartOne homeOne = new sceneOnePartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		sceneOnePartTwo homeTwo = new sceneOnePartTwo(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 	
-	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, homeOne);
+	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, homeOne, homeTwo);
 	
 	//Input Handlers
 	ChoiceHandler cHandler = new ChoiceHandler();
 	MouseHandler mHandler = new MouseHandler();
 	KeyboardHandler kbHandler = new KeyboardHandler();
 	NameHandler nHandler = new NameHandler();
+	AnswerHandler InputHandler = new AnswerHandler();
 
 	//Save-Load Button (VERY IMPORTANT)
 	SaveLoadHandler saveloadHandler = new SaveLoadHandler();
@@ -63,21 +66,22 @@ public class Game implements java.io.Serializable{
 		int click = 0;
 	
 	public String currentDialogue, currentQuestion, nextDialogue, nextMove, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
-	public static String playerName, gender, selected; 
-	
+	public static String playerName, playerAnswer = null, gender, selected; 
+	public static int numberAnswer = 0;
+
 	public int diatextTracker = 0, questiontextTracker = 0, enableKeys = 0, letterTracker = 0, arrayNumber,
 				normalSpeed = 30, fastSpeed = 5;
 
 	public char DiaGen[], choiceGen[], nameGen[];
 	
-	public Timer DiaTimer, choiceTimer;
+	public Timer DiaTimer, choiceTimer, calculateTimer;
 
 	public static void main(String[] args) {
 		new Game();
 	}
 	
 	public Game() {
-		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, screenWidth, screenHeight, lines, this);
+		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, InputHandler, screenWidth, screenHeight, lines, this);
 		// // tc.introSequence();
 		 	sm.bgsMusic.setFile(sm.titleScreenMusic);
 		// 	sm.bgsMusic.playMusic();
@@ -184,7 +188,7 @@ public class Game implements java.io.Serializable{
 			}
 		});
 
-		//DECISION MOMENT ANIMATION
+		//CHOICE MOMENT ANIMATION
 		choiceTimer = new Timer(normalSpeed, new ActionListener(){
 			public void actionPerformed(ActionEvent c) {
 				ui.dialoguePanel.setVisible(false);
@@ -207,6 +211,33 @@ public class Game implements java.io.Serializable{
 					choiceTimer.stop();
 					questiontextTracker++;
 					tc.showChoices();
+				}
+			}
+		});
+
+		//CALCULATION MOMENT ANIMATION
+		calculateTimer = new Timer(normalSpeed, new ActionListener(){
+			public void actionPerformed(ActionEvent cal) {
+				ui.dialoguePanel.setVisible(false);
+				choiceGen = questions.questionText[questiontextTracker].toCharArray();
+				arrayNumber = choiceGen.length;
+				
+					if((letterTracker%2) == 0){
+						sm.se.setFile1(sm.typesfx);
+						sm.se.playTypeSFX();
+					}
+					
+				String letterGen = ""; String space = "";
+				
+				letterGen = space + choiceGen[letterTracker]; 
+				ui.mainTextArea.append(letterGen);
+				
+				letterTracker++;
+				if(letterTracker == arrayNumber) {
+					letterTracker = 0;
+					calculateTimer.stop();
+					questiontextTracker++;
+					tc.inputAnswer();
 				}
 			}
 		});
@@ -254,7 +285,7 @@ public class Game implements java.io.Serializable{
 				sm.se.setFile(sm.buttonsfx);
 				sm.se.playButtonSFX(); // STANDARD BUTTON NOISE
 					playerName = ui.nameInput.getText();
-					if(ui.nameInput == null) {
+					if(playerName== null) {
 						Story.dialogueTracker("intro0");
 						diatextTracker = 0;
 						tc.showName();
@@ -266,6 +297,17 @@ public class Game implements java.io.Serializable{
 						saveAction();
 					}
 			}
+		}
+	}
+
+	public class AnswerHandler implements ActionListener{
+		public void actionPerformed(ActionEvent an) {
+			if(an.getSource() == ui.submitInputBTN) {
+				sm.se.setFile(sm.buttonsfx);
+				sm.se.playButtonSFX(); // STANDARD BUTTON NOISE
+					Game.playerAnswer = ui.answerInput.getText();
+					Story.dialogueTracker(nextDialogue);
+				}
 		}
 	}
 	
@@ -398,7 +440,7 @@ public class Game implements java.io.Serializable{
 	
 	public void update(){
 		gameStory.name = playerName;
-		ui.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+		UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 		UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
 		Story.dialogueTracker(currentDialogue);
 	}

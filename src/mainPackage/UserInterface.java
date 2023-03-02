@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 //import java.awt.event.KeyListener;
 import java.awt.Image;
 
+import mainPackage.Game.AnswerHandler;
 import mainPackage.Game.ChoiceHandler;
 import mainPackage.Game.KeyboardHandler;
 import mainPackage.Game.MouseHandler;
@@ -28,19 +29,19 @@ public class UserInterface implements java.io.Serializable{
 
 		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, 
 						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
-						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, SpritePanel;
+						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, SpritePanel,
+						submitAnswerPanel;
 
-		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, characterSprite,
-						XPNumberLabel, ChancePointsLabel;
+		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, characterSprite, ChancePointsLabel;
 
-		public static JLabel ChancePointsNumberLabel;
+		public static JLabel ChancePointsNumberLabel, XPNumberLabel;
 
 		public JButton startButton, continueButton, dialogueBox, nameInputBTN, 
 						choice1, choice2, choice3, choice4, saveButton, loadButton,
-						maleButton, femaleButton, inclusiveButton;
+						maleButton, femaleButton, inclusiveButton, submitInputBTN;
 
 		public JTextArea mainTextArea;
-		public JTextField nameInput;
+		public JTextField nameInput, answerInput;
 		
 			Border outlinePanel = new LineBorder(Color.WHITE, 12), 
 					outlineButton = new LineBorder(Color.WHITE, 5),
@@ -51,7 +52,7 @@ public class UserInterface implements java.io.Serializable{
 			 statsFont = new Font("Arial", Font.BOLD, 33), normalFont = new Font ("Arial", Font.PLAIN, 40);
 
 		public void makeUI(ChoiceHandler cHandler, MouseHandler mHandler, NameHandler nHandler, KeyboardHandler kbHandler, 
-							SaveLoadHandler SLHandler, int screenWidth, int screenHeight, storyLines lines, Game game) {
+							SaveLoadHandler SLHandler, AnswerHandler inputHandler, int screenWidth, int screenHeight, storyLines lines, Game game) {
 			// //Title Panel & Main Text Panel Scaling	
 			// int titlePanelWidth = 1300;
 			// int titlePanelHeight = 250;
@@ -321,6 +322,25 @@ public class UserInterface implements java.io.Serializable{
 			nameInputPanel.add(nameInputBTN);
 			
 			gameWindow.add(nameInputPanel);
+
+			submitAnswerPanel = new JPanel();
+				submitAnswerPanel.setBounds(alignINPanelX, alignINPanelY, inPWidth, inPHeight);
+				submitAnswerPanel.setBackground(Color.BLACK);
+				submitAnswerPanel.setLayout(new GridLayout(2,1));
+				
+				answerInput = new JTextField();
+				answerInput.setFont(normalFont);
+			
+				submitInputBTN = new JButton("<html><center>SUBMIT ANSWER<center><html>");
+					submitInputBTN.setForeground(Color.BLACK);
+					submitInputBTN.setFont(normalFont);
+					submitInputBTN.addActionListener(inputHandler);
+					submitInputBTN.setActionCommand("submittedAnswer");
+					
+			submitAnswerPanel.add(answerInput);
+			submitAnswerPanel.add(submitInputBTN);
+			
+			gameWindow.add(submitAnswerPanel);
 			
 			choicePanel = new JPanel();
 				//choicePanel.setBounds(450,470,600,250);

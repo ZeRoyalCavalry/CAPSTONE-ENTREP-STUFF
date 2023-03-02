@@ -13,8 +13,6 @@ import mainPackage.Game.KeyboardHandler;
 import mainPackage.Game.MouseHandler;
 import mainPackage.Game.NameHandler;
 
-import java.awt.Color;
-
 import mainPackage.CutsceneMaker;
 
 public class sceneOnePartOne {
@@ -25,10 +23,6 @@ public class sceneOnePartOne {
 	ChoiceHandler cHandler; MouseHandler mHandler; 
 	KeyboardHandler kbHandler; NameHandler nHandler;
 	CutsceneMaker cutScene;
-	
-	int question1enable = 0, question2enable = 0, question3enable = 0,
-		question4enable = 0, question5enable = 0, question6enable = 0,
-		correctAnswers = 0, questionSelect = 0;
 
 	public sceneOnePartOne(Game game, UserInterface ui, TransitionClass sceneChanger, soundManager sm,
 						playerStats player, storyLines lines, ImageManager imgManage, int screenWidth, int screenHeight)
@@ -37,6 +31,7 @@ public class sceneOnePartOne {
 		this.player = player; this.lines = lines; this.images = imgManage; 
 	}
 
+	//Cutscenes or Backgrounds
 	public void livingRoomCutsceneLoad(){
 		sceneChanger.showDialogue();
 		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", "momSprite.png", 0.75f, 1.0f);
@@ -54,9 +49,7 @@ public class sceneOnePartOne {
 			gameStory.pause();
 		game.currentDialogue = "gbedroomExit12";
 		game.diatextTracker = 11;
-		
 		livingRoomCutsceneLoad();
-
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 			gameStory.increaseCP = 1;
@@ -65,7 +58,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "gbedroomExit13";
 	}
 		public void goodbedroomExit13() {
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "gbedroomExit13";	
 			game.diatextTracker = 12;
 			livingRoomCutsceneLoad();
@@ -76,7 +68,7 @@ public class sceneOnePartOne {
 		
 		//Picked bad
 		public void scolding11() {
-			gameStory.bgHolder.setIcon(images.bedroomView);
+			livingRoomCutsceneLoad();
 			game.currentDialogue = "scolding11";
 			game.diatextTracker = 13;
 			ui.mainTextArea.setText("");
@@ -105,7 +97,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "bbedroomExit13";
 		}
 		public void badbedroomExit13() {
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "bbedroomExit13";
 			game.diatextTracker = 15;
 			livingRoomCutsceneLoad();
@@ -116,7 +107,6 @@ public class sceneOnePartOne {
 
 		//Explanation
 		public void explanation1(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "explanation1";
 			game.diatextTracker = 16;
 			livingRoomCutsceneLoad();
@@ -125,7 +115,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "explanation2";
 		}
 		public void explanation2(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "explanation2";
 			game.diatextTracker = 17;
 			livingRoomCutsceneLoad();
@@ -134,7 +123,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "explanation3";
 		}
 		public void explanation3(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "explanation3";
 			game.diatextTracker = 18;
 			livingRoomCutsceneLoad();
@@ -145,7 +133,6 @@ public class sceneOnePartOne {
 
 		//Transition to First Lesson
 		public void firstLessonStart1() {
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "firstLessonStart1";
 			game.diatextTracker = 19;
 			livingRoomCutsceneLoad();
@@ -154,7 +141,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "firstLessonStart2";
 		}
 		public void firstLessonStart2(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "firstLessonStart2";
 			game.diatextTracker = 20;
 			livingRoomCutsceneLoad();
@@ -167,7 +153,6 @@ public class sceneOnePartOne {
 		public void firstLessonQuestion() {
 			game.currentDialogue = "firstLessonQuestion";
 			game.currentQuestion = "firstLessonQuestion";
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.questiontextTracker = 1;
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(false);
@@ -188,7 +173,6 @@ public class sceneOnePartOne {
 
 		//First Lesson Result
 		public void firstLessonRight(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "firstLessonRight";
 			game.diatextTracker = 21;
 			livingRoomCutsceneLoad();
@@ -198,10 +182,10 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=1;
 			gameStory.selectedRight();
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 				game.nextDialogue = "firstLessonNotes";
 		}
 		public void firstLessonWrong(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "firstLessonWrong";
 			game.diatextTracker = 22;
 			livingRoomCutsceneLoad();
@@ -213,7 +197,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "firstLessonNotes";
 		}
 		public void firstLessonNotes(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "firstLessonNotes";
 			game.diatextTracker = 23;
 			livingRoomCutsceneLoad();
@@ -225,7 +208,6 @@ public class sceneOnePartOne {
 
 		//Transition to Second Lesson
 		public void secondLessonStart1(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLessonStart1";
 			game.diatextTracker = 24;
 			livingRoomCutsceneLoad();
@@ -235,7 +217,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "secondLessonStart2";
 		}
 		public void secondLessonStart2(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLessonStart2";
 			game.diatextTracker = 25;
 			livingRoomCutsceneLoad();
@@ -245,7 +226,6 @@ public class sceneOnePartOne {
 			game.nextDialogue = "secondLessonStart3";
 		}
 		public void secondLessonStart3(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLessonStart3";
 			game.diatextTracker = 26;
 			livingRoomCutsceneLoad();
@@ -257,7 +237,6 @@ public class sceneOnePartOne {
 
 		////Second Lesson Part 1 Question
 		public void secondLessonQuestion1() {
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLessonQuestion1";
 			game.currentQuestion = "secondLessonQuestion1";
 
@@ -282,7 +261,6 @@ public class sceneOnePartOne {
 
 		//Second Lesson Part 1 Results
 		public void secondLesson1Right(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLesson1Right";
 			game.diatextTracker = 27;
 			livingRoomCutsceneLoad();
@@ -291,7 +269,7 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-				ui.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLesson1Notes";
 		}
@@ -316,7 +294,6 @@ public class sceneOnePartOne {
 
 		////Second Lesson Part 2 Question
 		public void secondLessonQuestion2() {
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLessonQuestion2";
 			game.currentQuestion = "secondLessonQuestion2";
 
@@ -349,12 +326,11 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-				ui.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLesson2Notes";
 		}
 		public void secondLesson2Wrong(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLesson1Wrong";
 			game.diatextTracker = 31;
 			livingRoomCutsceneLoad();
@@ -365,7 +341,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "secondLesson2Notes";
 		}
 		public void secondLesson2Notes(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLesson1Wrong";
 			game.diatextTracker = 32;
 			livingRoomCutsceneLoad();
@@ -376,7 +351,6 @@ public class sceneOnePartOne {
 
 		////Second Lesson Part 3 Question
 		public void secondLessonQuestion3() {
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLessonQuestion3";
 			game.currentQuestion = "secondLessonQuestion3";
 		
@@ -401,7 +375,6 @@ public class sceneOnePartOne {
 
 		//Second Lesson Part 3 Results
 		public void secondLesson3Right(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLesson3Right";
 			game.diatextTracker = 33;
 			livingRoomCutsceneLoad();
@@ -410,12 +383,11 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-				ui.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLesson3Notes";
 		}
 		public void secondLesson3Wrong(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLesson3Wrong";
 			game.diatextTracker = 34;
 			livingRoomCutsceneLoad();
@@ -426,7 +398,6 @@ public class sceneOnePartOne {
 				game.nextDialogue = "secondLesson3Notes";
 		}
 		public void secondLesson3Notes(){
-			gameStory.bgHolder.setIcon(images.livingroomView);
 			game.currentDialogue = "secondLesson3Notes";
 			game.diatextTracker = 35;
 			livingRoomCutsceneLoad();
@@ -480,7 +451,7 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-			question1enable++;
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLessonReview2";
 		}
@@ -528,7 +499,7 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-			question2enable++;
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLessonReview3";
 		}
@@ -576,7 +547,7 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-			question3enable++;
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLessonReview4";
 		}
@@ -624,7 +595,7 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-			question4enable++;
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLessonReview5";
 		}
@@ -672,7 +643,7 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-			question5enable++;
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
 				game.nextDialogue = "secondLessonReview6";
 		}
@@ -688,6 +659,7 @@ public class sceneOnePartOne {
 				game.nextDialogue = "secondLessonReview5";
 		}
 
+		//Second Lesson Review Question 6
 		public void secondLessonReview6() {
 			game.currentDialogue = "secondLessonReview6";
 			game.currentQuestion = "secondLessonReview6";
@@ -719,9 +691,9 @@ public class sceneOnePartOne {
 			gameStory.increaseCP = 1;
 			playerStats.XP+=2;
 			gameStory.selectedRight();
-			question6enable++;
+				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
-				game.nextDialogue = "";
+				game.nextDialogue = "thirdLessonStart1";
 		}
 		public void secondLessonReview6Wrong(){
 			game.currentDialogue = "secondLessonReview6Wrong";

@@ -1,7 +1,6 @@
 package mainPackage;
 
 import java.awt.Image;
-import java.io.IOException;
 import java.io.Serializable;
 
 import javax.swing.ImageIcon;
