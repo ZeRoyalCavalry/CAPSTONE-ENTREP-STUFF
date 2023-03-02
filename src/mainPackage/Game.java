@@ -1,7 +1,7 @@
 package mainPackage;
 
 import scenes.introScene;
-import scenes.sceneOne;
+import scenes.sceneOnePartOne;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +47,7 @@ public class Game implements java.io.Serializable{
 		
 	//Scene Management
 		introScene intro = new introScene(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
-		sceneOne homeOne = new sceneOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		sceneOnePartOne homeOne = new sceneOnePartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 	
 	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, homeOne);
 	
@@ -62,7 +62,7 @@ public class Game implements java.io.Serializable{
 	
 		int click = 0;
 	
-	public String currentDialogue, currentQuestion, nextDialogue, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
+	public String currentDialogue, currentQuestion, nextDialogue, nextMove, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
 	public static String playerName, gender, selected; 
 	
 	public int diatextTracker = 0, questiontextTracker = 0, enableKeys = 0, letterTracker = 0, arrayNumber,
@@ -401,6 +401,5 @@ public class Game implements java.io.Serializable{
 		ui.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 		UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
 		Story.dialogueTracker(currentDialogue);
-		Story.progressTracker(currentQuestion);
 	}
 }

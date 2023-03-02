@@ -1,6 +1,7 @@
 package mainPackage;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.swing.ImageIcon;
@@ -11,11 +12,11 @@ public class ImageManager implements Serializable{
     Game game;
 
     public static String defaultBg = "temp1.png", bedroom = "bedroom.png", city = "temp3.jpg", bayRoute = "temp4.png", livingroom = "livingRoom.jpg",
-                            momSprite = "momSprite.png"; 
-    public ImageIcon bedroomView, cityView, bayRouteView, livingroomView, momImage;
+                            momSprite = "momSprite.png", placeholder = "placeholder.png"; 
+    public ImageIcon bedroomView, cityView, bayRouteView, livingroomView, momImage, placeholderImg, motherSprite;
 
     public JLabel cutsceneImage;
-
+    
 
     public ImageManager(Game game2, int screenWidth, int screenHeight) {
         game = game2;
@@ -40,6 +41,10 @@ public class ImageManager implements Serializable{
             Image newLivingRoom = livingroomView.getImage();
             Image resizedLivingRoom = newLivingRoom.getScaledInstance(game.screenWidth, game.screenHeight, Image.SCALE_SMOOTH);
             livingroomView = new ImageIcon(resizedLivingRoom);
+
+        motherSprite = new ImageIcon(getClass().getClassLoader().getResource("momSprite.png"));
+
+        placeholderImg = new ImageIcon(getClass().getClassLoader().getResource("placeholder.png"));
             
     }
 }

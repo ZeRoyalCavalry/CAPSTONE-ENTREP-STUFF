@@ -79,8 +79,9 @@ public class UserInterface implements java.io.Serializable{
 			int alignNBY = (int)Math.round(screenHeight/1.60);
 
 			//Character Sprite Panel
-			int SpriteWidth = 900, SpriteHeight = 1000,
-				SpriteX = (int)Math.round(screenWidth/5), SpriteY = (int)Math.round(screenHeight);
+			int spriteWidth = 900, spriteHeight = 1200, 
+			alignSpriteX = (int)Math.round(screenWidth/2.5), 
+			alignSpriteY = (int)Math.round(screenHeight/10);
 
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
@@ -102,7 +103,7 @@ public class UserInterface implements java.io.Serializable{
 			int alignDCPanelY = (int)Math.round(diaConPanelHeight/2);
 			
 			//Choice Panel Scaling
-			int choicePanelWidth = 600;
+			int choicePanelWidth = 800;
 			int choicePanelHeight = 250;
 			int alignCPanelX = (screenWidth/2) - (choicePanelWidth/2);
 			int alignCPanelY = (int)Math.round(screenHeight/5.5);
@@ -258,8 +259,8 @@ public class UserInterface implements java.io.Serializable{
 			//ACTUAL GAME
 			//Character Sprite Holder 
 			SpritePanel = new JPanel();
-				SpritePanel.setBounds(SpriteX, SpriteY, SpriteWidth, SpriteHeight);
-				SpritePanel.setBackground(Color.BLACK);
+				SpritePanel.setBounds(alignSpriteX, alignSpriteY, spriteWidth, spriteHeight);
+				SpritePanel.setBackground(new Color(0, 0, 0, 0.0f));
 					SpritePanel.setOpaque(false);
 
 			//Text Area Holder
@@ -407,10 +408,11 @@ public class UserInterface implements java.io.Serializable{
 				loadButton.setActionCommand("load");
 					playerStatsPanel.add(loadButton);
 				
-
 			gameWindow.add(playerStatsPanel);
 			gameWindow.add(choicePanel);
 			gameWindow.add(bgPanel);
+				gameWindow.pack();
+				gameWindow.setAlwaysOnTop(true);
 				gameWindow.setVisible(true);	
 			//setFullScreen();
 		}

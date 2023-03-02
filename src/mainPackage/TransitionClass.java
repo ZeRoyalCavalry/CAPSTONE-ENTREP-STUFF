@@ -74,10 +74,27 @@ public class TransitionClass implements java.io.Serializable {
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 
+			ui.bgPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
 			ui.nonSelectPanel.setVisible(false);
 			ui.introPanel.setVisible(false);
+			ui.dialoguePanel.setVisible(false);
+			//ui.titlePanel.setVisible(false);
+			ui.startButtonPanel.setVisible(false);
+			ui.continueButtonPanel.setVisible(false);
+			ui.choicePanel.setVisible(false);
+			ui.nameInputPanel.setVisible(false);
+		}
+		public void showDialogueNoBG(){
+			ui.mainTextPanel.setVisible(true);
+			ui.playerStatsPanel.setVisible(true);
+
+			ui.maleSelectPanel.setVisible(false);
+			ui.femaleSelectPanel.setVisible(false);
+			ui.nonSelectPanel.setVisible(false);
+			ui.introPanel.setVisible(false);
+			gameStory.bgHolder.setVisible(false);
 			ui.bgPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
 			//ui.titlePanel.setVisible(false);
@@ -86,7 +103,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.choicePanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
 		}
-	
+
 		public void showChoices() {
 			ui.mainTextPanel.setVisible(true);
 			ui.choicePanel.setVisible(true);

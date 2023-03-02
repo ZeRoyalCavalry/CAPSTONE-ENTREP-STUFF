@@ -2,6 +2,7 @@ package scenes;
 
 import java.awt.Color;
 
+import mainPackage.CutsceneMaker;
 import mainPackage.Game;
 import mainPackage.Game.ChoiceHandler;
 import mainPackage.Game.KeyboardHandler;
@@ -30,6 +31,25 @@ public class introScene {
 	{
 		this.game = game; this.ui = ui; this.sceneChanger = sceneChanger; this.sm = sm;
 		this.player = player; this.lines = lines; this.images = images;
+	}
+
+	public void bedroomCutsceneLoad(){
+		sceneChanger.showDialogue();
+		CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", 1.0f, 1.0f);
+			ui.bgPanel.remove(gameStory.bgHolder);
+			ui.bgPanel.add(CutsceneMaker.image);
+			ui.bgPanel.setVisible(true);
+			ui.mainTextPanel.setVisible(true);
+			ui.playerStatsPanel.setVisible(true);
+	}
+	public void cityCutsceneLoad(){
+		sceneChanger.showDialogue();
+		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", 1.0f, 1.0f);
+			ui.bgPanel.remove(gameStory.bgHolder);
+			ui.bgPanel.add(CutsceneMaker.image);
+			ui.bgPanel.setVisible(true);
+			ui.mainTextPanel.setVisible(true);
+			ui.playerStatsPanel.setVisible(true);
 	}
 
 	public void intro0Game() {//Get name
@@ -93,16 +113,18 @@ public class introScene {
 		fadeIn bedroomIn = new fadeIn(ImageManager.bedroom);
 		bedroomIn.fadeInTimer.stop();
 		UserInterface.gameWindow.remove(bedroomIn);
-				ui.bgPanel.add(gameStory.bgHolder);
-				gameStory.bgHolder.setIcon(images.bedroomView);
-				ui.bgPanel.setVisible(true);
+				bedroomCutsceneLoad();
+				ui.mainTextPanel.setVisible(true);
+				ui.playerStatsPanel.setVisible(true);
 				game.startDialogue();
 			game.nextDialogue = "intro5";
 	}
 	public void intro5Game() {//A new day...
 		game.currentDialogue = "intro5";
 		game.diatextTracker = 5;
-		gameStory.bgHolder.setIcon(images.bedroomView);
+		bedroomCutsceneLoad();
+		ui.mainTextPanel.setVisible(true);
+		ui.playerStatsPanel.setVisible(true);
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
 			game.nextDialogue = "intro5to6";
@@ -130,10 +152,7 @@ public class introScene {
 			sm.se.curtainSFX.start();
 				gameStory.pauseTime = 3000;
 				gameStory.pause();
-				ui.bgPanel.add(gameStory.bgHolder);
-				ui.bgPanel.setVisible(true);
-				gameStory.bgHolder.setIcon(images.cityView);
-	
+				cityCutsceneLoad();
 		game.startDialogue();
 			game.nextDialogue = "intro6toEnd";	
 	}
@@ -144,5 +163,65 @@ public class introScene {
 		//ui.gameWindow.add(bedroomFadeOut);
 		UserInterface.gameWindow.add(cityFadeOut);
 			game.nextDialogue = "introEnd";
+	}
+
+	public void amBedroom() {
+		game.currentDialogue = "introEnd";
+		game.currentQuestion = "afterBed";
+		game.enableKeys = 0;
+		game.questiontextTracker = 0;
+		ui.choicePanel.setVisible(true);
+		bedroomCutsceneLoad();
+		ui.mainTextArea.setFont(game.narrationFont);
+		ui.mainTextArea.setText("");
+		ui.dialogueBox.setText(null);
+		game.choiceTimer.start();
+		ui.dialoguePanel.setVisible(false);
+			ui.choice1.setText("Exit the room");
+			ui.choice2.setText("Study");
+			ui.choice3.setText("Continue sightseeing");
+			ui.choice4.setText("Go back to bed");
+			
+			game.nextPosition1 = "bedroomExit11";
+			game.nextPosition2 = "bedroomStudy11";
+			game.nextPosition3 = "bedroomSS11";
+			game.nextPosition4 = "bedroomSleep11";
+	}
+	//Second Scene Transition
+	public void bedroomExit11() {
+		bedroomCutsceneLoad();
+		game.currentDialogue = "bedroomExit11";
+		game.enableKeys = 1;
+		game.diatextTracker = 7;
+		ui.mainTextArea.setFont(game.narrationFont);
+		game.startDialogue();
+			game.nextDialogue = "gbedroomExit12";
+	}
+	public void bedroomStudy11() {
+		bedroomCutsceneLoad();
+		game.diatextTracker = 8;
+		game.enableKeys = 1;
+		game.currentDialogue = "bedroomStudy11";
+		ui.mainTextArea.setFont(game.narrationFont);
+		game.startDialogue();
+			game.nextDialogue = "gbedroomExit12";
+	}
+	public void bedroomSS11() {
+		cityCutsceneLoad();
+		game.currentDialogue = "bedroomSS11";
+		game.diatextTracker = 9;
+		game.enableKeys = 1;
+		ui.mainTextArea.setFont(game.narrationFont);
+		game.startDialogue();
+				game.nextDialogue = "scolding11";
+	}
+	public void bedroomSleep11() {
+		ui.bgPanel.setBackground(Color.BLACK);
+		game.currentDialogue = "bedroomSleep11";
+		game.diatextTracker = 10;
+		game.enableKeys = 1;
+		ui.mainTextArea.setFont(game.narrationFont);
+		game.startDialogue();
+			game.nextDialogue = "scolding11";
 	}
 }

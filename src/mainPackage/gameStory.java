@@ -3,13 +3,13 @@ package mainPackage;
 import javax.swing.JLabel;
 
 import scenes.introScene;
-import scenes.sceneOne;
+import scenes.sceneOnePartOne;
 
 import java.io.Serializable;
 
 public class gameStory implements Serializable{
 	
-	introScene intro; sceneOne scOne;
+	introScene intro; sceneOnePartOne scOne;
 	
 	Game game; UserInterface ui;
 	TransitionClass sceneChanger; soundManager sm;
@@ -18,7 +18,7 @@ public class gameStory implements Serializable{
 	
 		public static int  pauseTime = 0;
 		public static int increaseCP = 0,  increaseXP = 0, decreaseCP = 0;
-		public int number = 0;
+		public int number = 0, reviewCorrect = 0, questionSelector = 0, questionRecognizer = 0;
 
 		public static String name;
 		
@@ -26,7 +26,7 @@ public class gameStory implements Serializable{
 		public static JLabel charHolder = new JLabel(); 
 
 	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats, ImageManager imgManage, 
-					introScene intro2, sceneOne homeOne) {	
+					introScene intro2, sceneOnePartOne homeOne) {	
 				game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats; images = imgManage; 
 				
 				intro = intro2; scOne = homeOne;
@@ -57,19 +57,18 @@ public class gameStory implements Serializable{
 		case "intro1":   	sceneChanger.showDialogue(); intro.intro1Game(); break;
 		case "intro2":    	intro.intro2Game(); break;
 		case "intro3":    	intro.intro3Game(); break;
-		case "intro3to4": 	game.enableKeys = 1; intro.intro3to4(); break;
+			case "intro3to4": 	game.enableKeys = 1; intro.intro3to4(); break;
 		case "intro4":    	sceneChanger.showDialogue(); intro.intro4Game(); break;
 		case "intro5": 	  	intro.intro5Game(); break;
-		case "intro5to6": 	intro.intro5to6(); break;
+			case "intro5to6": 	intro.intro5to6(); break;
 		case "intro6":    	sceneChanger.showDialogue(); intro.intro6Game(); break;
-		case "intro6toEnd": intro.intro6toEnd(); break;
-
-		case "introEnd":  	scOne.amBedroom(); break;
+			case "intro6toEnd": intro.intro6toEnd(); break;
+		case "introEnd":  	intro.amBedroom(); break;
 			
-			case "gbedroomExit12": sceneChanger.showDialogue(); scOne.goodbedroomExit12(); break;
+			case "gbedroomExit12": scOne.goodbedroomExit12(); break;
 			case "gbedroomExit13": scOne.goodbedroomExit13(); break;
 		
-			case "scolding11": sceneChanger.showDialogue(); scOne.scolding11(); break;
+			case "scolding11": scOne.scolding11(); sceneChanger.showDialogue(); break;
 				case "bbedroomExit12": scOne.badbedroomExit12(); break;
 				case "bbedroomExit13": scOne.badbedroomExit13(); break;
 
@@ -77,21 +76,37 @@ public class gameStory implements Serializable{
 			case "explanation2": scOne.explanation2(); break;
 			case "explanation3": scOne.explanation3(); break;
 
-				case "bbedroomExit14": 	  scOne.badbedroomExit14(); break;  
-				case "sidefirstQuestion": scOne.sidefirstQuestion(); break;
-					case "sfcorrect0":    scOne.rightMelatonin(); break;
-					case "sfincorrect0":  scOne.wrongMelatonin(); break;
+		case "firstLessonStart1": scOne.firstLessonStart1(); break;
+		case "firstLessonStart2": scOne.firstLessonStart2(); break;
 
-		case "setupFirstQuestion": scOne.setupFirstQuestion(); break;
-		case "preFirstQuestion": scOne.preFirstQuestion(); break;
+			case "firstLessonQuestion": scOne.firstLessonQuestion(); break;
+			case "firstLessonNotes": scOne.firstLessonNotes(); break;
 
-		case "firstQuestion": scOne.firstQuestion(); break;
-		case "secondQuestion": scOne.secondQuestion(); break;
+		case "secondLessonStart1": scOne.secondLessonStart1(); break;
+		case "secondLessonStart2": scOne.secondLessonStart2(); break;
+		case "secondLessonStart3": scOne.secondLessonStart3(); break;
 
-		case "afterQAOne": scOne.afterQAOne(); break;
-		case "sceneOneEnd": scOne.sceneOneEnd(); break;
+		case "secondLessonQuestion1": scOne.secondLessonQuestion1(); break;
+			case "secondLesson1Notes": scOne.secondLesson1Notes(); break;
+		
+		case "secondLessonQuestion2": scOne.secondLessonQuestion2(); break;
+			case "secondLesson2Notes": scOne.secondLesson2Notes(); break;
 
-		case "exitHouse": scOne.exitHouse(); break;
+		case "secondLessonQuestion3": scOne.secondLessonQuestion3(); break;
+			case "secondLesson3Notes": scOne.secondLesson3Notes(); break;
+		
+		case "secondLessonReviewStart": scOne.secondLessonReviewStart(); break;
+			case "secondLessonReview1": scOne.secondLessonReview1(); break;
+			case "secondLessonReview2": scOne.secondLessonReview2(); break;
+			case "secondLessonReview3": scOne.secondLessonReview3(); break;
+			case "secondLessonReview4": scOne.secondLessonReview4(); break;
+			case "secondLessonReview5": scOne.secondLessonReview5(); break;
+			case "secondLessonReview6": scOne.secondLessonReview6(); break;
+
+		// case "afterQAOne": scOne.afterQAOne(); break;
+		// case "sceneOneEnd": scOne.sceneOneEnd(); break;
+
+		// case "exitHouse": scOne.exitHouse(); break;
 		}
 	}
 		/*
@@ -125,27 +140,53 @@ public class gameStory implements Serializable{
 	//For choice making moments
 	public void progressTracker(String nextMove) {
 		switch(nextMove) {
-			case "afterBed": scOne.amBedroom(); break;
-				case "bedroomExit11": scOne.bedroomExit11(); sceneChanger.showDialogue(); break;
-				case "bedroomStudy11": scOne.bedroomStudy11(); sceneChanger.showDialogue(); break;		
-				case "bedroomSS11": scOne.bedroomSS11();  sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); 
-									bgHolder.setIcon(images.cityView); break;		
-				case "bedroomSleep11": scOne.bedroomSleep11(); sceneChanger.showDialogue(); break;	
+			case "afterBed": intro.amBedroom(); break;
+				case "bedroomExit11": 	intro.bedroomExit11(); sceneChanger.showDialogue();  break;
+				case "bedroomStudy11": 	intro.bedroomStudy11(); sceneChanger.showDialogue();  break;		
+				case "bedroomSS11": 	intro.bedroomSS11();  sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); 
+										bgHolder.setIcon(images.cityView); break;		
+				case "bedroomSleep11": 	intro.bedroomSleep11(); sceneChanger.showDialogue(); break;	
 				
-			case "sidefirstQuestion": scOne.sidefirstQuestion(); break;
-				case "sfhincorrect0": scOne.answerHappiness(); sceneChanger.showDialogue(); break;
-				case "sfpincorrect0": scOne.answerPleasure(); sceneChanger.showDialogue(); break;
-				case "sfscorrect0":   scOne.answerSleepiness(); sceneChanger.showDialogue(); break;
-				case "sfaincorrect0": scOne.answerAggressiveness(); sceneChanger.showDialogue(); break;
-			
-			case "firstQuestion": scOne.firstQuestion(); break;
-				case "correct1": 	scOne.rightFirst(); sceneChanger.showDialogue(); break;
-				case "incorrect1":  scOne.wrongFirst(); sceneChanger.showDialogue(); break;
+			case "firstLessonQuestion": 	scOne.firstLessonQuestion(); break;
+				case "firstLessonRight": 	scOne.firstLessonRight(); sceneChanger.showDialogue(); break;
+				case "firstLessonWrong": 	scOne.firstLessonWrong(); sceneChanger.showDialogue(); break;
 
-			case "secondQuestion": scOne.secondQuestion(); break;
-				case "correct2": 	scOne.rightSecond(); sceneChanger.showDialogue(); break;
-				case "incorrect2":  scOne.wrongSecond(); sceneChanger.showDialogue(); break;
+			case "secondLessonQuestion1": 	scOne.secondLessonQuestion1(); break;
+				case "secondLesson1Right": 	scOne.secondLesson1Right(); sceneChanger.showDialogue(); break;
+				case "secondLesson1Wrong": 	scOne.secondLesson1Wrong(); sceneChanger.showDialogue();  break;
+
+			case "secondLessonQuestion2": 	scOne.secondLessonQuestion2(); break;
+				case "secondLesson2Right": 	scOne.secondLesson2Right(); sceneChanger.showDialogue(); break;
+				case "secondLesson2Wrong": 	scOne.secondLesson2Wrong(); sceneChanger.showDialogue(); break;
+
+			case "secondLessonQuestion3": 	scOne.secondLessonQuestion3(); break;
+				case "secondLesson3Right": 	scOne.secondLesson3Right(); sceneChanger.showDialogue(); break;
+				case "secondLesson3Wrong": 	scOne.secondLesson3Wrong(); sceneChanger.showDialogue(); break;
 			
+				case "secondLessonReview1": scOne.secondLessonReview1(); break;
+					case "secondLessonReview1Right": scOne.secondLessonReview1Right(); break;
+					case "secondLessonReview1Wrong": scOne.secondLessonReview1Wrong(); break;
+
+				case "secondLessonReview2": scOne.secondLessonReview2(); break;
+					case "secondLessonReview2Right": scOne.secondLessonReview2Right(); break;
+					case "secondLessonReview2Wrong": scOne.secondLessonReview2Wrong(); break;
+
+				case "secondLessonReview3": scOne.secondLessonReview3(); break;
+					case "secondLessonReview3Right": scOne.secondLessonReview3Right(); break;
+					case "secondLessonReview3Wrong": scOne.secondLessonReview3Wrong(); break;
+
+				case "secondLessonReview4": scOne.secondLessonReview4(); break;
+					case "secondLessonReview4Right": scOne.secondLessonReview4Right(); break;	
+					case "secondLessonReview4Wrong": scOne.secondLessonReview4Wrong(); break;
+
+				case "secondLessonReview5": scOne.secondLessonReview5(); break;
+					case "secondLessonReview5Right": scOne.secondLessonReview5Right(); break;	
+					case "secondLessonReview5Wrong": scOne.secondLessonReview6Wrong(); break;
+
+				case "secondLessonReview6": scOne.secondLessonReview6(); break;
+					case "secondLessonReview6Right": scOne.secondLessonReview6Right(); break;	
+					case "secondLessonReview6Wrong": scOne.secondLessonReview6Wrong(); break;
+
 			/*case "HelpOrIgnore": HelpOrIgnore(); break;
 				case "helped": crushHelped1(); sceneChanger.showDialogue(); break;
 				case "ignored": crushIgnored(); sceneChanger.showDialogue(); break;*/
