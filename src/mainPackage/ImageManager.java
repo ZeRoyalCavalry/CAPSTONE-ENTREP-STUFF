@@ -11,7 +11,7 @@ public class ImageManager implements Serializable{
     Game game;
 
     public static String defaultBg = "temp1.png", bedroom = "bedroom.png", city = "temp3.jpg", bayRoute = "temp4.png", livingroom = "livingRoom.jpg",
-                            momSprite = "momSprite.png", placeholder = "placeholder.png"; 
+                            momSprite = "momSprite.png", homeCR = "homeRestroom.png", placeholder = "placeholder.png"; 
     public ImageIcon bedroomView, cityView, bayRouteView, livingroomView, momImage, placeholderImg, motherSprite;
 
     public JLabel cutsceneImage;

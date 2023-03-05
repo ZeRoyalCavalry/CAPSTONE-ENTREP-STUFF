@@ -33,6 +33,7 @@ public class sceneOnePartOne {
 
 	//Cutscenes or Backgrounds
 	public void livingRoomCutsceneLoad(){
+		ui.npcName.setText("Mom");
 		sceneChanger.showDialogue();
 		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", "momSprite.png", 0.75f, 1.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
@@ -267,7 +268,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -324,7 +325,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -381,7 +382,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -449,7 +450,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -497,7 +498,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -545,7 +546,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -593,7 +594,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -641,7 +642,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 
@@ -689,7 +690,7 @@ public class sceneOnePartOne {
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.increaseCP = 1;
-			playerStats.XP+=2;
+			playerStats.XP+=1;
 			gameStory.selectedRight();
 				UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 

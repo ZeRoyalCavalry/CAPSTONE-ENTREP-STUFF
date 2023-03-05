@@ -22,6 +22,7 @@ public class Screen extends JPanel implements ActionListener{
 	public String imageName;
 
 	public Screen(String imageName) {
+		Game.enableKeys = 0;
 		this.imageName = imageName;
 		loadBufferedImage();
 		alphaTimer.start();
@@ -53,6 +54,7 @@ public class Screen extends JPanel implements ActionListener{
 		if(alphaValue < 0) {
 			alphaValue = 0;
 			alphaTimer.stop();
+			Game.enableKeys = 1;
 		}
 		repaint();
 	}

@@ -163,67 +163,107 @@ public class storyLines implements java.io.Serializable{
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Third Lesson Part 1 Results
 
+//Answer Input Processing
+"And your answer for the Element's Atomic Number is. . .", //43
+
 //Right
-"Well done! It has 65 Protons, meaning it would have an Atomic Number of 65.", // 43
+"Well done! It has 65 Protons, meaning it would have an Atomic Number of 65.", // 44
 
 //Wrong
-"Oh, not really, dear. The Atomic Number is the same as the NUMBER OF PROTONS, meaning it's 65.", // 44
+"Oh, not really, dear. The Atomic Number is the same as the NUMBER OF PROTONS, meaning it's 65.", // 45
 
 //Reminder
-"Always remember, ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 45
+"Always remember, ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 46
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Third Lesson Part 2 Results
 
+//Answer Input Processing
+"The Number of Protons you calculated is. . .", //47
+
 //Right
-"Correcto mundo! An Element with an ATOMIC NUMBER of 118 has 118 PROTONS!", // 46
+"Correcto mundo! An Element with an ATOMIC NUMBER of 118 has 118 PROTONS!", // 48
 
 //Wrong
-"Aw. . . Dear, it is simply 118 PROTONS because its ATOMIC NUMBER is 118.", // 47
+"Aw. . . Dear, it is simply 118 PROTONS because its ATOMIC NUMBER is 118.", // 49
 
 //Reminder
-"PLEASE REMEMBER! ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 48
+"PLEASE REMEMBER! ATOMIC NUMBER IS EQUAL TO NUMBER OF PROTONS!", // 50
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Transition to Fourth Lesson
 
-"Now then, let's go discuss the Mass Number, which requires a bit of Math that I know you can do!", //49
+"Now that that's over, let's proceed to the Mass Number, which requires a bit of Math that I know you can do!", //51
 
 "To calculate the Mass Number of an Element, you would need to add the TOTAL NUMBER OF PROTONS "
-+ "AND THE TOTAL NUMBER OF NEUTRONS.", //50
++ "and THE TOTAL NUMBER OF NEUTRONS.", //52
 
 "Sometimes, it may get confusing as some elements would be positively or negatively charged which "
-+ "would CHANGE the number of Protons and Electrons. You should use the number of electrons instead!", //51
++ "would CHANGE the NUMBER OF ELECTRONS, depending if it was (+) or (-).", //53
 
-"To simplify it, MASS NUMBER = NO. OF PROTONS + NO. OF NEUTRONS or NO. OF ELECTRONS + NO OF NEUTRONS!", //52
+"To simplify it, MASS NUMBER = NO. OF PROTONS + NO. OF NEUTRONS! \nAlso remember that NO. OF NEUTRONS = " 
++ "MASS NUMBER - NO. OF PROTONS, NO. OF ELECTRONS = ATOMIC NUMBER + (-) ions or ATOMIC NUMBER - (+) ions.", //54
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Fourth Lesson Part 1 Results
 
+//Answer Input Processing
+"A little Math training, let's see if you got it . . .", //55
+
 //Right
-"Sugoi! The right answer is indeed 207! Good job, dear!", // 53
+"Sugoi! The right answer is indeed 207! Good job, dear!", // 56
 
 //Wrong
-"Uhm... not quite, honey. The answer is 207 because of (82 + 125 = Mass Number).", // 54
+"Uhm... not quite, honey. The answer is 207 because of (82 + 125 = Mass Number).", // 57
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Fourth Lesson Part 2 Results
 
+//Answer Input Processing
+"Let's see if the managed to solve this tricky one. . .", //58
+
 //Right
-"Great insight and detective work! You got the right Mass Number of 195!", // 55
+"Great insight and detective work! You got the right Mass Number of 195!", // 59
 
 //Wrong
-"I see, it kind of got confusing a bit, no? I'll explain it to you then.", // 56
+"I see, it kind of got confusing a bit, no? I'll explain it to you then.", // 60
 
 //Explanation of how to solve
-"First of all, it is positively charged by 4, meaning you would have to reduce the number of electrons by 4.", // 57
+"Let's discuss that. It is positively charged by 4, meaning you would have to reduce the number of electrons by 4.", // 61
 
-"And, remember that ATOMIC NUMBER is EQUAL to the NUMBER OF PROTONS, and the NUMBER OF PROTONS is equal to NUMBER OF ELECTRONS!", // 58
+"And, remember that ATOMIC NUMBER is EQUAL to the NUMBER OF PROTONS, and the NUMBER OF PROTONS is equal to NUMBER OF ELECTRONS!", // 62
 
-"With that logic, an Element with the Atomic Number of 78 has 78 PROTONS, which means it would also have 78 ELECTRONS! "
-+ "But because it is positively charged by 4, it would then only have 74 ELECTRONS.", // 59
+"With that logic, an Element with the Atomic Number of 78 has 78 PROTONS and also 78 ELECTRONS. "
++ "Additionally, the number of Electrons would be 74 because of its (+4).", // 63
 
-"So, the equation becomes MASS NUMBER = (78 - 4) + 121 = 74 + 121 = 195 for the Mass Number!", //60
+"However, we only need to find the MASS NUMBER, so how we solve it is by (MASS NUMBER = 78 + 117 = 195)! "
++ "I just threw in an ion charge to confuse you a bit.", //64
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Combined Third and Fourth Lesson Review
+
+"Phew! Exercising the brain can really be tiring, but knowledge is power afterall! "
++ "With all that's said and done, let's have another review for what we just discussed, shall we?", //65
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Combined Third and Fourth Lesson Review Questions
+
+//Answer Load/Update Value
+"And the result of your answer is...", //66
+
+//Correct
+"Good job, you remember!", //67
+
+"Well done, your observation is superb!", //68
+
+"I never doubted you!", //69
+
+//Wrong
+"Ah, a miss, you can try again.", //70
+
+"Oh, well, there's always a second chance!", //71
+
+"There's always a next time, you got this!", //72
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Transition to the near the End of Scene One
@@ -231,45 +271,47 @@ public class storyLines implements java.io.Serializable{
 //Continuation of Main Lines
 "Anyway, you go on and and do your morning routine! Don't forget to use some"
 + " SODIUM FLUOROPHOSPHATE (Na2PFO3) product so that you won't get cavities... Oh!"
-+ " And some SODIUM HYDROXIDE (NaOH) based product too to clean up your body.", //61
++ " And some SODIUM HYDROXIDE (NaOH) based product too to clean up your body.", //73
+
+"You enter the bathroom to wash up. . .", //74
 
 "Oh... What did mom say about that?"
-+ " SODIUM FLUOROPHOSPHATE (Na2PFO3) and SODIUM HYDROXIDE (NaOH) BASED product...", //62
++ " SODIUM FLUOROPHOSPHATE (Na2PFO3) and SODIUM HYDROXIDE (NaOH) BASED product...", //75
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Toothpaste Question Results
 
 //Right
-"Yes! We still have some by the sink! It's the one labeled MaxWhite!", //63
+"Yes! We still have some by the sink! It's the one labeled MaxWhite!", //76
 
 //Wrong
-"Excuse me? So simple! It's toothpaste! It's over there!", //64
+"Excuse me? It's toothpaste, dear... and it's over there!", //77
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Bar Soap Question Results
 
 //Right
-"It's quite odd that you are asking all of these, but yes, it is that. ", // 65
+"It's quite odd that you are asking all of these, but yes, it is that. ", // 78
 
 //Wrong
-"How many times must I correct you in a single morning? It's BAR SOAP! The SODIUM HYDROXIDE " 
-+ "based product is BAR SOAP!", //66
+"How many times must I correct you in a single morning? It's BAR SOAP! The SODIUM HYDROXIDE "
++ "based product is BAR SOAP!", //79
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //End of Scene One
 
-"You start brushing your teeth... then followed by a bath.",//67
+"You start brushing your teeth... then followed by a bath.", //80
 
 "Now you're ready. The world awaits for you, deary. "
 + "Go on and have fun learning at STARLIGHT HIGHSCHOOL! "
-+ "Bye bye now! Sending some love from me to you!", //68
++ "Bye bye now! Sending some love from me to you!", //81
 
 "Finally, you're ready. You best be going now, you are "
 + "in serious need of learning after all of that. "
 + "I'm saying this not to hurt you, but to make you realize that there's a lot to learn. "
-+ "Bye bye now.",//69
++ "Bye bye now.", //82
 
-"You exit your house...",//70
+"You exit your house...", //83
 				
 		};
 	}
@@ -330,28 +372,43 @@ public class storyLines implements java.io.Serializable{
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Third Lesson Part 2 Question
 
-"If an element has an ATOMIC NUMBER of 118, how many PROTONS does it have? (Just the number only)", // 12
+"If an element has an ATOMIC NUMBER of 118, how many PROTONS does it have? (Input the number only)", // 12
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Fourth Lesson Part 1 Question
 
-"Now then, if an Element has 82 PROTONS and 125 NEUTRONS, what would be its MASS NUMBER? (Just the number only)", // 13
+"Now then, if an Element has 82 PROTONS and 125 NEUTRONS, what would be its MASS NUMBER? (Input the number only)", // 13
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//Fourth Lesson Part 2 Question
+//Fourth Lesson Part 2 Question 1
 
-"Let's try an Element(+4) or is POSITIVELY CHARGED by 4 with an ATOMIC NUMBER of 78 and 121 NEUTRONS, what is the MASS NUMBER? (Just the number only)", // 14
+"How about an Element(+4) or is POSITIVELY CHARGED by 4 with an ATOMIC NUMBER of 78 and 117 NEUTRONS, what is the MASS NUMBER? (Input the number only)", // 14
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Combined Third and Fourth Lesson Review Questions
+
+"An element has 58 ELECTRONS, what would be its ATOMIC NUMBER then? (Input the number only)", //15,1
+
+"The element Oxygen has a (-2) Charge, its ATOMIC NUMBER is 8 with 8 NEUTRONS, what could be its MASS NUMBER? (Input the number only)", //16,2
+
+"Rubidium is the 37th Element in the Periodic Table. This Alkali Metal has (+1) charge, how many ELECTRONS would it have? (Input the number only)", //17,3
+
+"Nitrogen has a (-3) Charge and has 10 ELECTRONS, what would be its NUMBER OF PROTONS and ATOMIC NUMBER? (Input one number only)", //18,4
+
+"If an element has a MASS NUMBER of 127 and an ATOMIC NUMBER of 53, what would be its NUMBER OF NEUTRONS? (Input the number only)", //19,5
+
+"Hypothetical Element X has a MASS NUMBER of 176 and 127 NEUTRONS, what would be its NUMBER OF PROTONS and ATOMIC NUMBER? (Input one number only)", //20,6
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Toothpaste Question
 
 "What is SODIUM FLUOROPHOSPHATE?"
-+ " She said something about cavities... What could it be?", //15
++ " She said something about cavities... What could it be?", //21
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Bar Soap Question Results
 
-"What about SODIUM HYDROXIDE? Isn't that just...", //16
+"What about the SODIUM HYDROXIDE based product? Isn't that just...", //22
 
 		};
 	}

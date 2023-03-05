@@ -3,6 +3,7 @@ package mainPackage;
 import javax.swing.JLabel;
 
 import scenes.introScene;
+import scenes.sceneOnePartEnd;
 import scenes.sceneOnePartOne;
 import scenes.sceneOnePartTwo;
 
@@ -10,7 +11,7 @@ import java.io.Serializable;
 
 public class gameStory implements Serializable{
 	
-	introScene intro; sceneOnePartOne scOne; sceneOnePartTwo scOne2;
+	introScene intro; sceneOnePartOne scOne; sceneOnePartTwo scOne2; sceneOnePartEnd scOneEnd;
 	
 	Game game; UserInterface ui;
 	TransitionClass sceneChanger; soundManager sm;
@@ -22,23 +23,24 @@ public class gameStory implements Serializable{
 		public int number = 0, reviewCorrect = 0, questionSelector = 0, questionRecognizer = 0;
 
 		public static String name;
+		public static String [] playerAnswerInput = new String[100];
 		
 		public static JLabel bgHolder = new JLabel();
 		public static JLabel charHolder = new JLabel(); 
 
 	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats, ImageManager imgManage, 
-					introScene intro2, sceneOnePartOne homeOne, sceneOnePartTwo homeTwo) {	
+					introScene intro2, sceneOnePartOne homeOne, sceneOnePartTwo homeTwo, sceneOnePartEnd homeEnd) {	
 				game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats; images = imgManage; 
 				
-				intro = intro2; scOne = homeOne; scOne2 = homeTwo;
+				intro = intro2; scOne = homeOne; scOne2 = homeTwo; scOneEnd = homeEnd;
 	}
 	
 	public void startStats(){
 		playerStats.maxCP = 10;
 		playerStats.XP = 0;
-			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "</center></html>");
 			playerStats.CP = 10;
-			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
+			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "/" + playerStats.maxCP + "<center><html>");
 	}
 
 	public static void pause() {
@@ -55,10 +57,11 @@ public class gameStory implements Serializable{
 		switch(nextDialogue){
 		case "intro0":    	intro.intro0Game(); break; 
 		case "genderSelect": sceneChanger.genderSelect(); intro.genderSelect(); break;
+		case "instructions": sceneChanger.showInstructions(); intro.instructions(); break;
 		case "intro1":   	sceneChanger.showDialogue(); intro.intro1Game(); break;
 		case "intro2":    	intro.intro2Game(); break;
 		case "intro3":    	intro.intro3Game(); break;
-			case "intro3to4": 	game.enableKeys = 1; intro.intro3to4(); break;
+			case "intro3to4":	intro.intro3to4(); break;
 		case "intro4":    	sceneChanger.showDialogue(); intro.intro4Game(); break;
 		case "intro5": 	  	intro.intro5Game(); break;
 			case "intro5to6": 	intro.intro5to6(); break;
@@ -110,67 +113,107 @@ public class gameStory implements Serializable{
 		case "thirdLessonStart4": scOne2.thirdLessonStart4(); break;
 
 		case "thirdLessonQuestion1": scOne2.thirdLessonQuestion1(); break;
+			case "thirdLessonAnswer1Load": scOne2.thirdLessonAnswer1Load(); break;
+				case "thirdLesson1Right": scOne2.thirdLesson1Right(); break;
+				case "thirdLesson1Wrong": scOne2.thirdLesson1Wrong(); break;
 			case "thirdLesson1Notes": scOne2.thirdLesson1Notes(); break;
 
-		// case "afterQAOne": scOne.afterQAOne(); break;
-		// case "sceneOneEnd": scOne.sceneOneEnd(); break;
+		case "thirdLessonQuestion2": scOne2.thirdLessonQuestion2(); break;
+			case "thirdLessonAnswer2Load": scOne2.thirdLessonAnswer2Load(); break;
+				case "thirdLesson2Right": scOne2.thirdLesson2Right(); break;
+				case "thirdLesson2Wrong": scOne2.thirdLesson2Wrong(); break;
+			case "thirdLesson2Notes": scOne2.thirdLesson2Notes();
 
-		// case "exitHouse": scOne.exitHouse(); break;
-		}
-	}
-		/*
-		case "sceneTwoStart": sceneTwoStart(); break;
-		case "suddenRain": suddenRain(); break;
-		case "suddenRain2": suddenRain2(); break;
-		case "crushStart": crushStart(); break;
-		case "helpAsked": helpAsked(); break;
+		case "fourthLessonStart1": scOne2.fourthLessonStart1(); break;
+		case "fourthLessonStart2": scOne2.fourthLessonStart2(); break;
+		case "fourthLessonStart3": scOne2.fourthLessonStart3(); break;
+		case "fourthLessonStart4": scOne2.fourthLessonStart4(); break;
 
-		case "HelpOrIgnore": sceneChanger.showChoices(); break;
-			case "crushHelped2": crushHelped2(); break;
-			case "crushHelped3": crushHelped3(); break;
-			case "crushHelped4": crushHelped4(); break;
+		case "fourthLessonQuestion1": scOne2.fourthLessonQuestion1(); break;
+			case "fourthLessonAnswer1Load": scOne2.fourthLessonAnswer1Load(); break;
+				case "fourthLesson1Right": scOne2.fourthLesson1Right(); break;
+				case "fourthLesson1Wrong": scOne2.fourthLesson1Wrong(); break;
+
+		case "fourthLessonQuestion2": scOne2.fourthLessonQuestion2(); break;
+			case "fourthLessonAnswer2Load": scOne2.fourthLessonAnswer2Load(); break;
+				case "fourthLesson2Right": scOne2.fourthLesson2Right(); break;
+				case "fourthLesson2Wrong": scOne2.fourthLesson2Wrong(); break;
+			case "fourthLesson2Notes1": scOne2.fourthLesson2Notes1(); break;
+			case "fourthLesson2Notes2": scOne2.fourthLesson2Notes2(); break;
+			case "fourthLesson2Notes3": scOne2.fourthLesson2Notes3(); break;
+			case "fourthLesson2Notes4": scOne2.fourthLesson2Notes4(); break;
+
+		case "ThirdFourthLessonReviewStart": scOne2.ThirdFourthLessonReviewStart(); break;
 			
-				case "crushIgnored": crushIgnored(); break;
+		case "ThirdFourthLessonReview1": scOne2.ThirdFourthLessonReview1(); break;
+			case "ThirdFourthLessonReview1Load": scOne2.ThirdFourthLessonReview1Load(); break;
+				case "ThirdFourthLessonReview1Right": scOne2.ThirdFourthLessonReview1Right(); break;
+				case "ThirdFourthLessonReview1Wrong": scOne2.ThirdFourthLessonReview1Wrong(); break;
 
-		case "AtSchool": AtSchool(); break;
+		case "ThirdFourthLessonReview2": scOne2.ThirdFourthLessonReview2(); break;
+			case "ThirdFourthLessonReview2Load": scOne2.ThirdFourthLessonReview2Load(); break;
+				case "ThirdFourthLessonReview2Right": scOne2.ThirdFourthLessonReview2Right(); break;
+				case "ThirdFourthLessonReview2Wrong": scOne2.ThirdFourthLessonReview2Wrong(); break;
 
-		case "friends1": friends1(); break;
-		case "friends2": friends2(); break; 
-		case "friends3": friends3(); break;
-		case "friends4": friends4(); break;
+		case "ThirdFourthLessonReview3": scOne2.ThirdFourthLessonReview3(); break;
+			case "ThirdFourthLessonReview3Load": scOne2.ThirdFourthLessonReview3Load(); break;
+				case "ThirdFourthLessonReview3Right": scOne2.ThirdFourthLessonReview3Right(); break;
+				case "ThirdFourthLessonReview3Wrong": scOne2.ThirdFourthLessonReview3Wrong(); break;
 
-		case "cafeteria1": cafeteria1(); break;
-		case "cafeteria2": cafeteria2(); break;
-		case "cafeteria3": cafeteria3(); break;
-		case "cafeteria4": cafeteria4(); break;
+		case "ThirdFourthLessonReview4": scOne2.ThirdFourthLessonReview4(); break;
+			case "ThirdFourthLessonReview4Load": scOne2.ThirdFourthLessonReview4Load(); break;
+				case "ThirdFourthLessonReview4Right": scOne2.ThirdFourthLessonReview4Right(); break;
+				case "ThirdFourthLessonReview4Wrong": scOne2.ThirdFourthLessonReview4Wrong(); break;
+
+		case "ThirdFourthLessonReview5": scOne2.ThirdFourthLessonReview5(); break;
+			case "ThirdFourthLessonReview5Load": scOne2.ThirdFourthLessonReview5Load(); break;
+				case "ThirdFourthLessonReview5Right": scOne2.ThirdFourthLessonReview5Right(); break;
+				case "ThirdFourthLessonReview5Wrong":  scOne2.ThirdFourthLessonReview5Wrong(); break;
+
+		case "ThirdFourthLessonReview6": scOne2.ThirdFourthLessonReview6(); break;
+			case "ThirdFourthLessonReview6Load": scOne2.ThirdFourthLessonReview6Load(); break;
+				case "ThirdFourthLessonReview6Right": scOne2.ThirdFourthLessonReview6Right(); break;
+				case "ThirdFourthLessonReview6Wrong": scOne2.ThirdFourthLessonReview6Wrong(); break;
+
+		case "endStart1": scOneEnd.endStart1(); break;
+		case "endStart2": scOneEnd.endStart2(); break;
+			case "endStart2to3": scOneEnd.endStart2to3(); break;
+		case "endStart3": scOneEnd.endStart3(); break;
+
+		case "endQuestion1": scOneEnd.endQuestion1(); break;
+		case "endQuestion2": scOneEnd.endQuestion2(); break;
+
+		case "sceneOneEnds1": scOneEnd.sceneOneEnds1(); break;
+		case "sceneOneEnds2": scOneEnd.sceneOneEnds2(); break;
+		case "sceneOneEndEnd": scOneEnd.sceneOneEndEnd(); break;
 	}
-}*/
+}
 	
 	//For choice making moments
 	public void progressTracker(String nextMove) {
 		switch(nextMove) {
 			case "afterBed": intro.amBedroom(); break;
 				case "bedroomExit11": 	intro.bedroomExit11(); sceneChanger.showDialogue();  break;
-				case "bedroomStudy11": 	intro.bedroomStudy11(); sceneChanger.showDialogue();  break;		
+				case "bedroomStudy11": 	intro.bedroomStudy11(); break;		
 				case "bedroomSS11": 	intro.bedroomSS11();  sceneChanger.showDialogue(); ui.bgPanel.setVisible(true); 
 										bgHolder.setIcon(images.cityView); break;		
 				case "bedroomSleep11": 	intro.bedroomSleep11(); sceneChanger.showDialogue(); break;	
 				
 			case "firstLessonQuestion": 	scOne.firstLessonQuestion(); break;
-				case "firstLessonRight": 	scOne.firstLessonRight(); sceneChanger.showDialogue(); break;
-				case "firstLessonWrong": 	scOne.firstLessonWrong(); sceneChanger.showDialogue(); break;
+				case "firstLessonRight": 	scOne.firstLessonRight(); break;
+				case "firstLessonWrong": 	scOne.firstLessonWrong(); break;
 
 			case "secondLessonQuestion1": 	scOne.secondLessonQuestion1(); break;
-				case "secondLesson1Right": 	scOne.secondLesson1Right(); sceneChanger.showDialogue(); break;
-				case "secondLesson1Wrong": 	scOne.secondLesson1Wrong(); sceneChanger.showDialogue();  break;
+				case "secondLesson1Right": 	scOne.secondLesson1Right(); break;
+				case "secondLesson1Wrong": 	scOne.secondLesson1Wrong(); break;
 
 			case "secondLessonQuestion2": 	scOne.secondLessonQuestion2(); break;
-				case "secondLesson2Right": 	scOne.secondLesson2Right(); sceneChanger.showDialogue(); break;
-				case "secondLesson2Wrong": 	scOne.secondLesson2Wrong(); sceneChanger.showDialogue(); break;
+				case "secondLesson2Right": 	scOne.secondLesson2Right(); break;
+				case "secondLesson2Wrong": 	scOne.secondLesson2Wrong(); break;
 
 			case "secondLessonQuestion3": 	scOne.secondLessonQuestion3(); break;
-				case "secondLesson3Right": 	scOne.secondLesson3Right(); sceneChanger.showDialogue(); break;
-				case "secondLesson3Wrong": 	scOne.secondLesson3Wrong(); sceneChanger.showDialogue(); break;
+				case "secondLesson3Right": 	scOne.secondLesson3Right(); break;
+				case "secondLesson3Wrong": 	scOne.secondLesson3Wrong(); break;
 			
 				case "secondLessonReview1": scOne.secondLessonReview1(); break;
 					case "secondLessonReview1Right": scOne.secondLessonReview1Right(); break;
@@ -197,326 +240,36 @@ public class gameStory implements Serializable{
 					case "secondLessonReview6Wrong": scOne.secondLessonReview6Wrong(); break;
 
 				case "thirdLessonQuestion1": scOne2.thirdLessonQuestion1(); break;
-					case "thirdLesson1Right": scOne2.thirdLesson1Right(); break;
-					case "thirdLesson1Wrong": scOne2.thirdLesson1Wrong(); break;
+				case "thirdLessonQuestion2": scOne2.thirdLessonQuestion2(); break;
+				case "fourthLessonQuestion1": scOne2.fourthLessonQuestion1(); break;
+				case "fourthLessonQuestion2": scOne2.fourthLessonQuestion2(); break;
+		
+				case "ThirdFourthLessonReview1": scOne2.ThirdFourthLessonReview1(); break;
+				case "ThirdFourthLessonReview2": scOne2.ThirdFourthLessonReview2(); break;
+				case "ThirdFourthLessonReview3": scOne2.ThirdFourthLessonReview3(); break;
+				case "ThirdFourthLessonReview4": scOne2.ThirdFourthLessonReview4(); break;
+				case "ThirdFourthLessonReview5": scOne2.ThirdFourthLessonReview5(); break;
+				case "ThirdFourthLessonReview6": scOne2.ThirdFourthLessonReview6(); break;	
+			
+				case "endQuestion1": scOneEnd.endQuestion1(); break;
+					case "endQuestion1Right": scOneEnd.endQuestion1Right(); break;
+					case "endQuestion1Wrong": scOneEnd.endQuestion1Wrong(); break;
 
-			/*case "HelpOrIgnore": HelpOrIgnore(); break;
-				case "helped": crushHelped1(); sceneChanger.showDialogue(); break;
-				case "ignored": crushIgnored(); sceneChanger.showDialogue(); break;*/
+				case "endQuestion2": scOneEnd.endQuestion2(); break;
+					case "endQuestion2Right": scOneEnd.endQuestion2Right(); break;
+					case "endQuestion2Wrong": scOneEnd.endQuestion2Wrong(); break;
 		}
 	}
 	public static void selectedRight(){
 		if(playerStats.CP < playerStats.maxCP){
 			playerStats.CP = playerStats.CP + increaseCP;
-			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
+			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "/" + playerStats.maxCP + "<center><html>");
 		}
 	}
 	public static void selectedWrong(){
 		if(playerStats.CP > 0){
 			playerStats.CP = playerStats.CP - decreaseCP;
-			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
+			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "/" + playerStats.maxCP + "<center><html>");
 		}
 	}
 }
-
-/*
-	//First Question but second choice
-	public void firstQuestion() {
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "firstQuestion";
-		game.currentQuestion = "firstQuestion";
-		questiontextTracker = 2;
-		ui.dialoguePanel.setVisible(false);
-		ui.mainTextArea.setFont(narrationFont);
-		ui.mainTextArea.setText("");
-		ui.dialogueBox.setText(null);
-		choiceTimer.start();
-			ui.choice1.setText("Toothpaste");
-			ui.choice2.setText("Liquid Soap");
-			ui.choice3.setText("Bar Soap");
-			ui.choice4.setText("Shampoo");
-			
-			game.nextPosition1 = "correct1";
-			game.nextPosition2 = "incorrect1";
-			game.nextPosition3 = "incorrect1";
-			game.nextPosition4 = "incorrect1";
-	}
-	public void rightFirst(){
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "correct1";
-		diatextTracker = 28;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-		increaseCP = 1;
-		selectedRight();
-		player.XP+=7;
-			ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
-
-			game.nextDialogue = "secondQuestion";
-	}
-	public void wrongFirst(){
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "incorrect1";
-		diatextTracker = 29;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-		decreaseCP = 1;
-		selectedWrong();
-			game.nextDialogue = "secondQuestion";
-	}
-
-	//Second Question
-	public void secondQuestion(){
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "secondQuestion";
-		game.currentQuestion = "secondQuestion";
-		questiontextTracker = 3;
-		ui.dialoguePanel.setVisible(false);
-		ui.mainTextArea.setFont(narrationFont);
-		ui.mainTextArea.setText("");
-		ui.dialogueBox.setText(null);
-		choiceTimer.start();
-			ui.choice1.setText("Toothpaste");
-			ui.choice2.setText("Liquid Soap");
-			ui.choice3.setText("Bar Soap");
-			ui.choice4.setText("Shampoo");
-			
-			game.nextPosition1 = "incorrect2";
-			game.nextPosition2 = "incorrect2";
-			game.nextPosition3 = "correct2";
-			game.nextPosition4 = "incorrect2";
-	}
-	public void rightSecond(){
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "correct2";
-		diatextTracker = 30;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-		increaseCP = 1;
-		selectedRight();
-			player.XP+=3;
-				ui.XPNumberLabel.setText("<html><center>" + player.XP + "<center><html>");
-
-			game.nextDialogue = "afterQAOne";
-	}
-	public void wrongSecond(){
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "incorrect2";
-		diatextTracker = 31;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-		decreaseCP = 1;
-		selectedWrong();
-			game.nextDialogue = "afterQAOne";
-	}
-
-	public void afterQAOne(){
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "afterQAOne";
-		diatextTracker = 32;
-			ui.mainTextArea.setFont(normalFont);
-			startDialogue();
-			sm.se.setFile8(sm.brushteethsfx);
-			sm.se.brushteethSFX.start();
-				pauseTime = 9000;
-				pause();
-			sm.se.setFile6(sm.showersfx);
-			sm.se.showerSFX.start();
-				pauseTime = 8000;
-				pause();
-			game.nextDialogue = "sceneOneEnd";
-	}
-	public void sceneOneEnd(){
-		bgHolder.setIcon(images.livingroomView);
-		game.currentDialogue = "sceneOneEnd";
-		if(player.CP>= 8){
-			diatextTracker = 33;
-		}
-		else{
-			diatextTracker = 34;
-		}
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "exitHouse";
-	}
-	public void exitHouse(){
-		ui.bgPanel.setBackground(Color.BLACK);
-		sm.se.setFile7(sm.doorsfx);
-		sm.se.doorSFX.start();
-		pauseTime = 3000;
-		pause();
-		game.currentDialogue = "exitHouse";
-		diatextTracker = 35;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "sceneTwoStart";
-	}
-
-	//Scene Two (Offering Help)
-	public void sceneTwoStart(){
-		game.currentDialogue = "sceneTwo";
-		ui.bgPanel.setVisible(true);
-		ui.bgPanel.add(bgHolder);
-		bgHolder.setIcon(images.bayRouteView);
-		diatextTracker = 36;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "suddenRain";
-	}
-	public void suddenRain(){
-		game.currentDialogue = "suddenRain";
-		diatextTracker = 37;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "suddenRain2";
-	}
-	public void suddenRain2(){
-		game.currentDialogue = "suddenRain2";
-		diatextTracker = 38;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "crushStart";
-	}
-
-	//Crush Situation
-	public void crushStart(){
-		game.currentDialogue = "crushStart";
-		diatextTracker = 38;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "helpAsked";
-	}
-	public void helpAsked(){
-		game.currentDialogue = "helpAsked";
-		diatextTracker = 39;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "HelpOrIgnore";
-	}
-	public void HelpOrIgnore(){
-		game.currentDialogue = "HelpOrIgnore";
-		game.currentQuestion = "HelpOrIgnore";
-		questiontextTracker = 4;
-		ui.dialoguePanel.setVisible(false);
-		ui.mainTextArea.setFont(narrationFont);
-		ui.mainTextArea.setText("");
-		ui.dialogueBox.setText(null);
-		choiceTimer.start();
-			ui.choice1.setText("Help");
-			ui.choice2.setText("Ignore");
-			ui.choice3.setText(null);
-			ui.choice4.setText(null);
-			
-			game.nextPosition1 = "helped";
-			game.nextPosition2 = "ignored";
-			game.nextPosition3 = null;
-			game.nextPosition4 = null;
-	}
-
-	//Crush Helped
-	public void crushHelped1(){
-		game.currentDialogue = "crushHelped1";
-		diatextTracker = 40;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "crushHelped2";
-	}
-	public void crushHelped2(){
-		game.currentDialogue = "crushHelped2";
-		diatextTracker = 41;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "crushHelped3";
-	}
-	public void crushHelped3(){
-		game.currentDialogue = "crushHelped3";
-		diatextTracker = 42;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "crushHelped4";
-	}
-	public void crushHelped4(){
-		game.currentDialogue = "crushHelped4";
-		diatextTracker = 43;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "AtSchool";
-	}
-	//Crush Ignored
-	public void crushIgnored(){
-		game.currentDialogue = "crushIgnored";
-		diatextTracker = 44;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-		selectedWrong();
-			game.nextDialogue = "AtSchool";
-	}
-
-	public void AtSchool(){
-		game.currentDialogue = "AtSchool";
-		diatextTracker = 45;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "friends1";
-	}
-
-	//Friends talking
-	public void friends1(){ //friend1
-		game.currentDialogue = "friends1";
-		diatextTracker = 46;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "friends2";
-	}
-	public void friends2(){ //friend1
-		game.currentDialogue = "friends2";
-		diatextTracker = 47;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "friends3";
-	}
-	public void friends3(){ //friend1
-		game.currentDialogue = "friends3";
-		diatextTracker = 48;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "friends4";
-	}
-	public void friends4(){ //friend1
-		game.currentDialogue = "friends4";
-		diatextTracker = 49;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "cafeteria1";
-	}
-
-	//At Cafeteria
-	public void cafeteria1(){
-		game.currentDialogue = "cafeteria1";
-		diatextTracker = 50;
-		ui.mainTextArea.setFont(narrationFont);
-		startDialogue();
-			game.nextDialogue = "cafeteria2";
-	}
-	public void cafeteria2(){
-		game.currentDialogue = "cafeteria2";
-		diatextTracker = 50;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "cafeteria3";
-	}
-	public void cafeteria3(){
-		game.currentDialogue = "cafeteria3";
-		diatextTracker = 51;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "cafeteria4";
-	}
-	public void cafeteria4(){
-		game.currentDialogue = "cafeteria4";
-		diatextTracker = 52;
-		ui.mainTextArea.setFont(normalFont);
-		startDialogue();
-			game.nextDialogue = "cafeteria4";
-	}
-}*/

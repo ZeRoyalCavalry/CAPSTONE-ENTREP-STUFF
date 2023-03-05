@@ -27,8 +27,8 @@ public class CutsceneMaker implements Serializable{
         int windowHeight = (int)gameWindowSize.getHeight();
         
         int spriteWidth = 900, spriteHeight = 1200, 
-        		alignSpriteX = (int)Math.round(windowWidth/2.5), 
-        		alignSpriteY = (int)Math.round(windowHeight/10);
+        		alignSpriteX = (int)Math.round(windowWidth/1.75), 
+        		alignSpriteY = (int)Math.round(windowHeight/12);
 
 		float bgValue, spriteValue;
 

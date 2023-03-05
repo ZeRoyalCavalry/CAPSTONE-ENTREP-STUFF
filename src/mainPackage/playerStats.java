@@ -9,12 +9,4 @@ public class playerStats implements java.io.Serializable{
     //Not showable, probably a different screen?
     static int namingMastery, stoichMastery;
 
-    public playerStats(){
-        if(playerStats.XP >= 15 && playerStats.XP < 25){
-            playerStats.level++;
-            playerStats.maxCP = 12;
-            playerStats.CP = 15;
-            playerStats.XP = 0;
-        }
-    }
 }

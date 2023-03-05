@@ -21,6 +21,7 @@ public class fadeIn extends JPanel implements ActionListener {
 
 
     public fadeIn(String bgImage){
+        Game.enableKeys = 0;
         this.bgImage = bgImage;
         loadFadeImage();
         fadeInTimer.start();
@@ -48,6 +49,7 @@ public class fadeIn extends JPanel implements ActionListener {
         if(fadeInValue > 1){
             fadeInValue = 1;
             fadeInTimer.stop();
+            Game.enableKeys = 1;
         }
         repaint();
     }

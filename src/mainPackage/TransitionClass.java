@@ -11,6 +11,7 @@ public class TransitionClass implements java.io.Serializable {
 		public void introSequence(){
 			ui.introPanel.setVisible(true);
 			
+			ui.instructionsPanel.setVisible(false);
 			ui.submitAnswerPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
@@ -26,6 +27,7 @@ public class TransitionClass implements java.io.Serializable {
 		}
 		public void showTitleScreen(){
 			
+			ui.instructionsPanel.setVisible(false);
 			ui.submitAnswerPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
@@ -46,6 +48,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.mainTextPanel.setVisible(true);
 			ui.nameInputPanel.setVisible(true);
 
+			ui.instructionsPanel.setVisible(false);
 			ui.playerStatsPanel.setVisible(false);
 			ui.submitAnswerPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
@@ -62,6 +65,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.submitAnswerPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 			
+			ui.instructionsPanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
@@ -77,6 +81,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.femaleSelectPanel.setVisible(true);
 			ui.nonSelectPanel.setVisible(true);
 
+			ui.instructionsPanel.setVisible(false);
 			ui.submitAnswerPanel.setVisible(false);
 			ui.introPanel.setVisible(false);
 			ui.mainTextPanel.setVisible(false);
@@ -93,6 +98,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 
+			ui.instructionsPanel.setVisible(false);
 			ui.submitAnswerPanel.setVisible(false);
 			ui.bgPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
@@ -112,6 +118,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.choicePanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 			
+			ui.instructionsPanel.setVisible(false);
 			ui.submitAnswerPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(false);
 			ui.femaleSelectPanel.setVisible(false);
@@ -121,6 +128,22 @@ public class TransitionClass implements java.io.Serializable {
 			ui.startButtonPanel.setVisible(false);
 			ui.dialoguePanel.setVisible(false);
 			ui.nameInputPanel.setVisible(false);
+		}
+		public void showInstructions(){
+			ui.instructionsPanel.setVisible(true);
+			
+			ui.introPanel.setVisible(false);
+			ui.submitAnswerPanel.setVisible(false);
+			ui.maleSelectPanel.setVisible(false);
+			ui.femaleSelectPanel.setVisible(false);
+			ui.nonSelectPanel.setVisible(false);
+			ui.mainTextPanel.setVisible(false);
+			ui.choicePanel.setVisible(false);
+			ui.nameInputPanel.setVisible(false);
+			ui.playerStatsPanel.setVisible(false);
+			ui.continueButtonPanel.setVisible(false);
+			ui.startButtonPanel.setVisible(false);
+			ui.bgPanel.setVisible(false);
 		}
 }
 

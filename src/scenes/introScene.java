@@ -35,7 +35,7 @@ public class introScene {
 
 	public void bedroomCutsceneLoad(){
 		sceneChanger.showDialogue();
-		CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", 1.0f, 1.0f);
+		CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", 1.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -44,7 +44,7 @@ public class introScene {
 	}
 	public void cityCutsceneLoad(){
 		sceneChanger.showDialogue();
-		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", 1.0f, 1.0f);
+		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", 1.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -53,6 +53,7 @@ public class introScene {
 	}
 
 	public void intro0Game() {//Get name
+		ui.npcName.setText(null);
 		sm.bgsMusic.stopMusic();
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro0";
@@ -63,12 +64,22 @@ public class introScene {
 			game.nextDialogue = "genderSelect";
 	}
 	public void genderSelect(){
+		ui.npcName.setText(null);
 		game.diatextTracker = 0;
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "genderSelect";
+		game.nextDialogue = "instructions";
+	}
+	public void instructions(){
+		Game.enableKeys = 1;
+		ui.npcName.setText(null);
+		game.diatextTracker = 0;
+		ui.bgPanel.setBackground(Color.BLACK);
+		game.currentDialogue = "instructions";
 		game.nextDialogue = "intro1";
 	}
 	public void intro1Game(){//A world a new
+		ui.npcName.setText(null);
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro1";
 		game.diatextTracker = 1;
@@ -78,6 +89,7 @@ public class introScene {
 				game.nextDialogue = "intro2";
 	}
 	public void intro2Game() {//Birds chirping...
+		ui.npcName.setText(null);
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro2";
 		game.diatextTracker = 2;
@@ -88,6 +100,7 @@ public class introScene {
 			game.nextDialogue = "intro3";
 	}
 	public void intro3Game() {//Different...
+		ui.npcName.setText(null);
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro3";
 		game.diatextTracker = 3;
@@ -96,7 +109,7 @@ public class introScene {
 			game.nextDialogue = "intro3to4";
 	}
 	public void intro3to4(){//Fade In
-		game.enableKeys = 1;
+		ui.npcName.setText(null);
 		sm.se.setFile4(sm.alarmclocksfx);
 		sm.se.alarmclockSFX.start();
 		game.currentDialogue = "intro3to4";
@@ -108,6 +121,7 @@ public class introScene {
 			game.nextDialogue = "intro4";
 	}
 	public void intro4Game() {//Bedroom
+		ui.npcName.setText(null);
 		game.currentDialogue = "intro4";
 		game.diatextTracker = 4;
 		fadeIn bedroomIn = new fadeIn(ImageManager.bedroom);
@@ -120,6 +134,7 @@ public class introScene {
 			game.nextDialogue = "intro5";
 	}
 	public void intro5Game() {//A new day...
+		ui.npcName.setText(null);
 		game.currentDialogue = "intro5";
 		game.diatextTracker = 5;
 		bedroomCutsceneLoad();
@@ -130,7 +145,7 @@ public class introScene {
 			game.nextDialogue = "intro5to6";
 	}
 	public void intro5to6(){
-		game.enableKeys = 1;
+		ui.npcName.setText(null);
 		game.currentDialogue = "intro5to6";
 		sm.se.setFile5(sm.outofbedsfx);
 		sm.se.outofbedSFX.start();
@@ -141,6 +156,7 @@ public class introScene {
 			game.nextDialogue = "intro6";
 	}
 	public void intro6Game() {//City view
+		ui.npcName.setText(null);
 		game.currentDialogue = "intro6";
 		game.diatextTracker = 6;
 		Screen bedroomFadeOut = new Screen(ImageManager.bedroom);
@@ -157,6 +173,7 @@ public class introScene {
 			game.nextDialogue = "intro6toEnd";	
 	}
 	public void intro6toEnd(){
+		ui.npcName.setText(null);
 		game.currentDialogue = "intro6toEnd";
 		ui.bgPanel.remove(gameStory.bgHolder);
 		Screen cityFadeOut = new Screen(ImageManager.city);
@@ -166,9 +183,10 @@ public class introScene {
 	}
 
 	public void amBedroom() {
+		ui.npcName.setText(null);
 		game.currentDialogue = "introEnd";
 		game.currentQuestion = "afterBed";
-		game.enableKeys = 0;
+		Game.enableKeys = 0;
 		game.questiontextTracker = 0;
 		ui.choicePanel.setVisible(true);
 		bedroomCutsceneLoad();
@@ -189,37 +207,41 @@ public class introScene {
 	}
 	//Second Scene Transition
 	public void bedroomExit11() {
+		ui.npcName.setText(null);
 		bedroomCutsceneLoad();
 		game.currentDialogue = "bedroomExit11";
-		game.enableKeys = 1;
+		Game.enableKeys = 1;
 		game.diatextTracker = 7;
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
 			game.nextDialogue = "gbedroomExit12";
 	}
 	public void bedroomStudy11() {
+		ui.npcName.setText(null);
 		bedroomCutsceneLoad();
 		game.diatextTracker = 8;
-		game.enableKeys = 1;
+		Game.enableKeys = 1;
 		game.currentDialogue = "bedroomStudy11";
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
 			game.nextDialogue = "gbedroomExit12";
 	}
 	public void bedroomSS11() {
+		ui.npcName.setText(null);
 		cityCutsceneLoad();
 		game.currentDialogue = "bedroomSS11";
 		game.diatextTracker = 9;
-		game.enableKeys = 1;
+		Game.enableKeys = 1;
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
 				game.nextDialogue = "scolding11";
 	}
 	public void bedroomSleep11() {
+		ui.npcName.setText(null);
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "bedroomSleep11";
 		game.diatextTracker = 10;
-		game.enableKeys = 1;
+		Game.enableKeys = 1;
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
 			game.nextDialogue = "scolding11";
