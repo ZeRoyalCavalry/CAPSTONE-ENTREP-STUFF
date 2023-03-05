@@ -34,10 +34,13 @@ public class sceneOnePartEnd {
 		this.player = player; this.lines = lines; this.images = imgManage; 
 	}
 
+	String motherSprite = "momSprite.png";
+
 	public void livingRoomCutsceneLoad(){
 		sceneChanger.showDialogue();
 		ui.npcName.setText("Mom");
-		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", "momSprite.png", 0.75f, 1.0f);
+		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", motherSprite, "placeholder.png", 
+												"placeholder.png", 0.75f, 1.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -47,7 +50,8 @@ public class sceneOnePartEnd {
     public void homeBathRoomCutsceneLoad(){
 		sceneChanger.showDialogue();
 		ui.npcName.setText("Mom");
-		CutsceneMaker homeBathRoomCutscene = new CutsceneMaker("homeRestroom.png", "placeholder.png", 0.75f, 0.0f);
+		CutsceneMaker homeBathRoomCutscene = new CutsceneMaker("homeRestroom.png", "placeholder.png", "placeholder.png", "placeholder.png", 
+																1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -57,7 +61,8 @@ public class sceneOnePartEnd {
 	public void blackScreen(){
 		sceneChanger.showDialogue();
 		ui.npcName.setText(null);
-		CutsceneMaker blackScreen = new CutsceneMaker("blackscreen.png", "placeholder.png", 1.0f, 0.0f);
+		CutsceneMaker blackScreen = new CutsceneMaker("blackscreen.png", "placeholder.png", "placeholder.png", "placeholder.png", 
+														1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -69,6 +74,7 @@ public class sceneOnePartEnd {
 	public void endStart1(){
 		game.currentDialogue = "endStart1";
 		game.diatextTracker = 73;
+		motherSprite = "momSpriteTeaching.png";
 		livingRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
@@ -87,8 +93,10 @@ public class sceneOnePartEnd {
 		sm.se.setFile7(sm.doorsfx);
 		sm.se.doorSFX.start();
 		ui.bgPanel.remove(CutsceneMaker.image);
+		ui.bgPanel.setVisible(false);
 		fadeIn bathroomFadeIn = new fadeIn(ImageManager.homeCR);
 		UserInterface.gameWindow.add(bathroomFadeIn);
+		UserInterface.gameWindow.setVisible(true);
 			game.nextDialogue = "endStart3";
 	}
 	public void endStart3(){
@@ -162,6 +170,7 @@ public class sceneOnePartEnd {
 		ui.dialoguePanel.setVisible(false);
 		ui.mainTextArea.setFont(game.narrationFont);
 		ui.mainTextArea.setText("");
+		game.choiceTimer.start();
 			ui.choice1.setText("Toothpaste");
 			ui.choice2.setText("Liquid Soap");
 			ui.choice3.setText("Bar Soap");
@@ -205,25 +214,28 @@ public class sceneOnePartEnd {
 		game.currentDialogue = "sceneOneEnds1";
 		game.diatextTracker = 80;
 		homeBathRoomCutsceneLoad();
+		ui.npcName.setText(null);
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
-			sm.se.setFile8(sm.brushteethsfx);
-			sm.se.brushteethSFX.start();
-				gameStory.pauseTime = 9000;
-				gameStory.pause();
-			sm.se.setFile6(sm.showersfx);
-			sm.se.showerSFX.start();
-				gameStory.pauseTime = 8000;
-				gameStory.pause();
-					game.nextDialogue = "sceneOneEnds2";
+			game.nextDialogue = "sceneOneEnds2";
 	}
 	public void sceneOneEnds2(){
+		sm.se.setFile8(sm.brushteethsfx);
+		sm.se.brushteethSFX.start();
+			gameStory.pauseTime = 9000;
+			gameStory.pause();
+		sm.se.setFile6(sm.showersfx);
+		sm.se.showerSFX.start();
+			gameStory.pauseTime = 8000;
+			gameStory.pause();
 		game.currentDialogue = "sceneOneEnds2";
 		if(playerStats.CP>= 8){
 			game.diatextTracker = 81;
+			motherSprite = "momSpriteTeaching.png";
 		}
 		else{
 			game.diatextTracker = 82;
+			motherSprite = "MomSpriteTalking.png";
 		}
 		livingRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
@@ -234,6 +246,7 @@ public class sceneOnePartEnd {
 		game.currentDialogue = "sceneOneEndEnd";
 		game.diatextTracker = 83;
 		ui.mainTextArea.setFont(game.narrationFont);
+		blackScreen();
 		game.startDialogue();
 			sm.se.setFile7(sm.doorsfx);
 			sm.se.doorSFX.start();

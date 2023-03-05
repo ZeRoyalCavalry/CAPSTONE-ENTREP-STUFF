@@ -5,6 +5,8 @@ import scenes.sceneOnePartOne;
 import scenes.sceneOnePartTwo;
 import scenes.sceneOnePartEnd;
 
+import scenes.sceneTwoPartOne;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -52,6 +54,7 @@ public class Game implements java.io.Serializable{
 		sceneOnePartOne homeOne = new sceneOnePartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		sceneOnePartTwo homeTwo = new sceneOnePartTwo(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		sceneOnePartEnd homeEnd = new sceneOnePartEnd(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		
 	
 	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, 
 									homeOne, homeTwo, homeEnd);
@@ -90,14 +93,12 @@ public class Game implements java.io.Serializable{
 	
 	public Game() {
 		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, aHandler, screenWidth, screenHeight, lines, this);
-		// // tc.introSequence();
-		 	sm.bgsMusic.setFile(sm.titleScreenMusic);
-		// 	sm.bgsMusic.playMusic();
-		// 	sm.bgsMusic.loopMusic();
-		// 		//tc.introSequence();
-		// 		//Story.pauseTime = 19000;
-		// 		//Story.pause();
-				Story.startStats();
+		 	//sm.bgsMusic.setFile(sm.titleScreenMusic);
+		//sm.bgsMusic.playMusic();
+		//sm.bgsMusic.loopMusic();
+				//tc.introSequence();
+				//gameStory.pauseTime = 19000;
+				//gameStory.pause();
 		tc.showTitleScreen();
 	}
 	
@@ -114,6 +115,7 @@ public class Game implements java.io.Serializable{
 						ui.bgPanel.remove(ui.bgPic);
 						tc.showDialogue();
 						intro.intro0Game();
+						Story.startStats();
 						//Story.goodbedroomExit12();
 						tc.showName();
 						saveAction();
@@ -121,7 +123,7 @@ public class Game implements java.io.Serializable{
 					case "continue":
 						textGeneration();
 						ui.bgPanel.remove(ui.bgPic);
-						sm.bgsMusic.stopMusic();
+						//sm.bgsMusic.stopMusic();
 						tc.showDialogue();
 						loadAction();
 						break;
@@ -202,6 +204,7 @@ public class Game implements java.io.Serializable{
 				ui.dialoguePanel.setVisible(false);
 				choiceGen = questions.questionText[questiontextTracker].toCharArray();
 				arrayNumber = choiceGen.length;
+				enableKeys = 0;
 				
 					if((letterTracker%2) == 0){
 						sm.se.setFile1(sm.typesfx);
@@ -229,6 +232,7 @@ public class Game implements java.io.Serializable{
 				ui.dialoguePanel.setVisible(false);
 				choiceGen = questions.questionText[questiontextTracker].toCharArray();
 				arrayNumber = choiceGen.length;
+				enableKeys = 0;
 				
 					if((letterTracker%2) == 0){
 						sm.se.setFile1(sm.typesfx);
@@ -445,7 +449,6 @@ public class Game implements java.io.Serializable{
 			System.out.println();
 		
 			update();
-
 		}
 		catch(IOException LoadError){
 			System.out.println("LOAD ERROR");
@@ -458,7 +461,7 @@ public class Game implements java.io.Serializable{
 	public void update(){
 		gameStory.name = playerName;
 		UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
-		UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "<center><html>");
+		UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "/" + playerStats.maxCP + "<center><html>");
 		Story.dialogueTracker(currentDialogue);
 	}
 }

@@ -1,7 +1,5 @@
 package mainPackage;
 
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.BorderLayout;
@@ -54,10 +52,8 @@ public class UserInterface implements java.io.Serializable{
 
 		//GridBagConstraints gbc = new GridBagConstraints();
 		
-			Border outlinePanel = new LineBorder(Color.WHITE, 12), 
-					outlineButton = new LineBorder(Color.WHITE, 5),
-					outlineDialogue = new LineBorder(Color.WHITE, 10), 
-					outlineStatsPanel = new LineBorder(Color.white, 1);
+			Border outlinePanel = new LineBorder(Color.WHITE, 9, true), 
+					outlineButton = new LineBorder(Color.WHITE, 5);
 		
 		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90), subtitleFont = new Font("Times New Roman", Font.PLAIN, 50),
 			 statsFont = new Font("Yu Gothic UI", Font.BOLD, 28), normalFont = new Font ("Arial", Font.PLAIN, 30),
@@ -276,7 +272,8 @@ public class UserInterface implements java.io.Serializable{
 				mainTextPanel.setBorder(outlinePanel);	
 				mainTextPanel.addMouseListener(mHandler);
 				mainTextPanel.addKeyListener(kbHandler);
-				mainTextPanel.setLayout(new BorderLayout(1,1));
+				mainTextPanel.setOpaque(false);
+				mainTextPanel.setLayout(new BorderLayout(0,0));
 			gameWindow.add(mainTextPanel);	
 			
 			//Text Area

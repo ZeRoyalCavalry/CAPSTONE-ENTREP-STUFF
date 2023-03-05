@@ -27,14 +27,14 @@ public class CutsceneMaker implements Serializable{
         int windowHeight = (int)gameWindowSize.getHeight();
         
         int spriteWidth = 900, spriteHeight = 1200, 
-        		alignSpriteX = (int)Math.round(windowWidth/1.75), 
+        		alignSpriteX = (int)Math.round(windowWidth/1.78), 
         		alignSpriteY = (int)Math.round(windowHeight/12);
 
 		float bgValue, spriteValue;
 
 	String selectedSprite = null, selectedBG = null;
 
-       	public CutsceneMaker(String selectedBG, String selectedSprite, float bgValue, float spriteValue) {
+       	public CutsceneMaker(String selectedBG, String selectedSprite, String selectedFG, String selectedEffect, float bgValue, float spriteValue, float fgValue, float effectValue) {
 			this.selectedBG = selectedBG;
 			this.selectedSprite = selectedSprite;
 			this.bgValue = bgValue;

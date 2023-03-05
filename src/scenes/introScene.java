@@ -35,7 +35,8 @@ public class introScene {
 
 	public void bedroomCutsceneLoad(){
 		sceneChanger.showDialogue();
-		CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", 1.0f, 0.0f);
+		CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", "placeholder.png", "placeholder.png", 
+															1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -44,7 +45,19 @@ public class introScene {
 	}
 	public void cityCutsceneLoad(){
 		sceneChanger.showDialogue();
-		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", 1.0f, 0.0f);
+		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", "placeholder.png", "placeholder.png", 
+															1.0f, 0.0f, 0.0f, 0.0f);
+			ui.bgPanel.remove(gameStory.bgHolder);
+			ui.bgPanel.add(CutsceneMaker.image);
+			ui.bgPanel.setVisible(true);
+			ui.mainTextPanel.setVisible(true);
+			ui.playerStatsPanel.setVisible(true);
+	}
+	public void blackScreen(){
+		sceneChanger.showDialogue();
+		ui.npcName.setText(null);
+		CutsceneMaker blackScreen = new CutsceneMaker("blackscreen.png", "placeholder.png", "placeholder.png", "placeholder.png", 
+														1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -241,6 +254,7 @@ public class introScene {
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "bedroomSleep11";
 		game.diatextTracker = 10;
+		blackScreen();
 		Game.enableKeys = 1;
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();

@@ -38,7 +38,7 @@ public class gameStory implements Serializable{
 	public void startStats(){
 		playerStats.maxCP = 10;
 		playerStats.XP = 0;
-			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "</center></html>");
+			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
 			playerStats.CP = 10;
 			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "/" + playerStats.maxCP + "<center><html>");
 	}

@@ -31,11 +31,13 @@ public class sceneOnePartOne {
 		this.player = player; this.lines = lines; this.images = imgManage; 
 	}
 
+	String motherSprite = "momSprite.png";
 	//Cutscenes or Backgrounds
 	public void livingRoomCutsceneLoad(){
 		ui.npcName.setText("Mom");
 		sceneChanger.showDialogue();
-		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", "momSprite.png", 0.75f, 1.0f);
+		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", motherSprite, "placeholder.png", 
+												"placeholder.png", 0.75f, 1.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -50,6 +52,7 @@ public class sceneOnePartOne {
 			gameStory.pause();
 		game.currentDialogue = "gbedroomExit12";
 		game.diatextTracker = 11;
+		motherSprite = "momSpriteHappy.png";
 		livingRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
@@ -61,6 +64,7 @@ public class sceneOnePartOne {
 		public void goodbedroomExit13() {
 			game.currentDialogue = "gbedroomExit13";	
 			game.diatextTracker = 12;
+			motherSprite = "MomSpriteTalking.png";
 			livingRoomCutsceneLoad();
 				ui.mainTextArea.setFont(game.normalFont);
 				game.startDialogue();
@@ -69,9 +73,10 @@ public class sceneOnePartOne {
 		
 		//Picked bad
 		public void scolding11() {
-			livingRoomCutsceneLoad();
 			game.currentDialogue = "scolding11";
 			game.diatextTracker = 13;
+			motherSprite = "momSpriteAngry.png";
+			livingRoomCutsceneLoad();
 			ui.mainTextArea.setText("");
 				gameStory.pauseTime = 8000;
 				gameStory.pause();
@@ -91,6 +96,7 @@ public class sceneOnePartOne {
 			gameStory.pause();
 			game.currentDialogue = "bbedroomExit12";
 			game.diatextTracker = 14;
+			motherSprite = "momSpriteAngry.png";
 			livingRoomCutsceneLoad();
 			game.DiaTimer.setDelay(game.normalSpeed);
 			ui.mainTextArea.setFont(game.normalFont);
@@ -100,6 +106,7 @@ public class sceneOnePartOne {
 		public void badbedroomExit13() {
 			game.currentDialogue = "bbedroomExit13";
 			game.diatextTracker = 15;
+			motherSprite = "momSpriteAngry.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -110,6 +117,7 @@ public class sceneOnePartOne {
 		public void explanation1(){
 			game.currentDialogue = "explanation1";
 			game.diatextTracker = 16;
+			motherSprite = "momSpriteTeaching.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -118,6 +126,7 @@ public class sceneOnePartOne {
 		public void explanation2(){
 			game.currentDialogue = "explanation2";
 			game.diatextTracker = 17;
+			motherSprite = "MomSpriteTalking.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -126,6 +135,7 @@ public class sceneOnePartOne {
 		public void explanation3(){
 			game.currentDialogue = "explanation3";
 			game.diatextTracker = 18;
+			motherSprite = "momSpriteTeaching.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -136,6 +146,7 @@ public class sceneOnePartOne {
 		public void firstLessonStart1() {
 			game.currentDialogue = "firstLessonStart1";
 			game.diatextTracker = 19;
+			motherSprite = "momSprite.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -144,6 +155,7 @@ public class sceneOnePartOne {
 		public void firstLessonStart2(){
 			game.currentDialogue = "firstLessonStart2";
 			game.diatextTracker = 20;
+			motherSprite = "momSprite.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -155,6 +167,7 @@ public class sceneOnePartOne {
 			game.currentDialogue = "firstLessonQuestion";
 			game.currentQuestion = "firstLessonQuestion";
 			game.questiontextTracker = 1;
+			motherSprite = "momSprite.png";
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(false);
 			ui.mainTextArea.setFont(game.narrationFont);
@@ -176,6 +189,7 @@ public class sceneOnePartOne {
 		public void firstLessonRight(){
 			game.currentDialogue = "firstLessonRight";
 			game.diatextTracker = 21;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(true);
 			ui.mainTextArea.setFont(game.normalFont);
@@ -189,6 +203,7 @@ public class sceneOnePartOne {
 		public void firstLessonWrong(){
 			game.currentDialogue = "firstLessonWrong";
 			game.diatextTracker = 22;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(true);
 			ui.mainTextArea.setFont(game.normalFont);
@@ -200,6 +215,7 @@ public class sceneOnePartOne {
 		public void firstLessonNotes(){
 			game.currentDialogue = "firstLessonNotes";
 			game.diatextTracker = 23;
+			motherSprite = "momSpriteTeaching.png";
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(true);
 			ui.mainTextArea.setFont(game.normalFont);
@@ -211,6 +227,7 @@ public class sceneOnePartOne {
 		public void secondLessonStart1(){
 			game.currentDialogue = "secondLessonStart1";
 			game.diatextTracker = 24;
+			motherSprite = "momSprite.png";
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(true);
 			ui.mainTextArea.setFont(game.normalFont);
@@ -220,6 +237,7 @@ public class sceneOnePartOne {
 		public void secondLessonStart2(){
 			game.currentDialogue = "secondLessonStart2";
 			game.diatextTracker = 25;
+			motherSprite = "MomSpriteTalking.png";
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(true);
 			ui.mainTextArea.setFont(game.normalFont);
@@ -228,6 +246,7 @@ public class sceneOnePartOne {
 		}
 		public void secondLessonStart3(){
 			game.currentDialogue = "secondLessonStart3";
+			motherSprite = "momSprite.png";
 			game.diatextTracker = 26;
 			livingRoomCutsceneLoad();
 			ui.dialoguePanel.setVisible(true);
@@ -242,6 +261,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonQuestion1";
 
 			game.questiontextTracker = 2;
+			motherSprite = "momSprite.png";
 			livingRoomCutsceneLoad();
 				ui.dialoguePanel.setVisible(false);
 				ui.mainTextArea.setFont(game.narrationFont);
@@ -264,6 +284,7 @@ public class sceneOnePartOne {
 		public void secondLesson1Right(){
 			game.currentDialogue = "secondLesson1Right";
 			game.diatextTracker = 27;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -277,6 +298,7 @@ public class sceneOnePartOne {
 		public void secondLesson1Wrong(){
 			game.currentDialogue = "secondLesson1Wrong";
 			game.diatextTracker = 28;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -287,6 +309,7 @@ public class sceneOnePartOne {
 		public void secondLesson1Notes(){
 			game.currentDialogue = "secondLesson1Wrong";
 			game.diatextTracker = 29;
+			motherSprite = "momSpriteTeaching.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -299,6 +322,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonQuestion2";
 
 			game.questiontextTracker = 3;
+			motherSprite = "momSprite.png";
 			livingRoomCutsceneLoad();
 				ui.dialoguePanel.setVisible(false);
 				ui.mainTextArea.setFont(game.narrationFont);
@@ -321,6 +345,7 @@ public class sceneOnePartOne {
 		public void secondLesson2Right(){
 			game.currentDialogue = "secondLesson1Right";
 			game.diatextTracker = 30;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -335,6 +360,7 @@ public class sceneOnePartOne {
 			game.currentDialogue = "secondLesson1Wrong";
 			game.diatextTracker = 31;
 			livingRoomCutsceneLoad();
+			motherSprite = "momSpriteSad.png";
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
 			gameStory.decreaseCP = 1;
@@ -342,8 +368,9 @@ public class sceneOnePartOne {
 				game.nextDialogue = "secondLesson2Notes";
 		}
 		public void secondLesson2Notes(){
-			game.currentDialogue = "secondLesson1Wrong";
+			game.currentDialogue = "secondLesson2Notes";
 			game.diatextTracker = 32;
+			motherSprite = "momSpriteTeaching.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -356,6 +383,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonQuestion3";
 		
 				game.questiontextTracker = 4;
+				motherSprite = "momSprite.png";
 				livingRoomCutsceneLoad();
 					ui.dialoguePanel.setVisible(false);
 					ui.mainTextArea.setFont(game.narrationFont);
@@ -378,6 +406,7 @@ public class sceneOnePartOne {
 		public void secondLesson3Right(){
 			game.currentDialogue = "secondLesson3Right";
 			game.diatextTracker = 33;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -391,6 +420,7 @@ public class sceneOnePartOne {
 		public void secondLesson3Wrong(){
 			game.currentDialogue = "secondLesson3Wrong";
 			game.diatextTracker = 34;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -401,6 +431,7 @@ public class sceneOnePartOne {
 		public void secondLesson3Notes(){
 			game.currentDialogue = "secondLesson3Notes";
 			game.diatextTracker = 35;
+			motherSprite = "momSpriteTeaching.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -412,6 +443,7 @@ public class sceneOnePartOne {
 		public void secondLessonReviewStart(){
 			game.currentDialogue = "secondLessonReviewStart";
 			game.diatextTracker = 36;
+			motherSprite = "MomSpriteTalking.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -425,6 +457,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonReview1";
 		
 				game.questiontextTracker = 5;
+				motherSprite = "momSprite.png";
 				livingRoomCutsceneLoad();
 					ui.dialoguePanel.setVisible(false);
 					ui.mainTextArea.setFont(game.narrationFont);
@@ -446,6 +479,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview1Right(){
 			game.currentDialogue = "secondLessonReview1Right";
 			game.diatextTracker = 37;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -459,6 +493,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview1Wrong(){
 			game.currentDialogue = "secondLessonReview1Wrong";
 			game.diatextTracker = 38;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			gameStory.decreaseCP = 2;
@@ -474,6 +509,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonReview2";
 		
 				game.questiontextTracker = 6;
+				motherSprite = "momSprite.png";
 				livingRoomCutsceneLoad();
 					ui.dialoguePanel.setVisible(false);
 					ui.mainTextArea.setFont(game.narrationFont);
@@ -494,6 +530,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview2Right(){
 			game.currentDialogue = "secondLessonReview2Right";
 			game.diatextTracker = 37;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -507,6 +544,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview2Wrong(){
 			game.currentDialogue = "secondLessonReview2Wrong";
 			game.diatextTracker = 38;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			gameStory.decreaseCP = 2;
@@ -522,6 +560,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonReview3";
 		
 				game.questiontextTracker = 7;
+				motherSprite = "momSprite.png";
 				livingRoomCutsceneLoad();
 					ui.dialoguePanel.setVisible(false);
 					ui.mainTextArea.setFont(game.narrationFont);
@@ -542,6 +581,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview3Right(){
 			game.currentDialogue = "secondLessonReview3Right";
 			game.diatextTracker = 37;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -555,6 +595,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview3Wrong(){
 			game.currentDialogue = "secondLessonReview3Wrong";
 			game.diatextTracker = 38;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			gameStory.decreaseCP = 2;
@@ -570,6 +611,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonReview4";
 		
 				game.questiontextTracker = 8;
+				motherSprite = "momSprite.png";
 				livingRoomCutsceneLoad();
 					ui.dialoguePanel.setVisible(false);
 					ui.mainTextArea.setFont(game.narrationFont);
@@ -590,6 +632,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview4Right(){
 			game.currentDialogue = "secondLessonReview4Right";
 			game.diatextTracker = 37;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -603,6 +646,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview4Wrong(){
 			game.currentDialogue = "secondLessonReview4Wrong";
 			game.diatextTracker = 38;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			gameStory.decreaseCP = 2;
@@ -618,6 +662,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonReview5";
 		
 				game.questiontextTracker = 9;
+				motherSprite = "momSprite.png";
 				livingRoomCutsceneLoad();
 					ui.dialoguePanel.setVisible(false);
 					ui.mainTextArea.setFont(game.narrationFont);
@@ -638,6 +683,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview5Right(){
 			game.currentDialogue = "secondLessonReview5Right";
 			game.diatextTracker = 37;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -651,6 +697,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview5Wrong(){
 			game.currentDialogue = "secondLessonReview5Wrong";
 			game.diatextTracker = 38;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			gameStory.decreaseCP = 2;
@@ -666,6 +713,7 @@ public class sceneOnePartOne {
 			game.currentQuestion = "secondLessonReview6";
 		
 				game.questiontextTracker = 10;
+				motherSprite = "momSprite.png";
 				livingRoomCutsceneLoad();
 					ui.dialoguePanel.setVisible(false);
 					ui.mainTextArea.setFont(game.narrationFont);
@@ -686,6 +734,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview6Right(){
 			game.currentDialogue = "secondLessonReview6Right";
 			game.diatextTracker = 37;
+			motherSprite = "momSpriteHappy.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
@@ -699,6 +748,7 @@ public class sceneOnePartOne {
 		public void secondLessonReview6Wrong(){
 			game.currentDialogue = "secondLessonReview6Wrong";
 			game.diatextTracker = 38;
+			motherSprite = "momSpriteSad.png";
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			gameStory.decreaseCP = 2;
