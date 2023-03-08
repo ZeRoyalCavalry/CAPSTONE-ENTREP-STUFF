@@ -42,6 +42,7 @@ public class introScene {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
 	}
 	public void cityCutsceneLoad(){
 		sceneChanger.showDialogue();
@@ -52,6 +53,7 @@ public class introScene {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
 	}
 	public void blackScreen(){
 		sceneChanger.showDialogue();
@@ -63,11 +65,11 @@ public class introScene {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
 	}
 
 	public void intro0Game() {//Get name
 		ui.npcName.setText(null);
-		sm.bgsMusic.stopMusic();
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro0";
 		game.diatextTracker = 0;

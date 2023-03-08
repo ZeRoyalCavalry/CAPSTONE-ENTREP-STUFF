@@ -23,8 +23,11 @@ import mainPackage.storyLines.questions;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -45,17 +48,17 @@ public class Game implements java.io.Serializable{
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
 	storyLines lines = new storyLines();
-	playerStats player = new playerStats();
+	playerStats player = new playerStats(ui, this);
 	TransitionClass tc = new TransitionClass(ui);
 	ImageManager imgManage = new ImageManager(this, screenWidth, screenHeight);
 		
 	//Scene Management
 		introScene intro = new introScene(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		
 		sceneOnePartOne homeOne = new sceneOnePartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		sceneOnePartTwo homeTwo = new sceneOnePartTwo(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		sceneOnePartEnd homeEnd = new sceneOnePartEnd(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		
-	
 	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, 
 									homeOne, homeTwo, homeEnd);
 	
@@ -83,9 +86,9 @@ public class Game implements java.io.Serializable{
 	public int normalSpeed = 30;
 	public int fastSpeed = 5;
 
-	public char DiaGen[], choiceGen[], nameGen[];
+	public char DiaGen[], choiceGen[], nameGen[], levelUp[];
 	
-	public Timer DiaTimer, choiceTimer, calculateTimer;
+	public Timer DiaTimer, choiceTimer, calculateTimer, levelUpTimer;
 
 	public static void main(String[] args) {
 		new Game();
@@ -117,6 +120,7 @@ public class Game implements java.io.Serializable{
 						intro.intro0Game();
 						Story.startStats();
 						//Story.goodbedroomExit12();
+						//sm.bgsMusic.stopMusic();
 						tc.showName();
 						saveAction();
 						break;
@@ -155,6 +159,13 @@ public class Game implements java.io.Serializable{
 						Story.dialogueTracker(nextDialogue);
 						saveAction();
 						break;
+					//closeMenu saveNotes
+					case "openNotes":
+						tc.showNotes(); loadNotes(); break;
+					case "closeNotes":
+						tc.closeNotes(); break;
+					case "saveNotes":
+						saveNotes(); break;
 						
 					case "c1":
 						Story.progressTracker(nextPosition1); break;
@@ -253,6 +264,32 @@ public class Game implements java.io.Serializable{
 				}
 			}
 		});
+
+		levelUpTimer = new Timer(normalSpeed, new ActionListener(){
+			public void actionPerformed(ActionEvent cal) {
+				ui.dialoguePanel.setVisible(false);
+				String levelUpMessage = "YOU LEVELED UP!!!";
+				levelUp = levelUpMessage.toCharArray();
+				arrayNumber = levelUp.length;
+				enableKeys = 0;
+				
+					if((letterTracker%2) == 0){
+						sm.se.setFile1(sm.typesfx);
+						sm.se.playTypeSFX();
+					}
+					
+				String letterGen = ""; String space = "";
+				
+				letterGen = space + levelUp[letterTracker]; 
+				ui.mainTextArea.append(letterGen);
+				
+				letterTracker++;
+				if(letterTracker == arrayNumber) {
+					letterTracker = 0;
+					levelUpTimer.stop();
+				}
+			}
+		});
 	}
 	
 	public void startDialogue(){
@@ -263,6 +300,12 @@ public class Game implements java.io.Serializable{
 		DiaTimer.start();
 		enableKeys = 0;
 		System.out.println("DIALOGUE SUCCESS: " + Story.number);
+		if(tc.choicePanelRecognizer >=1 && tc.choicePanelRecognizer >= 0){
+			tc.choicePanelRecognizer--;
+		}
+		else{
+			tc.choicePanelRecognizer = 0;
+		}
 	}
 	
 	public class MouseHandler implements MouseInputListener{
@@ -416,6 +459,16 @@ public class Game implements java.io.Serializable{
 			System.out.println("SAVE ERROR");
 		}
 	}
+	public void saveNotes(){
+		try{
+			FileWriter fw = new FileWriter("PlayerNotes.txt");
+			fw.write(ui.notesTextArea.getText());
+			fw.close();
+		}
+		catch(IOException notesSaveError){
+			System.out.println("CANNOT SAVE NOTES");
+		}
+	}
 	public void loadAction(){
 		try{
 			FileInputStream fis = new FileInputStream("save.dat");
@@ -455,6 +508,20 @@ public class Game implements java.io.Serializable{
 		}
 		catch(ClassNotFoundException missing){
 			System.out.println("MISSING FILE");
+		}
+	}
+	public void loadNotes(){
+		try{
+			BufferedReader br = new BufferedReader(new FileReader("PlayerNotes.txt"));
+			ui.notesTextArea.setText("");
+			String line = null;
+
+			while((line = br.readLine())!=null){
+				ui.notesTextArea.append(line + "\n");
+			}
+		}
+		catch(IOException notesLoadError){
+			System.out.println("LOAD NOTES ERROR");
 		}
 	}
 	

@@ -43,6 +43,7 @@ public class sceneOnePartOne {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
 	}
 	
 	public void goodbedroomExit12() {

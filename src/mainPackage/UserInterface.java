@@ -19,10 +19,14 @@ import mainPackage.Game.SaveLoadHandler;
 import javax.swing.border.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 public class UserInterface implements java.io.Serializable{
@@ -32,28 +36,30 @@ public class UserInterface implements java.io.Serializable{
 		public JPanel titlePanel, startButtonPanel, continueButtonPanel, mainTextPanel, 
 						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
 						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, SpritePanel,
-						submitAnswerPanel, westPanel, characterNamePanel, instructionsPanel;
+						submitAnswerPanel, westPanel, characterNamePanel, instructionsPanel, 
+						notesPanel, closeMenuPanel, saveNotesPanel, notesMenu, notesNamePanel;
 
 		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, characterSprite, 
-						ChancePointsLabel, characterNamen, npcName;
+						ChancePointsLabel, characterNamen, npcName, notesNameLabel;
 
 		public static JLabel ChancePointsNumberLabel, XPNumberLabel;
 
 		public JButton startButton, continueButton, dialogueBox, nameInputBTN, 
 						choice1, choice2, choice3, choice4, saveButton, loadButton,
 						maleButton, femaleButton, inclusiveButton, submitInputBTN,
-						instructions;
+						instructions, notesBTN, closeNotesBTN, saveNotesBTN;
 
-		public JTextArea mainTextArea;
+		public JTextArea mainTextArea, notesTextArea;
 		public JTextField nameInput, answerInput;
+		public JScrollPane notesPane;
 
 		GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice device = graphics.getDefaultScreenDevice();
 
 		//GridBagConstraints gbc = new GridBagConstraints();
 		
-			Border outlinePanel = new LineBorder(Color.WHITE, 9, true), 
-					outlineButton = new LineBorder(Color.WHITE, 5);
+			Border outlinePanel = new LineBorder(Color.WHITE, 11, true), 
+					outlineButton = new LineBorder(Color.WHITE, 8);
 		
 		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90), subtitleFont = new Font("Times New Roman", Font.PLAIN, 50),
 			 statsFont = new Font("Yu Gothic UI", Font.BOLD, 28), normalFont = new Font ("Arial", Font.PLAIN, 30),
@@ -67,67 +73,68 @@ public class UserInterface implements java.io.Serializable{
 			// int aligntitleX = (screenWidth/2) - (titlePanelWidth/2);
 			// int aligntitleY = (screenHeight/6);
 
-			int buttonPanelWidth = 340;
-			int buttonPanelHeight = 90;
+			int buttonPanelWidth = 340; int buttonPanelHeight = 90;
 			//Start Button Panel Scaling
-			int alignSBX = (int)Math.round((screenWidth/2.7) - (buttonPanelWidth/1.5));
-			int alignSBY = (int)Math.round(screenHeight/1.34);
+			int alignSBX = (int)Math.round((screenWidth/2.7) - (buttonPanelWidth/1.5)); int alignSBY = (int)Math.round(screenHeight/1.34);
 			
 			//Continue Button Panel Scaling
-			int alignCBX = (int)Math.round((screenWidth/1.6) - (buttonPanelWidth/2.7));
-			int alignCBY = (int)Math.round(screenHeight/1.34);
+			int alignCBX = (int)Math.round((screenWidth/1.6) - (buttonPanelWidth/2.7)); int alignCBY = (int)Math.round(screenHeight/1.34);
 
 			//Sex/Gender Select Panels Scaling
-			int alignMBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2));
-			int alignMBY = (int)Math.round(screenHeight/5.50);
+			int alignMBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2)); int alignMBY = (int)Math.round(screenHeight/5.50);
 
-			int alignFBX = (screenWidth/2) - (buttonPanelWidth/2);
-			int alignFBY = (int)Math.round(screenHeight/2.50);
+			int alignFBX = (screenWidth/2) - (buttonPanelWidth/2); int alignFBY = (int)Math.round(screenHeight/2.50);
 
-			int alignNBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2));
-			int alignNBY = (int)Math.round(screenHeight/1.60);
+			int alignNBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2)); int alignNBY = (int)Math.round(screenHeight/1.60);
 
 			//NPC Name Panel 
-			int npcNameWidth = 1300;
-			int npcNameHeight = 35;
+			int npcNameWidth = 1300; int npcNameHeight = 35;
 
 			//Main Text Panel Scaling
 			//mainTextPanel.setBounds(120,160,1300,250); 
-			int mtpWidth = 1300;
-			int mtpHeight = 230;
-			int alignMTPX = (screenWidth/2) - (mtpWidth/2);
-			int alignMTPY = (int)Math.round(screenHeight - (mtpHeight/0.63));
+			int mtpWidth = 1300; int mtpHeight = 230; 
+			int alignMTPX = (screenWidth/2) - (mtpWidth/2); int alignMTPY = (int)Math.round(screenHeight - (mtpHeight/0.63));
 			
 			//Main Text Area Scaling
-			int mtaWidth = 1200;
-			int mtaHeight = 215;
-			int alignMTAX = (screenWidth/2) - (mtaWidth/2);
-			int alignMTAY = (int)Math.round(mtaHeight/5);
+			int mtaWidth = 1200; int mtaHeight = 215;
+			int alignMTAX = (screenWidth/2) - (mtaWidth/2); int alignMTAY = (int)Math.round(mtaHeight/5);
+
+			//Notes Name Panel Scaling
+			int notesNameWidth = 1400, notesNameHeight = 60;
+			int alignNNPanelX = (screenWidth/2) - (notesNameWidth/2), alignNNPanelY = (screenHeight/14);
+
+			//Notes Text Panel Scaling 
+			int ntpWidth = 1400; int ntpHeight = 570;
+			int alignNTPX = (screenWidth/2) - (ntpWidth/2); int alignNTPY = (int)Math.round(mtaHeight/1.75);
+
+			//Notes Text Area Scaling
+			int ntaWidth = 1350; int ntaHeight = 480;
+			int alignNTAX = (screenWidth/2) - (ntaWidth/2); int alignNTAY = (int)Math.round(ntaHeight/14);
 			
 			//Dialogue Panel Scaling
-			int diaConPanelWidth = 110;
-			int diaConPanelHeight = 90;
-			int alignDCPanelX = (screenWidth/2) - (diaConPanelWidth/2);
-			int alignDCPanelY = (int)Math.round(diaConPanelHeight/2);
+			int diaConPanelWidth = 110; int diaConPanelHeight = 90;
+			int alignDCPanelX = (screenWidth/2) - (diaConPanelWidth/2); int alignDCPanelY = (int)Math.round(diaConPanelHeight/2);
 			
 			//Choice Panel Scaling
-			int choicePanelWidth = 800;
-			int choicePanelHeight = 250;
-			int alignCPanelX = (screenWidth/2) - (choicePanelWidth/2);
-			int alignCPanelY = (int)Math.round(screenHeight/5.5);
+			int choicePanelWidth = 800; int choicePanelHeight = 250;
+			int alignCPanelX = (screenWidth/2) - (choicePanelWidth/2); int alignCPanelY = (int)Math.round(screenHeight/5.5);
 			
 			//Name Input Panel Scaling
-			int inPWidth = 900; 
-			int inPHeight = 130;
-			int alignINPanelX = (screenWidth/2) - (inPWidth/2); 
-			int alignINPanelY = (int)Math.round(mtaHeight/1.5);
+			int inPWidth = 900; int inPHeight = 130;
+			int alignINPanelX = (screenWidth/2) - (inPWidth/2); int alignINPanelY = (int)Math.round(mtaHeight/1.5);
 
 			//Player Stats Panel Scaling
-			int pspWidth = 1300; 
-			int pspHeight = 70; 
-			int alignPSPanelX = (screenWidth/2) - (pspWidth/2);
-			int alignPSPanelY = (int)Math.round(screenHeight - (pspHeight/0.48));
-			
+			int pspWidth = 1300; int pspHeight = 70; 
+			int alignPSPanelX = (screenWidth/2) - (pspWidth/2); int alignPSPanelY = (int)Math.round(screenHeight - (pspHeight/0.48));
+
+			//Close Menu Panel Scaling
+			int closeMenuWidth = 150; int closeMenuHeight = 70; 
+			int alignCMPanelX = (int)Math.round(screenWidth/3.5);int alignCMPanelY = (int)Math.round(screenHeight/1.20);
+
+			//Save Notes Panel Scaling alignSMPanelX, alignSMPanelY, saveNotesWidth, saveMenuHeight
+			int saveNotesWidth = 150; int saveMenuHeight = 70;
+			int alignSMPanelX = (int)Math.round(screenWidth/1.75); int alignSMPanelY = (int)Math.round(screenHeight/1.20);
+
 			//MAKE GAME WINDOW
 			gameWindow = new JFrame();
 				gameWindow.setTitle("Starlight High School and Its Curious Cases");
@@ -294,10 +301,15 @@ public class UserInterface implements java.io.Serializable{
 				characterNamePanel = new JPanel();
 					characterNamePanel.setBounds(0,0, npcNameWidth, npcNameHeight);
 					characterNamePanel.setBackground(Color.black);
+					characterNamePanel.setLayout(new BorderLayout());
+						JPanel filler = new JPanel();
+							filler.setSize(10,35);
+							filler.setBackground(Color.BLACK);
+					characterNamePanel.add(filler, BorderLayout.WEST);
 						npcName = new JLabel("NPC NAME");
 							npcName.setForeground(Color.white);
 							npcName.setFont(npcNameFont);
-					characterNamePanel.add(npcName);
+					characterNamePanel.add(npcName, BorderLayout.CENTER);
 				mainTextPanel.add(characterNamePanel, BorderLayout.NORTH);
 		
 			//West Border, just so it wont stick
@@ -365,7 +377,7 @@ public class UserInterface implements java.io.Serializable{
 					instructionsPanel.setBounds(((screenWidth/2)-(1600/2)), (screenHeight/11), 1600, 1080);
 					instructionsPanel.setBackground(Color.BLACK);
 
-String instructionsText = "<html><center>BASIC GAME INSTRUCTIONS:<br/><br/> PRESS Z OR THE '>'<br/><center><html>"
+	String instructionsText = "<html><center>BASIC GAME INSTRUCTIONS:<br/><br/> PRESS Z OR THE '>'<br/><center><html>"
 							+ "<html><center>TO CONTINUE THE STORY OR THE DIALOGUE<br/><br/>HOLD SPACEBAR TO SPEED UP THE TEXT<center><html>"
 							+ "<html><center><br/>THANK YOU FOR DOWNLOADING<br/>AND TRYING THIS GAME!<center><html>"
 							+ "<html><center><br/>MUCH LOVE FROM THE DEVELOPERS<br/> AT KINETICA ENTERTAINMENT!</center></html>";
@@ -422,7 +434,7 @@ String instructionsText = "<html><center>BASIC GAME INSTRUCTIONS:<br/><br/> PRES
 				playerStatsPanel.setBounds(alignPSPanelX, alignPSPanelY, pspWidth, pspHeight);
 					playerStatsPanel.setBackground(Color.black);
 					//playerStatsPanel.setOpaque(false);
-				playerStatsPanel.setLayout(new GridLayout(1,6));
+				playerStatsPanel.setLayout(new GridLayout(1,7));
 					playerStatsPanel.setBorder(outlinePanel);
 
 			ChancePointsLabel = new JLabel("<html><center>CP:<center><html>");
@@ -462,6 +474,78 @@ String instructionsText = "<html><center>BASIC GAME INSTRUCTIONS:<br/><br/> PRES
 				loadButton.addActionListener(SLHandler);
 				loadButton.setActionCommand("load");
 					playerStatsPanel.add(loadButton);
+
+			notesBTN = new JButton("<html><center>NOTES<center><html>");
+				notesBTN.setFont(statsFont);
+				notesBTN.setBackground(Color.BLACK);
+				notesBTN.setForeground(Color.WHITE);
+				notesBTN.setBorder(null);
+				notesBTN.setFocusPainted(false);
+				notesBTN.addActionListener(cHandler);
+				notesBTN.setActionCommand("openNotes");
+					playerStatsPanel.add(notesBTN);
+
+			notesNamePanel = new JPanel();
+				notesNamePanel.setBounds(alignNNPanelX, alignNNPanelY, notesNameWidth, notesNameHeight);
+				notesNamePanel.setBackground(Color.BLACK);
+			notesNameLabel = new JLabel("<html><center>YOUR NOTES<center><html>");
+				notesNameLabel.setFont(subtitleFont);
+				notesNameLabel.setForeground(Color.WHITE);
+			notesNamePanel.add(notesNameLabel);
+			gameWindow.add(notesNamePanel);
+
+			notesPanel = new JPanel();
+				notesPanel.setBounds(alignNTPX, alignNTPY, ntpWidth,ntpHeight);
+				notesPanel.setBackground(Color.BLACK);	
+				notesPanel.setBorder(outlinePanel);
+			notesTextArea = new JTextArea(15,51);
+				notesTextArea.setBounds(alignNTAX,alignNTAY,ntaWidth,ntaHeight);
+				notesTextArea.setBackground(Color.black);
+				notesTextArea.setForeground(Color.white);
+				notesTextArea.setFont(normalFont);
+					notesTextArea.setLineWrap(true);
+					notesTextArea.setWrapStyleWord(true);
+					notesTextArea.setEditable(true);
+					notesTextArea.setBorder(BorderFactory.createEmptyBorder());
+			notesPane = new JScrollPane(notesTextArea);
+				notesPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				notesPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+				notesPane.setBorder(BorderFactory.createEmptyBorder());
+			
+			notesPanel.add(notesPane, BorderLayout.CENTER);
+			gameWindow.getContentPane().add(notesPanel);
+
+			closeMenuPanel = new JPanel();
+				closeMenuPanel.setBounds(alignCMPanelX,alignCMPanelY, closeMenuWidth, closeMenuHeight);
+				closeMenuPanel.setBackground(Color.BLACK);
+				closeMenuPanel.setBorder(outlineButton);
+
+			closeNotesBTN = new JButton("<html><center>CLOSE<center><html>");
+				closeNotesBTN.setFont(statsFont);
+				closeNotesBTN.setBackground(Color.BLACK);
+				closeNotesBTN.setForeground(Color.WHITE);
+				closeNotesBTN.setFocusPainted(false);
+				closeNotesBTN.setBorder(null);
+				closeNotesBTN.addActionListener(cHandler);
+				closeNotesBTN.setActionCommand("closeNotes");
+					closeMenuPanel.add(closeNotesBTN);
+						gameWindow.add(closeMenuPanel);
+
+			saveNotesPanel = new JPanel();
+				saveNotesPanel.setBounds(alignSMPanelX, alignSMPanelY, saveNotesWidth, saveMenuHeight);
+				saveNotesPanel.setBackground(Color.BLACK);
+				saveNotesPanel.setBorder(outlineButton);
+
+			saveNotesBTN = new JButton("<html><center>SAVE<center><html>");
+				saveNotesBTN.setFont(statsFont);
+				saveNotesBTN.setBackground(Color.BLACK);
+				saveNotesBTN.setForeground(Color.WHITE);
+				saveNotesBTN.setFocusPainted(false);
+				saveNotesBTN.setBorder(null);
+				saveNotesBTN.addActionListener(cHandler);
+				saveNotesBTN.setActionCommand("saveNotes");
+					saveNotesPanel.add(saveNotesBTN);
+						gameWindow.add(saveNotesPanel);
 				
 			gameWindow.add(playerStatsPanel);
 			gameWindow.add(choicePanel);

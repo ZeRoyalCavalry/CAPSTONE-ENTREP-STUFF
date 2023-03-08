@@ -46,6 +46,7 @@ public class sceneOnePartEnd {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
 	}
     public void homeBathRoomCutsceneLoad(){
 		sceneChanger.showDialogue();
@@ -57,6 +58,7 @@ public class sceneOnePartEnd {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
 	}
 	public void blackScreen(){
 		sceneChanger.showDialogue();
@@ -68,6 +70,7 @@ public class sceneOnePartEnd {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
 	}
 
 	//End of Scene/Episode Transition

@@ -45,6 +45,7 @@ public class sceneOnePartTwo {
 			ui.bgPanel.setVisible(true);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
+            player.checkLevel();
 	}
 
     //Transition to Third Lesson

@@ -316,8 +316,29 @@ public class storyLines implements java.io.Serializable{
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Start of Scene Two
 
-"", //84
+"As you walk out the door, the blinding golden rays of the sun hits you. . .", //84
 
+"You stagger a bit before you block out the celestial majesty above with your hand.", //85
+
+"The world greets you again, and this time, you answer its call. You feel this surge of "
++ "energy, determination, and sense of adventure.", //86
+
+"A deep inhale and exhale, and then... you're off! You rush to meet up with your "
++ "friends at the church, just as you all planned before going to Starlight Highschool.", //87
+
+"You huff and you puff, racing against the time and the wind. Rightfully so too as "
++ "the vibrant sky drained away, and took its place was this grayscaled atmosphere.", //88
+
+"When you saw the heavens lose its divine look, you also hear its tears fall slowly "
++ "as a light drizzle could be heard coming in to the area you're in.", //89
+
+"You go to the nearest shelter. . .", //90
+
+"The day's mood is now depressed, yet you can't help but feel relaxed from the peaceful "
++ "raindrops surrounding you.", //91
+
+"You take a moment to appreciate this before you noticed that someone seems a bit frustrated "
++ "in a nearby covered area. You can hear them complain and stomp on the ground as you got closer." //92
 
 		};
 	}
@@ -399,7 +420,7 @@ public class storyLines implements java.io.Serializable{
 
 "Rubidium is the 37th Element in the Periodic Table. This Alkali Metal has (+1) charge, how many ELECTRONS would it have? (Input the number only)", //17,3
 
-"Nitrogen has a (-3) Charge and has 10 ELECTRONS, what would be its NUMBER OF PROTONS and ATOMIC NUMBER? (Input one number only)", //18,4
+"Nitrogen has a (-3) Charge and has a TOTAL OF 10 ELECTRONS, what would be its NUMBER OF PROTONS and ATOMIC NUMBER? (Input one number only)", //18,4
 
 "If an element has a MASS NUMBER of 127 and an ATOMIC NUMBER of 53, what would be its NUMBER OF NEUTRONS? (Input the number only)", //19,5
 
@@ -414,7 +435,7 @@ public class storyLines implements java.io.Serializable{
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Bar Soap Question Results
 
-"What about the SODIUM HYDROXIDE based product? Isn't that just...", //22
+"What about the SODIUM HYDROXIDE based product used to scrub on the body?  Isn't that just...", //22
 
 		};
 	}
