@@ -19,7 +19,6 @@ import mainPackage.Game.SaveLoadHandler;
 import javax.swing.border.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -374,7 +373,7 @@ public class UserInterface implements java.io.Serializable{
 
 			//Show Instructions Page
 				instructionsPanel = new JPanel();
-					instructionsPanel.setBounds(((screenWidth/2)-(1600/2)), (screenHeight/11), 1600, 1080);
+					instructionsPanel.setBounds(((screenWidth/2)-(1600/2)), (screenHeight/5), 1600, 1080);
 					instructionsPanel.setBackground(Color.BLACK);
 
 	String instructionsText = "<html><center>BASIC GAME INSTRUCTIONS:<br/><br/> PRESS Z OR THE '>'<br/><center><html>"
@@ -383,7 +382,7 @@ public class UserInterface implements java.io.Serializable{
 							+ "<html><center><br/>MUCH LOVE FROM THE DEVELOPERS<br/> AT KINETICA ENTERTAINMENT!</center></html>";
 					instructions = new JButton(instructionsText);
 						instructions.setForeground(Color.BLACK);
-						instructions.setFont(subtitleFont);
+						instructions.setFont(normalFont);
 						instructions.addActionListener(cHandler);
 						instructions.setActionCommand("dialogue");
 						instructions.setBorder(null);
@@ -553,6 +552,7 @@ public class UserInterface implements java.io.Serializable{
 				gameWindow.pack();
 				gameWindow.setAlwaysOnTop(true);
 				gameWindow.setVisible(true);	
-			//setFullScreen();
+
+				device.setFullScreenWindow(gameWindow);
 		}
 }

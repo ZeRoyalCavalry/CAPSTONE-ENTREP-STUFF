@@ -4,6 +4,7 @@ import mainPackage.Game;
 import mainPackage.ImageManager;
 import mainPackage.TransitionClass;
 import mainPackage.UserInterface;
+import mainPackage.arcScreen;
 import mainPackage.gameStory;
 import mainPackage.playerStats;
 import mainPackage.soundManager;
@@ -34,7 +35,7 @@ public class sceneOnePartOne {
 	String motherSprite = "momSprite.png";
 	//Cutscenes or Backgrounds
 	public void livingRoomCutsceneLoad(){
-		ui.npcName.setText("Mom");
+		ui.npcName.setText("<html><font color=\"#FF00FF\">Mom<font><html>");
 		sceneChanger.showDialogue();
 		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", motherSprite, "placeholder.png", 
 												"placeholder.png", 0.75f, 1.0f, 0.0f, 0.0f);
@@ -45,7 +46,7 @@ public class sceneOnePartOne {
 			ui.playerStatsPanel.setVisible(true);
 			player.checkLevel();
 	}
-	
+
 	public void goodbedroomExit12() {
 		sm.se.setFile7(sm.doorsfx);
 		sm.se.doorSFX.start();
@@ -59,7 +60,6 @@ public class sceneOnePartOne {
 		game.startDialogue();
 			gameStory.increaseCP = 1;
 			gameStory.selectedRight();
-				ui.mainTextArea.append(gameStory.name + "!");
 				game.nextDialogue = "gbedroomExit13";
 	}
 		public void goodbedroomExit13() {
@@ -160,6 +160,16 @@ public class sceneOnePartOne {
 			livingRoomCutsceneLoad();
 			ui.mainTextArea.setFont(game.normalFont);
 			game.startDialogue();
+				game.nextDialogue = "arcStart1";
+		}
+
+		public void showArc(){
+			game.currentDialogue = "arcStart1";
+			game.diatextTracker = 0;
+				String chemStart = "THE GENERAL CHEMISTRY ARC";
+				arcScreen chemArc = new arcScreen(chemStart);
+				UserInterface.gameWindow.add(chemArc);
+				UserInterface.gameWindow.setVisible(true);
 				game.nextDialogue = "firstLessonQuestion";
 		}
 

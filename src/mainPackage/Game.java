@@ -4,6 +4,7 @@ import scenes.introScene;
 import scenes.sceneOnePartOne;
 import scenes.sceneOnePartTwo;
 import scenes.sceneOnePartEnd;
+import scenes.sceneTwoPartOne;
 
 import scenes.sceneTwoPartOne;
 
@@ -43,7 +44,7 @@ public class Game implements java.io.Serializable{
 		
 	public Font narrationFont = new Font("Times New Roman", Font.ITALIC, 29), normalFont = new Font ("Yu Gothic UI", Font.PLAIN, 29),
 			hyperboleFont = new Font ("Papyrus", Font.BOLD, 40);
-		
+
 	//Game Mechanics/Essentials
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
@@ -58,9 +59,10 @@ public class Game implements java.io.Serializable{
 		sceneOnePartOne homeOne = new sceneOnePartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		sceneOnePartTwo homeTwo = new sceneOnePartTwo(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		sceneOnePartEnd homeEnd = new sceneOnePartEnd(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		sceneTwoPartOne walkOne = new sceneTwoPartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		
 	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, 
-									homeOne, homeTwo, homeEnd);
+									homeOne, homeTwo, homeEnd, walkOne);
 	
 	//Input Handlers
 	ChoiceHandler cHandler = new ChoiceHandler();
@@ -75,8 +77,8 @@ public class Game implements java.io.Serializable{
 		int click = 0, i = 1;
 	
 	public String currentDialogue, currentQuestion, nextDialogue, input, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
-	public static String playerName, gender, selected; 
-	public static String[] playerAnswer = new String[100];
+	public static String playerName, gender, gender1, gender2, gender3, selected; 
+	public static String playerAnswer;
 	public static int numberAnswer = 0;
 
 	public int diatextTracker = 0, questiontextTracker = 0;
@@ -117,12 +119,13 @@ public class Game implements java.io.Serializable{
 						textGeneration();
 						ui.bgPanel.remove(ui.bgPic);
 						tc.showDialogue();
-						intro.intro0Game();
+						//intro.intro0Game();
+						//homeOne.explanation1();
+						walkOne.crushBusStopEventApproach();
 						Story.startStats();
-						//Story.goodbedroomExit12();
+						System.out.println("GAME HAS NOW STARTED");
 						//sm.bgsMusic.stopMusic();
-						tc.showName();
-						saveAction();
+						//tc.showName();
 						break;
 					case "continue":
 						textGeneration();
@@ -140,25 +143,23 @@ public class Game implements java.io.Serializable{
 						
 					case "male":
 						selected = "HE";
-						gender = "she";
+						gender = "She"; gender1 = "she"; gender2 = "hers"; gender3 = "her";
 						storyLines.subInGender = gender;
 						Story.dialogueTracker(nextDialogue);
-						saveAction();
 						break;
 					case "female":
 						selected = "SHE";
-						gender = "he";
+						gender = "He"; gender1 = "he"; gender2 = "his"; gender3 = "him";
 						storyLines.subInGender = gender;
 						Story.dialogueTracker(nextDialogue);
-						saveAction();
 						break;					
 					case "inclusive":
 						selected = "THEY";
-						gender = "they";
+						gender = "They"; gender1 = "they"; gender2 = "theirs"; gender3 = "them";
 						storyLines.subInGender = gender;
 						Story.dialogueTracker(nextDialogue);
-						saveAction();
 						break;
+
 					//closeMenu saveNotes
 					case "openNotes":
 						tc.showNotes(); loadNotes(); break;
@@ -204,6 +205,7 @@ public class Game implements java.io.Serializable{
 					DiaTimer.stop();
 					diatextTracker++;
 					ui.dialoguePanel.setVisible(true);
+					ui.dialogueBox.setText(">");
 					enableKeys = 1;
 				}
 			}
@@ -296,7 +298,6 @@ public class Game implements java.io.Serializable{
 		Story.number++;
 		gameStory.increaseCP = 0; gameStory.decreaseCP = 0;
 		ui.mainTextArea.setText("");
-		ui.dialogueBox.setText(">");
 		DiaTimer.start();
 		enableKeys = 0;
 		System.out.println("DIALOGUE SUCCESS: " + Story.number);
@@ -359,13 +360,12 @@ public class Game implements java.io.Serializable{
 			if(AnswerInput.getSource() == ui.submitInputBTN) {
 				sm.se.setFile(sm.buttonsfx);
 				sm.se.playButtonSFX(); // STANDARD BUTTON NOISE
-						playerAnswer[i] = ui.answerInput.getText();
-						gameStory.playerAnswerInput[i] = playerAnswer[i] + "";
-						System.out.println("\nPlayer Answer is: " + gameStory.playerAnswerInput[i]);
+						playerAnswer = ui.answerInput.getText();
+						gameStory.playerAnswerInput = playerAnswer;
+						System.out.println("\nPlayer Answer is: " + gameStory.playerAnswerInput);
 						Story.dialogueTracker(nextDialogue);
 						ui.answerInput.setText("");
-						i++;
-						playerAnswer[i] = "";
+						playerAnswer = "";
 				}
 			} 
 	}
@@ -389,10 +389,6 @@ public class Game implements java.io.Serializable{
 						DiaTimer.stop();
 						ui.mainTextArea.setText("");
 						Story.dialogueTracker(nextDialogue);
-				}
-
-				if(e.getKeyCode() == KeyEvent.VK_F11){
-					ui.device.setFullScreenWindow(UserInterface.gameWindow);
 				}
 			}
 		}
@@ -521,7 +517,7 @@ public class Game implements java.io.Serializable{
 			}
 		}
 		catch(IOException notesLoadError){
-			System.out.println("LOAD NOTES ERROR");
+			System.out.println("LOAD NOTES ERROR: NO NOTES");
 		}
 	}
 	

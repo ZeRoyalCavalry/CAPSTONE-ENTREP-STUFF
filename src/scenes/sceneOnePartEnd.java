@@ -38,7 +38,7 @@ public class sceneOnePartEnd {
 
 	public void livingRoomCutsceneLoad(){
 		sceneChanger.showDialogue();
-		ui.npcName.setText("Mom");
+		ui.npcName.setText("<html><font color=\"#FF00FF\">Mom<font><html>");
 		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", motherSprite, "placeholder.png", 
 												"placeholder.png", 0.75f, 1.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
@@ -50,7 +50,7 @@ public class sceneOnePartEnd {
 	}
     public void homeBathRoomCutsceneLoad(){
 		sceneChanger.showDialogue();
-		ui.npcName.setText("Mom");
+		ui.npcName.setText("<html><font color=\"#FF00FF\">Mom<font><html>");
 		CutsceneMaker homeBathRoomCutscene = new CutsceneMaker("homeRestroom.png", "placeholder.png", "placeholder.png", "placeholder.png", 
 																1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
@@ -253,5 +253,6 @@ public class sceneOnePartEnd {
 		game.startDialogue();
 			sm.se.setFile7(sm.doorsfx);
 			sm.se.doorSFX.start();
+				game.nextDialogue = "walkToSchool1";
 	}
 }

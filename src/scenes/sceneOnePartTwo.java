@@ -36,7 +36,7 @@ public class sceneOnePartTwo {
     String motherSprite = "momSprite.png";
     //Cutscenes or Backgrounds
 	public void livingRoomCutsceneLoad(){
-        ui.npcName.setText("Mom");
+        ui.npcName.setText("<html><font color=\"#FF00FF\">Mom<font><html>");
 		sceneChanger.showDialogue();
 		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", motherSprite, "placeholder.png", 
                                                             "placeholder.png", 0.75f, 1.0f, 0.0f, 0.0f);
@@ -99,7 +99,7 @@ public class sceneOnePartTwo {
 				ui.mainTextArea.setText("");
 				ui.dialogueBox.setText(null);
 			game.calculateTimer.start();
-            sceneChanger.inputAnswer();
+            
 
             game.nextDialogue = "thirdLessonAnswer1Load";
     }
@@ -110,7 +110,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[1];
+        answer = gameStory.playerAnswerInput;
 
         switch(answer){
             case "65":
@@ -172,7 +172,7 @@ public class sceneOnePartTwo {
 				ui.mainTextArea.setText("");
 				ui.dialogueBox.setText(null);
 			game.calculateTimer.start();
-            sceneChanger.inputAnswer();
+            
 
             game.nextDialogue = "thirdLessonAnswer2Load";
     }
@@ -183,7 +183,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[2];
+        answer = gameStory.playerAnswerInput;
 
         switch(answer){
             case "118":
@@ -282,7 +282,7 @@ public class sceneOnePartTwo {
 				ui.mainTextArea.setText("");
 				ui.dialogueBox.setText(null);
 			game.calculateTimer.start();
-            sceneChanger.inputAnswer();
+            
 
             game.nextDialogue = "fourthLessonAnswer1Load";
     }
@@ -293,7 +293,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[3];
+        answer = gameStory.playerAnswerInput;
 
         switch(answer){
             case "207":
@@ -346,7 +346,7 @@ public class sceneOnePartTwo {
 				ui.mainTextArea.setText("");
 				ui.dialogueBox.setText(null);
 			game.calculateTimer.start();
-            sceneChanger.inputAnswer();
+            
 
             game.nextDialogue = "fourthLessonAnswer2Load";
     }
@@ -357,7 +357,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[4];
+        answer = gameStory.playerAnswerInput;
 
         switch(answer){
             case "195":
@@ -458,7 +458,7 @@ public class sceneOnePartTwo {
             ui.mainTextArea.setText("");
             ui.dialogueBox.setText(null);
         game.calculateTimer.start();
-        sceneChanger.inputAnswer();
+        
 
             game.nextDialogue = "ThirdFourthLessonReview1Load";
     }
@@ -469,7 +469,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[5];
+        answer = gameStory.playerAnswerInput;
 
         switch(answer){
             case "58":
@@ -524,7 +524,7 @@ public class sceneOnePartTwo {
             ui.mainTextArea.setText("");
             ui.dialogueBox.setText(null);
         game.calculateTimer.start();
-        sceneChanger.inputAnswer();
+        
 
             game.nextDialogue = "ThirdFourthLessonReview2Load";
     }
@@ -535,7 +535,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[6];
+        answer = gameStory.playerAnswerInput;
 
         switch(answer){
             case "16":
@@ -589,7 +589,7 @@ public class sceneOnePartTwo {
             ui.mainTextArea.setText("");
             ui.dialogueBox.setText(null);
         game.calculateTimer.start();
-        sceneChanger.inputAnswer();
+        
     
             game.nextDialogue = "ThirdFourthLessonReview3Load";
     }
@@ -600,7 +600,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[7];
+        answer = gameStory.playerAnswerInput;
     
         switch(answer){
             case "36":
@@ -654,7 +654,7 @@ public class sceneOnePartTwo {
             ui.mainTextArea.setText("");
             ui.dialogueBox.setText(null);
         game.calculateTimer.start();
-        sceneChanger.inputAnswer();
+        
     
             game.nextDialogue = "ThirdFourthLessonReview4Load";
     }
@@ -665,7 +665,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[8];
+        answer = gameStory.playerAnswerInput;
     
         switch(answer){
             case "7":
@@ -719,7 +719,7 @@ public class sceneOnePartTwo {
             ui.mainTextArea.setText("");
             ui.dialogueBox.setText(null);
         game.calculateTimer.start();
-        sceneChanger.inputAnswer();
+        
     
             game.nextDialogue = "ThirdFourthLessonReview5Load";
     }
@@ -730,7 +730,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[9];
+        answer = gameStory.playerAnswerInput;
     
         switch(answer){
             case "74":
@@ -784,7 +784,7 @@ public class sceneOnePartTwo {
             ui.mainTextArea.setText("");
             ui.dialogueBox.setText(null);
         game.calculateTimer.start();
-        sceneChanger.inputAnswer();
+        
     
             game.nextDialogue = "ThirdFourthLessonReview6Load";
     }
@@ -795,7 +795,7 @@ public class sceneOnePartTwo {
         livingRoomCutsceneLoad();
         ui.mainTextArea.setFont(game.normalFont);
         game.startDialogue();
-        answer = gameStory.playerAnswerInput[10];
+        answer = gameStory.playerAnswerInput;
     
         switch(answer){
             case "49":

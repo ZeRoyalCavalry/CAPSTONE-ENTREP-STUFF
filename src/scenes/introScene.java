@@ -2,6 +2,7 @@ package scenes;
 
 import java.awt.Color;
 
+import mainPackage.arcScreen;
 import mainPackage.CutsceneMaker;
 import mainPackage.Game;
 import mainPackage.Game.ChoiceHandler;
@@ -69,6 +70,12 @@ public class introScene {
 	}
 
 	public void intro0Game() {//Get name
+		Game.enableKeys = 0;
+			String chemStart = "THE GENERAL CHEMISTRY 1 ARC";
+			arcScreen chemArc = new arcScreen(chemStart);
+			chemArc.arcTextTimer.stop();
+			UserInterface.gameWindow.remove(chemArc);
+			UserInterface.gameWindow.setVisible(true);
 		ui.npcName.setText(null);
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro0";
