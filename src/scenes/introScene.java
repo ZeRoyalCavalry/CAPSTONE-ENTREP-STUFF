@@ -2,8 +2,8 @@ package scenes;
 
 import java.awt.Color;
 
-import mainPackage.arcScreen;
-import mainPackage.CutsceneMaker;
+import mainPackage.CutsceneManager;
+
 import mainPackage.Game;
 import mainPackage.Game.ChoiceHandler;
 import mainPackage.Game.KeyboardHandler;
@@ -26,62 +26,24 @@ public class introScene {
 	playerStats player; storyLines lines; ImageManager images;
 	ChoiceHandler cHandler; MouseHandler mHandler; 
 	KeyboardHandler kbHandler; NameHandler nHandler;
+	CutsceneManager csm;
 	
 	public introScene(Game game, UserInterface ui, TransitionClass sceneChanger, soundManager sm,
-						playerStats player, storyLines lines, ImageManager images, int screenWidth, int screenHeight)
+						playerStats player, storyLines lines, ImageManager images, int screenWidth, int screenHeight, CutsceneManager csmanager)
 	{
 		this.game = game; this.ui = ui; this.sceneChanger = sceneChanger; this.sm = sm;
-		this.player = player; this.lines = lines; this.images = images;
-	}
-
-	public void bedroomCutsceneLoad(){
-		sceneChanger.showDialogue();
-		CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", "placeholder.png", "placeholder.png", 
-															1.0f, 0.0f, 0.0f, 0.0f);
-			ui.bgPanel.remove(gameStory.bgHolder);
-			ui.bgPanel.add(CutsceneMaker.image);
-			ui.bgPanel.setVisible(true);
-			ui.mainTextPanel.setVisible(true);
-			ui.playerStatsPanel.setVisible(true);
-			player.checkLevel();
-	}
-	public void cityCutsceneLoad(){
-		sceneChanger.showDialogue();
-		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", "placeholder.png", "placeholder.png", 
-															1.0f, 0.0f, 0.0f, 0.0f);
-			ui.bgPanel.remove(gameStory.bgHolder);
-			ui.bgPanel.add(CutsceneMaker.image);
-			ui.bgPanel.setVisible(true);
-			ui.mainTextPanel.setVisible(true);
-			ui.playerStatsPanel.setVisible(true);
-			player.checkLevel();
-	}
-	public void blackScreen(){
-		sceneChanger.showDialogue();
-		ui.npcName.setText(null);
-		CutsceneMaker blackScreen = new CutsceneMaker("blackscreen.png", "placeholder.png", "placeholder.png", "placeholder.png", 
-														1.0f, 0.0f, 0.0f, 0.0f);
-			ui.bgPanel.remove(gameStory.bgHolder);
-			ui.bgPanel.add(CutsceneMaker.image);
-			ui.bgPanel.setVisible(true);
-			ui.mainTextPanel.setVisible(true);
-			ui.playerStatsPanel.setVisible(true);
-			player.checkLevel();
+		this.player = player; this.lines = lines; this.images = images; csm = csmanager;
 	}
 
 	public void intro0Game() {//Get name
 		Game.enableKeys = 0;
-			String chemStart = "THE GENERAL CHEMISTRY 1 ARC";
-			arcScreen chemArc = new arcScreen(chemStart);
-			chemArc.arcTextTimer.stop();
-			UserInterface.gameWindow.remove(chemArc);
-			UserInterface.gameWindow.setVisible(true);
 		ui.npcName.setText(null);
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "intro0";
 		game.diatextTracker = 0;
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
+		sceneChanger.showName();
 		ui.dialogueBox.setText(null);
 			game.nextDialogue = "genderSelect";
 	}
@@ -99,6 +61,7 @@ public class introScene {
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "instructions";
 		game.nextDialogue = "intro1";
+		//game.nextDialogue = "firstLessonQuestion";
 	}
 	public void intro1Game(){//A world a new
 		ui.npcName.setText(null);
@@ -149,7 +112,7 @@ public class introScene {
 		fadeIn bedroomIn = new fadeIn(ImageManager.bedroom);
 		bedroomIn.fadeInTimer.stop();
 		UserInterface.gameWindow.remove(bedroomIn);
-				bedroomCutsceneLoad();
+				csm.bedroomCutsceneLoad();
 				ui.mainTextPanel.setVisible(true);
 				ui.playerStatsPanel.setVisible(true);
 				game.startDialogue();
@@ -159,7 +122,7 @@ public class introScene {
 		ui.npcName.setText(null);
 		game.currentDialogue = "intro5";
 		game.diatextTracker = 5;
-		bedroomCutsceneLoad();
+		csm.bedroomCutsceneLoad();
 		ui.mainTextPanel.setVisible(true);
 		ui.playerStatsPanel.setVisible(true);
 		ui.mainTextArea.setFont(game.narrationFont);
@@ -190,7 +153,7 @@ public class introScene {
 			sm.se.curtainSFX.start();
 				gameStory.pauseTime = 3000;
 				gameStory.pause();
-				cityCutsceneLoad();
+				csm.cityCutsceneLoad();
 		game.startDialogue();
 			game.nextDialogue = "intro6toEnd";	
 	}
@@ -211,7 +174,7 @@ public class introScene {
 		Game.enableKeys = 0;
 		game.questiontextTracker = 0;
 		ui.choicePanel.setVisible(true);
-		bedroomCutsceneLoad();
+		csm.bedroomCutsceneLoad();
 		ui.mainTextArea.setFont(game.narrationFont);
 		ui.mainTextArea.setText("");
 		ui.dialogueBox.setText(null);
@@ -230,7 +193,7 @@ public class introScene {
 	//Second Scene Transition
 	public void bedroomExit11() {
 		ui.npcName.setText(null);
-		bedroomCutsceneLoad();
+		csm.bedroomCutsceneLoad();
 		game.currentDialogue = "bedroomExit11";
 		Game.enableKeys = 1;
 		game.diatextTracker = 7;
@@ -240,7 +203,7 @@ public class introScene {
 	}
 	public void bedroomStudy11() {
 		ui.npcName.setText(null);
-		bedroomCutsceneLoad();
+		csm.bedroomCutsceneLoad();
 		game.diatextTracker = 8;
 		Game.enableKeys = 1;
 		game.currentDialogue = "bedroomStudy11";
@@ -250,7 +213,7 @@ public class introScene {
 	}
 	public void bedroomSS11() {
 		ui.npcName.setText(null);
-		cityCutsceneLoad();
+		csm.cityCutsceneLoad();
 		game.currentDialogue = "bedroomSS11";
 		game.diatextTracker = 9;
 		Game.enableKeys = 1;
@@ -263,7 +226,7 @@ public class introScene {
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "bedroomSleep11";
 		game.diatextTracker = 10;
-		blackScreen();
+		csm.blackScreen();
 		Game.enableKeys = 1;
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();

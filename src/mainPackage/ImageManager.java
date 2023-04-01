@@ -31,19 +31,10 @@ public class ImageManager implements Serializable{
             Image resizedCity = newCity.getScaledInstance(game.screenWidth, game.screenHeight, Image.SCALE_SMOOTH);
             cityView = new ImageIcon(resizedCity);
 
-        bayRouteView = new ImageIcon(getClass().getClassLoader().getResource("temp4.png"));
-            Image newBayRoute = cityView.getImage();
-            Image resizedBayRoute = newBayRoute.getScaledInstance(game.screenWidth, game.screenHeight, Image.SCALE_SMOOTH);
-            bayRouteView = new ImageIcon(resizedBayRoute);
-
         livingroomView = new ImageIcon(getClass().getClassLoader().getResource("livingRoom.jpg"));
             Image newLivingRoom = livingroomView.getImage();
             Image resizedLivingRoom = newLivingRoom.getScaledInstance(game.screenWidth, game.screenHeight, Image.SCALE_SMOOTH);
             livingroomView = new ImageIcon(resizedLivingRoom);
-
-        motherSprite = new ImageIcon(getClass().getClassLoader().getResource("momSprite.png"));
-
-        placeholderImg = new ImageIcon(getClass().getClassLoader().getResource("placeholder.png"));
             
     }
 }

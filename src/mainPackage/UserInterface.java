@@ -5,6 +5,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 //import java.awt.event.KeyListener;
 import java.awt.Image;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -36,29 +38,32 @@ public class UserInterface implements java.io.Serializable{
 						dialoguePanel, choicePanel, bgPanel, nameInputPanel, playerStatsPanel,
 						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, SpritePanel,
 						submitAnswerPanel, westPanel, characterNamePanel, instructionsPanel, 
-						notesPanel, closeMenuPanel, saveNotesPanel, notesMenu, notesNamePanel;
+						notesPanel, closeMenuPanel, saveNotesPanel, notesMenu, notesNamePanel, LevelUpTextPanel,
+						gameoverScreen, MQGOPanel, restartBTNPanel, quitBTNPanel;
 
 		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, characterSprite, 
-						ChancePointsLabel, characterNamen, npcName, notesNameLabel;
+						ChancePointsLabel, characterNamen, npcName, notesNameLabel, gameoverText,
+						motivatingText;
 
 		public static JLabel ChancePointsNumberLabel, XPNumberLabel;
 
 		public JButton startButton, continueButton, dialogueBox, nameInputBTN, 
 						choice1, choice2, choice3, choice4, saveButton, loadButton,
 						maleButton, femaleButton, inclusiveButton, submitInputBTN,
-						instructions, notesBTN, closeNotesBTN, saveNotesBTN;
+						instructions, notesBTN, closeNotesBTN, saveNotesBTN, exitLevelUpBoxBTN,
+						restartBTN, quitBTN;
 
-		public JTextArea mainTextArea, notesTextArea;
+		public JTextPane mainTextArea, LevelUpTextArea;
+		public JTextArea notesTextArea;
 		public JTextField nameInput, answerInput;
 		public JScrollPane notesPane;
 
 		GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice device = graphics.getDefaultScreenDevice();
-
-		//GridBagConstraints gbc = new GridBagConstraints();
 		
 			Border outlinePanel = new LineBorder(Color.WHITE, 11, true), 
-					outlineButton = new LineBorder(Color.WHITE, 8);
+					outlineButton = new LineBorder(Color.WHITE, 8),
+					outlineChoice = new LineBorder(Color.WHITE, 1);
 		
 		Font titleFont = new Font("Times New Roman", Font.PLAIN, 90), subtitleFont = new Font("Times New Roman", Font.PLAIN, 50),
 			 statsFont = new Font("Yu Gothic UI", Font.BOLD, 28), normalFont = new Font ("Arial", Font.PLAIN, 30),
@@ -78,6 +83,12 @@ public class UserInterface implements java.io.Serializable{
 			
 			//Continue Button Panel Scaling
 			int alignCBX = (int)Math.round((screenWidth/1.6) - (buttonPanelWidth/2.7)); int alignCBY = (int)Math.round(screenHeight/1.34);
+
+			//Restart Button Panel Scaling
+			int alignRBX = (int)Math.round((screenWidth/2.7) - (buttonPanelWidth/1.5)); int alignRBY = (int)Math.round(screenHeight/1.6);
+			
+			//Quit Button Panel Scaling
+			int alignQBX = (int)Math.round((screenWidth/1.6) - (buttonPanelWidth/2.7)); int alignQBY = (int)Math.round(screenHeight/1.6);
 
 			//Sex/Gender Select Panels Scaling
 			int alignMBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2)); int alignMBY = (int)Math.round(screenHeight/5.50);
@@ -104,19 +115,19 @@ public class UserInterface implements java.io.Serializable{
 
 			//Notes Text Panel Scaling 
 			int ntpWidth = 1400; int ntpHeight = 570;
-			int alignNTPX = (screenWidth/2) - (ntpWidth/2); int alignNTPY = (int)Math.round(mtaHeight/1.75);
+			int alignNTPX = (screenWidth/2) - (ntpWidth/2); int alignNTPY = (int)Math.round(mtaHeight/1.5);
 
 			//Notes Text Area Scaling
 			int ntaWidth = 1350; int ntaHeight = 480;
-			int alignNTAX = (screenWidth/2) - (ntaWidth/2); int alignNTAY = (int)Math.round(ntaHeight/14);
+			int alignNTAX = (screenWidth/2) - (ntaWidth/2); int alignNTAY = (int)Math.round(ntaHeight/13.5);
 			
 			//Dialogue Panel Scaling
 			int diaConPanelWidth = 110; int diaConPanelHeight = 90;
 			int alignDCPanelX = (screenWidth/2) - (diaConPanelWidth/2); int alignDCPanelY = (int)Math.round(diaConPanelHeight/2);
 			
 			//Choice Panel Scaling
-			int choicePanelWidth = 800; int choicePanelHeight = 250;
-			int alignCPanelX = (screenWidth/2) - (choicePanelWidth/2); int alignCPanelY = (int)Math.round(screenHeight/5.5);
+			int choicePanelWidth = 800; int choicePanelHeight = 320;
+			int alignCPanelX = (screenWidth/2) - (choicePanelWidth/2); int alignCPanelY = (int)Math.round(screenHeight/8);
 			
 			//Name Input Panel Scaling
 			int inPWidth = 900; int inPHeight = 130;
@@ -134,14 +145,30 @@ public class UserInterface implements java.io.Serializable{
 			int saveNotesWidth = 150; int saveMenuHeight = 70;
 			int alignSMPanelX = (int)Math.round(screenWidth/1.75); int alignSMPanelY = (int)Math.round(screenHeight/1.20);
 
+			//Level Up Text Panel
+			int LUTPWidth = 800, LUTPHeight = 300;
+			int alignLUTPX = (int)Math.round((screenWidth/2) - (LUTPWidth/2)); int alignLUTPY = (int)Math.round((screenHeight/2) - (LUTPHeight/2));
+			//Level Up Text Pane
+			int LUTAWidth = 700, LUTAHeight = 200;
+			int alignLUTAX = (int)Math.round((screenWidth/2) - (LUTAWidth/2)); int alignLUTAY = (int)Math.round((screenHeight/2) - (LUTAHeight/2));
+
+			//Game Over Panel
+			int GameOverWidth = 1400, GameOverHeight = 150;
+			int alignGOPanelX = (int)Math.round((screenWidth/2) - (GameOverWidth/2)); int alignGOPanelY = (int)Math.round(screenHeight/6);
+
+			//Motivating Quote for Game Over Panel
+			int MotivatePlayerWidth = 1400, MotivatePlayerHeight = 160;
+			int alignMQGOPanelX = (int)Math.round((screenWidth/2) - (GameOverWidth/2)); int alignMQGOPanelY = (int)Math.round(screenHeight/2.65);
+
 			//MAKE GAME WINDOW
 			gameWindow = new JFrame();
 				gameWindow.setTitle("Starlight High School and Its Curious Cases");
 				gameWindow.setSize(screenWidth,screenHeight);
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				gameWindow.getContentPane().setBackground(Color.BLACK);
+				gameWindow.setUndecorated(true);
+				//gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				//gameWindow.setLayout(null);
-				gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			
 			//Intro with GIF
 			introPanel = new JPanel();
@@ -270,6 +297,65 @@ public class UserInterface implements java.io.Serializable{
 			gameWindow.add(continueButtonPanel);
 			
 			//ACTUAL GAME
+			//Game Over Screen
+			gameoverScreen = new JPanel();
+				gameoverScreen.setBounds(alignGOPanelX, alignGOPanelY, GameOverWidth, GameOverHeight);
+			 	gameoverScreen.setBorder(outlinePanel);
+				gameoverScreen.setBackground(Color.black);
+				
+			 gameoverText = new JLabel("<html><center>YOU RAN OUT OF CHANCES. . . <center><html>");
+			 	gameoverText.setForeground(Color.white);
+			 	gameoverText.setFont(titleFont);
+			 	gameoverScreen.add(gameoverText);
+			gameWindow.add(gameoverScreen);
+
+			MQGOPanel = new JPanel();
+				MQGOPanel.setBounds(alignMQGOPanelX, alignMQGOPanelY, MotivatePlayerWidth, MotivatePlayerHeight);
+			MQGOPanel.setBackground(Color.black);
+			
+			String MotivatingQuote[] = {"<html><center>A true learner perseveres, <br/>you can still try again!<center><html>",
+										"<html><center>If one door closes, another opens. <br/> A new opportunity awaits... Try again!<center><html>",
+										"<html><center>Victory goes to those who never surrender! <br/>You got it next time!<center><html>"};
+			int randomQuote = (int)((Math.random()*2)+1);
+
+		 	motivatingText = new JLabel("<html><center>"  + MotivatingQuote[randomQuote] +  "<center><html>");
+			 	motivatingText.setForeground(Color.white);
+			 	motivatingText.setFont(subtitleFont);
+				MQGOPanel.add(motivatingText);
+			gameWindow.add(MQGOPanel);
+
+			restartBTNPanel = new JPanel();
+				restartBTNPanel.setBounds(alignRBX, alignRBY, buttonPanelWidth, buttonPanelHeight);
+				restartBTNPanel.setBackground(Color.BLACK);
+				restartBTNPanel.setBorder(outlineButton);
+
+					restartBTN = new JButton("<html><center>RESTART<center><html>");
+						restartBTN.setBackground(Color.BLACK);
+						restartBTN.setForeground(Color.WHITE);
+						restartBTN.setFont(subtitleFont);
+						restartBTN.setFocusPainted(false);
+						restartBTN.setBorderPainted(false);
+							restartBTN.addActionListener(cHandler);
+							restartBTN.setActionCommand("continue");
+						restartBTNPanel.add(restartBTN);
+					gameWindow.add(restartBTNPanel);
+
+			quitBTNPanel = new JPanel();
+				quitBTNPanel.setBounds(alignQBX, alignQBY, buttonPanelWidth, buttonPanelHeight);
+				quitBTNPanel.setBackground(Color.BLACK);
+				quitBTNPanel.setBorder(outlineButton);
+		
+					quitBTN = new JButton("<html><center>QUIT<center><html>");
+						quitBTN.setBackground(Color.BLACK);
+						quitBTN.setForeground(Color.WHITE);
+						quitBTN.setFont(subtitleFont);
+						quitBTN.setFocusPainted(false);
+						quitBTN.setBorderPainted(false);
+							quitBTN.addActionListener(cHandler);
+							quitBTN.setActionCommand("quit");
+						quitBTNPanel.add(quitBTN);
+					gameWindow.add(quitBTNPanel);
+
 			//Text Area Holder
 			mainTextPanel = new JPanel();
 				//mainTextPanel.setBounds(120,160,1300,250);
@@ -283,14 +369,15 @@ public class UserInterface implements java.io.Serializable{
 			gameWindow.add(mainTextPanel);	
 			
 			//Text Area
-			mainTextArea = new JTextArea("");
+			mainTextArea = new JTextPane();
+			mainTextArea.setText("");
 				//mainTextArea.setBounds(150,185,1200,230);
 				mainTextArea.setBounds(alignMTAX,alignMTAY,mtaWidth,mtaHeight);
 				mainTextArea.setBackground(Color.black);
 				mainTextArea.setForeground(Color.white);
 				mainTextArea.setFont(normalFont);
-					mainTextArea.setLineWrap(true);
-					mainTextArea.setWrapStyleWord(true);
+					//mainTextArea.setLineWrap(true);
+					//mainTextArea.setWrapStyleWord(true);
 					mainTextArea.setEditable(false);
 					mainTextArea.addMouseListener(mHandler);
 					mainTextArea.addKeyListener(kbHandler);
@@ -392,41 +479,55 @@ public class UserInterface implements java.io.Serializable{
 			choicePanel = new JPanel();
 				//choicePanel.setBounds(450,470,600,250);
 				choicePanel.setBounds(alignCPanelX, alignCPanelY, choicePanelWidth, choicePanelHeight);
-					choicePanel.setBackground(Color.black);
-					choicePanel.setForeground(Color.white);
-					choicePanel.setLayout(new GridLayout(4,1));
+					choicePanel.setOpaque(false);
+					//choicePanel.setBackground(Color.black);
+					//choicePanel.setForeground(Color.white);
+					GridLayout choicePanelLayout = new GridLayout(4,1);
+					choicePanelLayout.setVgap(30);
+					choicePanel.setLayout(choicePanelLayout);
 			
 						choice1 = new JButton("FIRST CHOICE");
+							choice1.setPreferredSize(new Dimension(800, 80));
 							choice1.setBackground(Color.black);
 							choice1.setForeground(Color.white);
 							choice1.setFont(normalFont);
 								choice1.setFocusPainted(false);
 								choice1.addActionListener(cHandler);
 								choice1.setActionCommand("c1");
+								choice1.setBorder(outlineChoice);
 							choicePanel.add(choice1);
+
 						choice2 = new JButton("SECOND CHOICE");
+							choice2.setPreferredSize(new Dimension(800, 80));
 							choice2.setBackground(Color.black);
 							choice2.setForeground(Color.white);
 							choice2.setFont(normalFont);
 								choice2.setFocusPainted(false);
 								choice2.addActionListener(cHandler);
 								choice2.setActionCommand("c2");
+								choice2.setBorder(outlineChoice);
 							choicePanel.add(choice2);
+
 						choice3 = new JButton("THIRD CHOICE");
+							choice3.setPreferredSize(new Dimension(800, 80));
 							choice3.setBackground(Color.black);
 							choice3.setForeground(Color.white);
 							choice3.setFont(normalFont);
 								choice3.setFocusPainted(false);
 								choice3.addActionListener(cHandler);
 								choice3.setActionCommand("c3");
+								choice3.setBorder(outlineChoice);
 							choicePanel.add(choice3);
+
 						choice4 = new JButton("FOURTH CHOICE");
+							choice4.setPreferredSize(new Dimension(800, 80));
 							choice4.setBackground(Color.black);
 							choice4.setForeground(Color.white);
 							choice4.setFont(normalFont);
 								choice4.setFocusPainted(false);
 								choice4.addActionListener(cHandler);
 								choice4.setActionCommand("c4");
+								choice4.setBorder(outlineChoice);
 							choicePanel.add(choice4);
 			
 			playerStatsPanel = new JPanel();
@@ -546,13 +647,48 @@ public class UserInterface implements java.io.Serializable{
 					saveNotesPanel.add(saveNotesBTN);
 						gameWindow.add(saveNotesPanel);
 				
+			//Level Up Text Area Holder
+			LevelUpTextPanel = new JPanel();
+				//mainTextPanel.setBounds(120,160,1300,250);
+				LevelUpTextPanel.setBounds(alignLUTPX, alignLUTPY, LUTPWidth, LUTPHeight);
+				LevelUpTextPanel.setBackground(Color.BLACK);
+				LevelUpTextPanel.setBorder(outlinePanel);
+				LevelUpTextPanel.setOpaque(false);
+				LevelUpTextPanel.setLayout(new BorderLayout(0,0));
+					gameWindow.add(LevelUpTextPanel);	
+		
+			//Level Up Text Area
+			LevelUpTextArea = new JTextPane();
+        		LevelUpTextArea.setText("YOU HAVE LEVELED UP TO: \nLEVEL " +  playerStats.level
+                                        + "\nYOUR MAXIMUM CP IS NOW: \n" + playerStats.CP + "/" + playerStats.maxCP);
+					//mainTextArea.setBounds(150,185,1200,230);
+					LevelUpTextArea.setBounds(alignLUTAX,alignLUTAY,LUTAWidth,LUTAHeight);
+					LevelUpTextArea.setBackground(Color.black);
+					LevelUpTextArea.setForeground(Color.white);
+					LevelUpTextArea.setFont(subtitleFont);
+						//mainTextArea.setLineWrap(true);
+						//mainTextArea.setWrapStyleWord(true);
+						LevelUpTextArea.setEditable(false);
+					LevelUpTextPanel.add(LevelUpTextArea, BorderLayout.CENTER);
+		
+				//Level Up Exit Button
+				exitLevelUpBoxBTN = new JButton();
+				exitLevelUpBoxBTN.setText("X");
+					exitLevelUpBoxBTN.setForeground(Color.BLACK);
+					exitLevelUpBoxBTN.setFont(normalFont);
+					exitLevelUpBoxBTN.addActionListener(cHandler);
+					exitLevelUpBoxBTN.setActionCommand("closeLvlUp");
+				LevelUpTextPanel.add(exitLevelUpBoxBTN, BorderLayout.SOUTH);
+
 			gameWindow.add(playerStatsPanel);
 			gameWindow.add(choicePanel);
 			gameWindow.add(bgPanel);
 				gameWindow.pack();
 				gameWindow.setAlwaysOnTop(true);
 				gameWindow.setVisible(true);	
-
-				device.setFullScreenWindow(gameWindow);
+				setFullScreen();
+		}
+		public void setFullScreen(){
+			device.setFullScreenWindow(gameWindow);
 		}
 }

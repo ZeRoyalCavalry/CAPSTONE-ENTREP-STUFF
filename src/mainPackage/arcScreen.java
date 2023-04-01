@@ -14,7 +14,7 @@ import javax.swing.Timer;
 
 public class arcScreen extends JPanel implements ActionListener{
 
-    public Timer arcTextTimer = new Timer(20, this);
+    public Timer arcTextTimer = new Timer(15, this);
     Dimension gameWindowSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = (int)gameWindowSize.getWidth();
         int screenHeight = (int)gameWindowSize.getHeight();

@@ -32,56 +32,61 @@ public class CutsceneMaker implements Serializable{
 
 	String selectedSprite = null, selectedBG = null, selectedFG = null, selectedEffect = null;
 
-       	public CutsceneMaker(String selectedBG, String selectedSprite, String selectedFG, String selectedEffect, 
-								float bgValue, float spriteValue, float fgValue, float effectValue) {
+       	public CutsceneMaker(String selectedBG, String selectedFG, String selectedEffect, String selectedSprite,
+								float bgValue, float fgValue, float effectValue,  float spriteValue) {
 			this.selectedBG = selectedBG;
-			this.selectedSprite = selectedSprite;
 			this.selectedFG = selectedFG;
 			this.selectedEffect = selectedEffect;
+			this.selectedSprite = selectedSprite;
 
 			this.bgValue = bgValue;
-			this.spriteValue = spriteValue;
 			this.fgValue = fgValue;
 			this.effectValue = effectValue;
+			this.spriteValue = spriteValue;
 
 			try {
 				BufferedImage combinedImage;
 			
 				darken = ImageIO.read(getClass().getClassLoader().getResource("blackscreen.png"));
 				bgLoaded = ImageIO.read(getClass().getClassLoader().getResource(this.selectedBG));
-				spriteLoaded = ImageIO.read(getClass().getClassLoader().getResource(this.selectedSprite));
 				fgLoaded = ImageIO.read(getClass().getClassLoader().getResource(this.selectedFG));
 				effectLoaded = ImageIO.read(getClass().getClassLoader().getResource(this.selectedEffect));
+				spriteLoaded = ImageIO.read(getClass().getClassLoader().getResource(this.selectedSprite));
 				
 				combinedImage = new BufferedImage(windowWidth, windowHeight, BufferedImage.TYPE_INT_ARGB);
 				
 				Graphics2D darkBG = combinedImage.createGraphics();
 				Graphics2D bg = combinedImage.createGraphics();
-				Graphics2D sprite = combinedImage.createGraphics();
 				Graphics2D fg = combinedImage.createGraphics();
 				Graphics2D effect = combinedImage.createGraphics();
+				Graphics2D sprite = combinedImage.createGraphics();
 
 				darkBG.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 					darkBG.drawImage(darken, 0, 0, windowWidth, windowHeight, null);
+
 				bg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.bgValue));
 					bg.drawImage(bgLoaded, 0, 0, windowWidth, windowHeight, null);
-				sprite.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.spriteValue));
-					sprite.drawImage(spriteLoaded, alignSpriteX, alignSpriteY, spriteWidth, spriteHeight, null);
+
 				fg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.fgValue));
-					fg.drawImage(spriteLoaded, 0, 0, windowWidth, windowHeight, null);
-				effect.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.fgValue));
-					effect.drawImage(effectLoaded, 0, 0, windowWidth, windowHeight, null);		
+					fg.drawImage(fgLoaded, 0, 0, windowWidth, windowHeight, null);
+
+				effect.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.effectValue));
+					effect.drawImage(effectLoaded, 0, 0, windowWidth, windowHeight, null);
+
+				sprite.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.spriteValue));
+					sprite.drawImage(spriteLoaded, alignSpriteX, alignSpriteY, spriteWidth, spriteHeight, null);		
 
 				darkBG.dispose();
 				bg.dispose();
-				sprite.dispose();
 				fg.dispose();
 				effect.dispose();
+				sprite.dispose();
 				
 				image.setIcon(new ImageIcon(combinedImage));
 				UserInterface.gameWindow.add(image);
 			}
 			catch(IOException e) {
+				System.out.println("IMAGE AIN'T LOADING");
 			}
        	}
 }

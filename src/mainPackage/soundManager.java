@@ -5,6 +5,7 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class soundManager implements java.io.Serializable {
 
@@ -12,13 +13,16 @@ public class soundManager implements java.io.Serializable {
 
 	public soundEffect se = new soundEffect();
 	public bgSceneMusic bgsMusic = new bgSceneMusic();
+
+	FloatControl fc;
 	
 	//ALL SOUUND EFFECTS AND MUSIC ARE FREE TO USE
-	public String titleScreenMusic = ".//Sounds//titleScreenMusic_ZRC.wav", buttonsfx = ".//Sounds//button_Universfield.wav",
+	public String titleScreenMusic = ".//Sounds//titleScreenMusic_PAT.wav", buttonsfx = ".//Sounds//button_Universfield.wav",
 			typesfx = ".//Sounds//typesound_SennaFoxy.wav", birdsfx = ".//Sounds//birdschirpping_nektaria909.wav",
 			curtainsfx = ".//Sounds//curtainopen_jeneveev.wav",alarmclocksfx = ".//Sounds//alarmclock_ZyryTSounds.wav", 
 			outofbedsfx = ".//Sounds//outofbed_LOTWStudios.wav", showersfx = ".//Sounds//shower_vmgraw.wav",
-			doorsfx = ".//Sounds//door_Zeinel.wav", brushteethsfx = ".//Sounds//brushteeth_shelbyshark.wav";
+			doorsfx = ".//Sounds//door_Zeinel.wav", brushteethsfx = ".//Sounds//brushteeth_shelbyshark.wav",
+			InGameBGMusic = ".//Sounds//gameBGmusic_PAT.wav";
 
 	
 	public class soundEffect{
@@ -183,6 +187,32 @@ public class soundManager implements java.io.Serializable {
 		public void stopMusic() {
 			backgroundMusic.stop();
 			backgroundMusic.close();
+		}
+
+		public Clip ingameBGMusic;
+		public void ingameBGMusicSet(String ingameBG){
+			try{
+				File file = new File(ingameBG);
+				AudioInputStream ingamebgMusicName = AudioSystem.getAudioInputStream(file);
+				ingameBGMusic = AudioSystem.getClip();
+				ingameBGMusic.open(ingamebgMusicName);
+				fc = (FloatControl)ingameBGMusic.getControl(FloatControl.Type.MASTER_GAIN);
+				fc.setValue((float) 0.10);
+			}
+			catch(Exception e){
+				System.out.println("ERROR LOADING MUSIC");
+			}
+		}
+		public void playInGameMusic() {
+			ingameBGMusic.setFramePosition(0);
+			ingameBGMusic.start();
+		}
+		public void loopInGameMusic() {
+			ingameBGMusic.loop(Clip.LOOP_CONTINUOUSLY);
+		}
+		public void stopInGameMusic() {
+			ingameBGMusic.stop();
+			ingameBGMusic.close();
 		}
 	}
 }

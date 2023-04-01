@@ -7,6 +7,7 @@ import scenes.sceneOnePartEnd;
 import scenes.sceneOnePartOne;
 import scenes.sceneOnePartTwo;
 import scenes.sceneTwoPartOne;
+import scenes.sceneTwoPartTwo;
 
 import java.io.Serializable;
 
@@ -24,7 +25,13 @@ public class gameStory implements Serializable{
 		public static int increaseCP = 0,  increaseXP = 0, decreaseCP = 0;
 		public int number = 0, reviewCorrect = 0, questionSelector = 0, questionRecognizer = 0;
 
-		public static String name;
+		public static String name, 
+							gender = Game.gender, 
+							gender1 = Game.gender1, 
+							gender2 = Game.gender2, 
+							gender3 = Game.gender3, 
+							SOName = Game.SOName,
+							SOSprite = Game.SOSprite;
 		public static String playerAnswerInput;
 		
 		public static JLabel bgHolder = new JLabel();
@@ -32,7 +39,7 @@ public class gameStory implements Serializable{
 
 	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats, ImageManager imgManage, 
 					introScene intro2, sceneOnePartOne homeOne, sceneOnePartTwo homeTwo, sceneOnePartEnd homeEnd, 
-					sceneTwoPartOne walkOne) {	
+					sceneTwoPartOne walkOne, sceneTwoPartTwo walkTwo) {	
 				game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats; images = imgManage; 
 				
 				intro = intro2; scOne = homeOne; scOne2 = homeTwo; scOneEnd = homeEnd; scTwo1 = walkOne;
@@ -41,7 +48,7 @@ public class gameStory implements Serializable{
 	public void startStats(){
 		playerStats.maxCP = 10;
 		playerStats.XP = 0;
-			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "/" + playerStats.neededXP + "<center><html>");
 			playerStats.CP = 10;
 			UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "/" + playerStats.maxCP + "<center><html>");
 	}
@@ -202,24 +209,37 @@ public class gameStory implements Serializable{
 		case "walkToSchool8": scTwo1.walkToSchool8(); break;
 		case "walkToSchool9": scTwo1.walkToSchool9(); break;
 
-			case "doInspectCommotion": scTwo1.doInspectCommotion(); break;
-
 		case "crushBusStopEvent1": scTwo1.crushBusStopEvent1(); break;
 		case "crushBusStopEvent2": scTwo1.crushBusStopEvent2(); break;
 		case "crushBusStopEvent3": scTwo1.crushBusStopEvent3(); break;
 		case "crushBusStopEvent4": scTwo1.crushBusStopEvent4(); break;
 
-			case "crushBusStopDecision": scTwo1.crushBusStopDecision(); break;
-
 		case "crushBusStopEventApproach": scTwo1.crushBusStopEventApproach(); break;
 		case "crushBusStopEventApproach1": scTwo1.crushBusStopEventApproach1(); break;
 		case "crushBusStopEventApproach2": scTwo1.crushBusStopEventApproach2(); break;
+		case "crushBusStopEventApproach3": scTwo1.crushBusStopEventApproach3(); break;
 
-			case "crushBusStopDecision1": scTwo1.crushBusStopDecision1(); break;
-		
+		case "crushBusStopEventTalk": scTwo1.crushBusStopEventTalk(); break;
+		case "crushBusStopEventTalk1": scTwo1.crushBusStopEventTalk1(); break;
+		case "crushBusStopEventTalk2": scTwo1.crushBusStopEventTalk2(); break;
+		case "crushBusStopEventTalk3": scTwo1.crushBusStopEventTalk3(); break;
+		case "crushBusStopEventTalk4": scTwo1.crushBusStopEventTalk4(); break;
+		case "crushBusStopEventTalk5": scTwo1.crushBusStopEventTalk5(); break;
+		case "crushBusStopEventTalk6": scTwo1.crushBusStopEventTalk6(); break;
+		case "crushBusStopEventTalk7": scTwo1.crushBusStopEventTalk7(); break;
+		case "crushBusStopEventTalk8": scTwo1.crushBusStopEventTalk8(); break;
+		case "crushBusStopEventTalk9": scTwo1.crushBusStopEventTalk9(); break;
+		case "crushBusStopEventTalk10": scTwo1.crushBusStopEventTalk10(); break;
+		case "crushBusStopEventTalk11": scTwo1.crushBusStopEventTalk11(); break;
+		case "crushBusStopEventTalk12": scTwo1.crushBusStopEventTalk12(); break;
+		case "crushBusStopEventTalk13": scTwo1.crushBusStopEventTalk13(); break;
+		case "crushBusStopEventTalk14": scTwo1.crushBusStopEventTalk14(); break;
+		case "crushBusStopEventTalk15": scTwo1.crushBusStopEventTalk15(); break;
+		case "crushBusStopEventTalk16": scTwo1.crushBusStopEventTalk16(); break;
+
 	}
 }
-	
+
 	//For choice making moments
 	public void progressTracker(String nextMove) {
 		switch(nextMove) {
@@ -289,25 +309,7 @@ public class gameStory implements Serializable{
 				case "endQuestion2": scOneEnd.endQuestion2(); break;
 					case "endQuestion2Right": scOneEnd.endQuestion2Right(); break;
 					case "endQuestion2Wrong": scOneEnd.endQuestion2Wrong(); break;
-
-			case "doInspectCommotion": scTwo1.doInspectCommotion(); break;
-				case "crushBusStopEventStarted": scTwo1.crushBusStopEventStarted(); sceneChanger.showDialogue(); break; 
-				//case "crushBusStopEventIgnored": scTwo1.crushBusStopEventIgnored(); break;
-
-			case "crushBusStopDecision": scTwo1.crushBusStopDecision(); break;
-				case "crushBusStopEventApproach": scTwo1.crushBusStopEventApproach(); break;
 	
-			case "crushBusStopDecision1": scTwo1.crushBusStopDecision1(); break;
-				case "crushBusStopEventWatching": 	scTwo1.crushBusStopEventWatching(); sceneChanger.showDialogue(); break;
-				case "crushBusStopEventPassing":	scTwo1.crushBusStopEventPassing(); sceneChanger.showDialogue(); break;
-				case "crushBusStopEventInspecting":	scTwo1.crushBusStopEventInspecting(); sceneChanger.showDialogue(); break;
-				case "crushBusStopEventSilencced":	scTwo1.crushBusStopEventSilenced(); sceneChanger.showDialogue(); break;
-
-			case "crushBusStopDecision2": scTwo1.crushBusStopDecision2(); break;
-				case "crushBusStopEventExplainGood": scTwo1.crushBusStopEventExplainGood(); break;
-				case "crushBusStopEventExplainBad": scTwo1.crushBusStopEventExplainBad(); break;
-				case "crushBusStopEventExplainNeutral": scTwo1.crushBusStopEventExplainNeutral(); break;
-				case "crushBusStopEventExplainSilenced": scTwo1.crushBusStopEventExplainSilence(); break;
 		}
 	}
 	public static void selectedRight(){

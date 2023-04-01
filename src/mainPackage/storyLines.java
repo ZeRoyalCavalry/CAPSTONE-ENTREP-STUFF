@@ -1,13 +1,14 @@
 package mainPackage;
 
-import mainPackage.colorText;
-
 public class storyLines implements java.io.Serializable{
 	
-	public static String subInGender;
-	static colorText notes1 = new colorText("PROTON");
+	public static String gender = Game.gender, 
+			gender1 = Game.gender1, 
+			gender2 = Game.gender2, 
+			gender3 = Game.gender3;
 
 	public class dialogues {
+
 		static String diaText[] = {
 				
 //Introduction Lines
@@ -44,7 +45,7 @@ public class storyLines implements java.io.Serializable{
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Picked Good
-"Good morning to you, my dear " + gameStory.name + "!",//11
+"Good morning to you, my dear " + Game.playerName + "!",//11
 
 "I hope you had a swell sleep. "
 + "You need everything for your first day at Starlight!",//12
@@ -341,116 +342,96 @@ public class storyLines implements java.io.Serializable{
 + "raindrops surrounding you.", //91
 
 "You take a moment to appreciate this before you noticed that someone seems a bit frustrated "
-+ "in a nearby covered area. You can hear them complain and stomp on the ground as you got closer.", //92
++ "in a nearby covered area. You can hear them complain and stomp on the ground as you stepped.", //92
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// If chose to inspect
+// Meeting possible crush
 
 "You opened your umbrella and walked a few paces down the road until you reached the corner. . .", //93, narration
 
-"You took a peak to the side and noticed that at the other covered waiting area, "
+"You took a peek to the side and noticed that at the other covered waiting area, "
 + "you found the source of all these angry comments about life.", //94
 
 "Why?! Why did it just have to rain?!", // 95, crush
 
 "It just really had to be the day I forgot to put my umbrella in my bag!", //96
 
-"As " + Game.gender1 +" continued on rambling about it, " + Game.gender2 + " anger turned to sorrow. "
+"As " + Game.gender1 +" continued on rambling about it, " + Game.gender3 + " anger turned to sorrow. "
 + "The groans turned to sobs as " + Game.gender1 + " expects to be stranded without ever getting to where they need to be.", //97, narration
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// If chose to inspect > Approach
-
-"You slowly approach " + Game.gender3 + "...", //98, narration
+"You slowly approach " + gameStory.gender3 + "...", //98, narration
 
 "*sobs* *sobs*", //99, crush
 
-"Oh, *wipes tears*, hello there. . .", //100
+"Oh, *wipes tears*, hello there. . .", //100, crush
+
+"You come over to " + gameStory.gender3 + " and waved a little bit.", //101, narration
+
+"You said that you were passing by and heard a noise. You asked what happened that made " + gameStory.gender3 + " upset. . .", //102, narration
+
+"Oh, well, if you were hearing my rants... I—I forgot my umbrella and now it's raining hard.", //103, crush
+
+"I don't know what to do, I'd be late on my first day of school and I was so excited to see it for the first time too!", //104, crush
+
+gameStory.gender + " mentioned about going to school. You were curious so you had to ask which school they were going to. . .", //105, narration
+
+"Oh, it's Starlight Highschool. I got... accepted to it and my parents really wanted me to go there for the hands-on education.", //106 crush
+
+"The odd pause made you suspicious but the problem of getting to school is now a problem for the both of you.", //107, Narration
+
+"You could help " + gameStory.gender3 + "by sharing the umbrella. . . But the two of you might get wet.", //108, Narration
+
+"Maybe it would be best if you share the umbrella until you find a convenience store so " + gameStory.gender1 
++ " can possibly buy one.", //109, narration.
+
+"You tell them that you are a student of Starlight Highschool as well, so you would be going there too.", //110, narration
+
+"You then suggest to them that you could share your umbrella and find a convenience store  ", //111, narration
+
+gameStory.gender3 + " is thinking about it, it seems that they'd rather be wet by the rain than late and absent.", //112, narration
+
+"Alright! Thank you! Uhm... I'm sorry for asking this late but, what's your name?", //113, crush
+
+"You tell them your name is " + gameStory.name + ".", //114, narration
+
+"Oh, that's a pretty nice name! Nice to meet you, I'm " + gameStory.SOName + ".", //115, crush
+
+"\"" + gameStory.SOName + " also sounds like a nice name\", you thought.", //116, narration
+
+"Let's get going now, then?", //117, crush
+
+"You nod your head, and now you're off like two bonded elements drifting in the cosmos, confused and lost, "
++ "but has a certain destination to reach.", //118, narration
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > Watching
+// On the way to a convenience store
 
-"What?! *steps back* Not to be rude but, doesn't that sound so stalker~ish?", //101, Crush
+"A couple of droplets here, there, and everywhere. H2O splashing round about the two of you. As annoying as "
++ "the rain could be, it was so serene. The world is—", //118, narration
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > Passing
+"Say... Something Please...", //119, crush, Electron Config Song - 1s2 2s2 2p6
 
-"Oh, really? Okay, I'm sorry for this scene I caused.", //102, Crush
+"Sounds like " + gameStory.SOName + " is singing something that you can hear amidst this light storm that's "
++ "brewing around and about. The tune, the melody, and the humming, it sounds... beautiful.", //120, narration
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > Inspecting
+"Something Passionate, Something Dear.", //121, crush, Electron Config Song - ... 3s2 3p6 4s2 3d10
 
-"Oh, I caused that much ruckus, huh? I'm sory about that.", //103, Crush
+"Plentiful Signs, Downright Polite.", //122, crush, Electron Config Song - ... 4p6 5s2 4d10 5p6
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > ...
+"See Faitful Destiny Partly Suffice.", //123, crush, Electron Config Song - ... 6s2 4f14 5d10 6p6 7s2
 
-"Are you not gonna say anthing? *Looks away*", //104, Crush
+"Forever Dedicated. . . to your Pretty Smile.", //124, crush, Electron Config Song - ... 5f14 6d10 7p6 8s2
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Yes to watching > No! It's not what it seems!
+gameStory.gender3 + " kept on repeating that song as the rain slowly starts going away.", //125 narration
 
-"What were you doing then? Why are you here?", //105, Crush
+"You were curious about it, but you couldn't ask until the rain was gone so that you'd understand her properly.", //126, narration
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Yes to watching > No! It's not what it seems! I was just passing by
+"Around 5 minutes of walking, you found a convenience store nearby and the both of you entered it.", //127, narration
 
-"I see... So you were just passing by, huh?", //106, Crush
-
-"Where were you headed to?", //107, Crush
+"Welcome to the store! ",
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Yes to watching > No! It's not what it seems! I was just passing by > To Starlight Highschool
-
-"Oh! Really?! Could I join you then? A bit of a walk to school! You know?", //106, Crush
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Yes to watching > No! It's not what it seems! I was just passing by > To a friend's house
-
-"Oh, is that so? *frowns* Well, if you have to go. I was just hoping. . . Nevermind, bye bye!", //108, Crush
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Yes to watching > No! It's not what it seems! I was just passing by > To the Convenience Store
-
-"Oh! Could you help me get over there? I'd just buy an umbrella over there!", //109, Crush
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Yes to watching > No! It's not what it seems! I was just passing by > I don't know either
-
-"Oh, that's... Weird? Are you okay?", //110, Crush
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > Yes to watching > What if I was stalking? (END)
-
-"Ew! Get away from me!", //111 Crush
-
-Game.gender + " run away. . .", //112, Narration
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > Yes to watching > I was just admiring your good looks
-
-"What?! *flustered* Thanks, I guess? *Looks away*", 
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > Yes to watching > I was just admiring your good looks > Repeat
-
-"Seriously, what were you doing?", 
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach > Yes to watching > ...
-
-"...",
-
-"So you're just not gonna say anything, huh? Okay...",
-
-"Uhm...",
-
-"Where are you headed to?",
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// If chose not to inspect || If chose to inspect > Not approach || If chose to inspect > Approach > ... > Not offer help 
-
-"There are more pressing matters at hand, don't want to be late for school now, do you?", //narration
+// Find convenience store
 
 		};
 	}
@@ -550,35 +531,13 @@ Game.gender + " run away. . .", //112, Narration
 "What about the SODIUM HYDROXIDE based product used to scrub on the body?  Isn't that just...", //22
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Inspect or Not
-
-"Would you like to inspect the noise?", //23
-
+//Scene Two Questions
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Approach or Not Approach
+//
 
-"Would you approach " + Game.gender3 + "?", //24
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Say what you were doing
-
-"What were you doing?", //25
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// What do you want to admit?
-
-"How do you explain yourself?", //26, narration
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// What do you want to admit? Part2
-
-"What was your motive for going to her then?", //27, narration
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Crush asks where are you going
-
-"Uhm, so, where were you headed off to?", //28
 
 		};
 	}
+
 }

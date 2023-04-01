@@ -4,34 +4,40 @@ public class playerStats implements java.io.Serializable{
     
     UserInterface ui;
     Game g;
+    TransitionClass changeScene;
 
     //Showable  Stats
-	public static int CP, XP, maxCP, level;
-    public static double neededXP = 15, multiplier = 2.3;
+	public static int CP, XP, maxCP, level = 1, neededXP = 15;
+    public static double multiplier = 2.3;
+
+    //Text Generation Part
+    // public static Timer LvlUpTimer;
+    // public static String LvlUpText = "YOU HAVE LEVELED UP TO: LEVEL " + "\n" + level 
+    //                                 + "\nYOUR MAXIMUM CP IS NOW: \n" + "\n" + CP + "/" + maxCP;
+    // public static char LvlGen[];
+    // public static int arrayNumber, letterTracker;
 
     //Not showable, probably a different screen?
     static int namingMastery, stoichMastery;
 
-    public playerStats(UserInterface UI, Game game){
-        ui = UI; g = game;
+    public playerStats(UserInterface UI, Game game, TransitionClass tc){
+        ui = UI; g = game; changeScene = tc;
     }
 
     public void checkLevel(){
         if(XP >= neededXP){
+            XP-=neededXP;
             level++;
             maxCP+=2;
             CP = maxCP;
             neededXP = (int)Math.round(neededXP*multiplier);
             multiplier+= 0.15;
-            XP = 0;
-
+            //LevelUpDiaGen();
             UserInterface.ChancePointsNumberLabel.setText("<html><center>" + CP + "/" + maxCP + "<center><html>");
-            UserInterface.XPNumberLabel.setText("<html><center>" + XP + "<center><html>");
-            // ui.mainTextArea.setText("");
-            // g.levelUpTimer.start();
+            UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "/" + playerStats.neededXP + "<center><html>");       
         }
-        else{
-            gameStory.pauseTime = 0;
+        if(CP<=0){
+            changeScene.GameOver();
         }
     }
 }

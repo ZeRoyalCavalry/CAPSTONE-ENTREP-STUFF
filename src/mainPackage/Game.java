@@ -5,8 +5,7 @@ import scenes.sceneOnePartOne;
 import scenes.sceneOnePartTwo;
 import scenes.sceneOnePartEnd;
 import scenes.sceneTwoPartOne;
-
-import scenes.sceneTwoPartOne;
+import scenes.sceneTwoPartTwo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +17,10 @@ import javax.swing.Timer;
 import javax.swing.event.MenuKeyEvent;
 //import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MouseInputListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import mainPackage.storyLines.dialogues;
 import mainPackage.storyLines.questions;
@@ -32,6 +35,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -49,20 +53,22 @@ public class Game implements java.io.Serializable{
 	UserInterface ui = new UserInterface();
 	soundManager sm = new soundManager();
 	storyLines lines = new storyLines();
-	playerStats player = new playerStats(ui, this);
-	TransitionClass tc = new TransitionClass(ui);
+	TransitionClass tc = new TransitionClass(this, ui);
+	playerStats player = new playerStats(ui, this, tc);
 	ImageManager imgManage = new ImageManager(this, screenWidth, screenHeight);
+	CutsceneManager csmanager = new CutsceneManager(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
 		
 	//Scene Management
-		introScene intro = new introScene(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		introScene intro = new introScene(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight, csmanager);
 		
-		sceneOnePartOne homeOne = new sceneOnePartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
-		sceneOnePartTwo homeTwo = new sceneOnePartTwo(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
-		sceneOnePartEnd homeEnd = new sceneOnePartEnd(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
-		sceneTwoPartOne walkOne = new sceneTwoPartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight);
+		sceneOnePartOne homeOne = new sceneOnePartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight, csmanager);
+		sceneOnePartTwo homeTwo = new sceneOnePartTwo(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight, csmanager);
+		sceneOnePartEnd homeEnd = new sceneOnePartEnd(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight, csmanager);
+		sceneTwoPartOne walkOne = new sceneTwoPartOne(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight, csmanager);
+		sceneTwoPartTwo walkTwo = new sceneTwoPartTwo(this, ui, tc, sm, player, lines, imgManage, screenWidth, screenHeight, csmanager);
 		
 	gameStory Story = new gameStory(this, ui, tc, sm, player, imgManage, intro, 
-									homeOne, homeTwo, homeEnd, walkOne);
+									homeOne, homeTwo, homeEnd, walkOne, walkTwo);
 	
 	//Input Handlers
 	ChoiceHandler cHandler = new ChoiceHandler();
@@ -77,7 +83,7 @@ public class Game implements java.io.Serializable{
 		int click = 0, i = 1;
 	
 	public String currentDialogue, currentQuestion, nextDialogue, input, nextPosition1, nextPosition2, nextPosition3, nextPosition4;
-	public static String playerName, gender, gender1, gender2, gender3, selected; 
+	public static String playerName, gender, gender1, gender2, gender3, SOName, SOSprite, selected; 
 	public static String playerAnswer;
 	public static int numberAnswer = 0;
 
@@ -85,8 +91,8 @@ public class Game implements java.io.Serializable{
 	public static int enableKeys = 0;
 	public int letterTracker = 0;
 	public int arrayNumber;
-	public int normalSpeed = 30;
-	public int fastSpeed = 5;
+	public static int normalSpeed = 30;
+	public static int fastSpeed = 5;
 
 	public char DiaGen[], choiceGen[], nameGen[], levelUp[];
 	
@@ -98,9 +104,9 @@ public class Game implements java.io.Serializable{
 	
 	public Game() {
 		ui.makeUI(cHandler, mHandler, nHandler, kbHandler, saveloadHandler, aHandler, screenWidth, screenHeight, lines, this);
-		 	//sm.bgsMusic.setFile(sm.titleScreenMusic);
-		//sm.bgsMusic.playMusic();
-		//sm.bgsMusic.loopMusic();
+		 	sm.bgsMusic.setFile(sm.titleScreenMusic);
+				sm.bgsMusic.playMusic();
+				sm.bgsMusic.loopMusic();
 				//tc.introSequence();
 				//gameStory.pauseTime = 19000;
 				//gameStory.pause();
@@ -119,20 +125,32 @@ public class Game implements java.io.Serializable{
 						textGeneration();
 						ui.bgPanel.remove(ui.bgPic);
 						tc.showDialogue();
-						//intro.intro0Game();
+						intro.intro0Game();
 						//homeOne.explanation1();
-						walkOne.crushBusStopEventApproach();
+						//walkOne.crushBusStopEventApproach();
 						Story.startStats();
 						System.out.println("GAME HAS NOW STARTED");
-						//sm.bgsMusic.stopMusic();
+						sm.bgsMusic.stopMusic();
+							sm.bgsMusic.ingameBGMusicSet(sm.InGameBGMusic);
+							sm.bgsMusic.playInGameMusic();
+
 						//tc.showName();
 						break;
+					case "restart":
 					case "continue":
 						textGeneration();
 						ui.bgPanel.remove(ui.bgPic);
-						//sm.bgsMusic.stopMusic();
+						sm.bgsMusic.stopMusic();
 						tc.showDialogue();
 						loadAction();
+						sm.bgsMusic.ingameBGMusicSet(sm.InGameBGMusic);
+						sm.bgsMusic.playInGameMusic();
+						break;
+					case "quit":
+						tc.showTitleScreen();
+						sm.bgsMusic.setFile(sm.titleScreenMusic);
+						sm.bgsMusic.playMusic();
+						sm.bgsMusic.loopMusic();
 						break;
 						
 					case "dialogue":
@@ -143,21 +161,42 @@ public class Game implements java.io.Serializable{
 						
 					case "male":
 						selected = "HE";
-						gender = "She"; gender1 = "she"; gender2 = "hers"; gender3 = "her";
-						storyLines.subInGender = gender;
+						gender = "She"; 
+						gender1 = "she"; 
+						gender2 = "hers"; 
+						gender3 = "her"; 
+						SOName = "Athena Phenyl";
+						SOSprite = "SOSpriteFemale.png";
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 						break;
 					case "female":
 						selected = "SHE";
-						gender = "He"; gender1 = "he"; gender2 = "his"; gender3 = "him";
-						storyLines.subInGender = gender;
+						gender = "He"; 
+						gender1 = "he"; 
+						gender2 = "his"; 
+						gender3 = "him";
+						SOName = "Lucius Noble";
+						SOSprite = "SOSpriteMale.png";
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 						break;					
 					case "inclusive":
 						selected = "THEY";
-						gender = "They"; gender1 = "they"; gender2 = "theirs"; gender3 = "them";
-						storyLines.subInGender = gender;
+						gender = "They"; 
+						gender1 = "they"; 
+						gender2 = "theirs"; 
+						gender3 = "them";
+						SOName = "Zephyr Xen";
+						int decider = (int)((Math.random()*100)+1);
+							if(decider < 51){
+								SOSprite = "SOSpriteFemale.png";
+							}	
+							else{
+								SOSprite = "SOSpriteMale.png";
+							}
 						Story.dialogueTracker(nextDialogue);
+						saveAction();
 						break;
 
 					//closeMenu saveNotes
@@ -167,6 +206,9 @@ public class Game implements java.io.Serializable{
 						tc.closeNotes(); break;
 					case "saveNotes":
 						saveNotes(); break;
+
+					case "closeLvlUp":
+						ui.LevelUpTextPanel.setVisible(false); break;
 						
 					case "c1":
 						Story.progressTracker(nextPosition1); break;
@@ -181,7 +223,12 @@ public class Game implements java.io.Serializable{
 	}
 
 	public void textGeneration() {
-		//INTRO GENERATION
+		StyledDocument doc = ui.mainTextArea.getStyledDocument();
+
+		SimpleAttributeSet questionText = new SimpleAttributeSet();
+		StyleConstants.setForeground(questionText, Color.ORANGE);
+
+		//DIALOGUE GENERATION
 		DiaTimer = new Timer(normalSpeed, new ActionListener(){
 			public void actionPerformed(ActionEvent ie) {
 				enableKeys = 0;
@@ -195,9 +242,12 @@ public class Game implements java.io.Serializable{
 					}
 					
 				String letterGen = ""; String space = "";
-			
 				letterGen = space + DiaGen[letterTracker]; 
-				ui.mainTextArea.append(letterGen);
+				try {
+					doc.insertString(doc.getLength(), letterGen, null);
+				} catch (BadLocationException e) {
+					e.printStackTrace();
+				}
 				
 				letterTracker++;
 				if(letterTracker == arrayNumber) {
@@ -225,9 +275,13 @@ public class Game implements java.io.Serializable{
 					}
 					
 				String letterGen = ""; String space = "";
-				
 				letterGen = space + choiceGen[letterTracker]; 
-				ui.mainTextArea.append(letterGen);
+				try {
+					doc.insertString(doc.getLength(), letterGen, questionText);
+				} catch (BadLocationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				letterTracker++;
 				if(letterTracker == arrayNumber) {
@@ -246,6 +300,8 @@ public class Game implements java.io.Serializable{
 				choiceGen = questions.questionText[questiontextTracker].toCharArray();
 				arrayNumber = choiceGen.length;
 				enableKeys = 0;
+
+				StyledDocument doc = ui.mainTextArea.getStyledDocument();
 				
 					if((letterTracker%2) == 0){
 						sm.se.setFile1(sm.typesfx);
@@ -253,9 +309,13 @@ public class Game implements java.io.Serializable{
 					}
 					
 				String letterGen = ""; String space = "";
-				
 				letterGen = space + choiceGen[letterTracker]; 
-				ui.mainTextArea.append(letterGen);
+				try {
+					doc.insertString(doc.getLength(), letterGen, questionText);
+				} catch (BadLocationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				letterTracker++;
 				if(letterTracker == arrayNumber) {
@@ -263,32 +323,6 @@ public class Game implements java.io.Serializable{
 					calculateTimer.stop();
 					questiontextTracker++;
 					tc.inputAnswer();
-				}
-			}
-		});
-
-		levelUpTimer = new Timer(normalSpeed, new ActionListener(){
-			public void actionPerformed(ActionEvent cal) {
-				ui.dialoguePanel.setVisible(false);
-				String levelUpMessage = "YOU LEVELED UP!!!";
-				levelUp = levelUpMessage.toCharArray();
-				arrayNumber = levelUp.length;
-				enableKeys = 0;
-				
-					if((letterTracker%2) == 0){
-						sm.se.setFile1(sm.typesfx);
-						sm.se.playTypeSFX();
-					}
-					
-				String letterGen = ""; String space = "";
-				
-				letterGen = space + levelUp[letterTracker]; 
-				ui.mainTextArea.append(letterGen);
-				
-				letterTracker++;
-				if(letterTracker == arrayNumber) {
-					letterTracker = 0;
-					levelUpTimer.stop();
 				}
 			}
 		});
@@ -341,17 +375,9 @@ public class Game implements java.io.Serializable{
 				sm.se.setFile(sm.buttonsfx);
 				sm.se.playButtonSFX(); // STANDARD BUTTON NOISE
 					playerName = ui.nameInput.getText();
-					if(playerName == null) {
-						Story.dialogueTracker("intro0");
-						diatextTracker = 0;
-						tc.showName();
-						intro.intro0Game();
-					}
-					else {
 						gameStory.name = playerName;
 						Story.dialogueTracker(nextDialogue);
 						saveAction();
-					}
 			}
 		}
 	}
@@ -361,7 +387,7 @@ public class Game implements java.io.Serializable{
 				sm.se.setFile(sm.buttonsfx);
 				sm.se.playButtonSFX(); // STANDARD BUTTON NOISE
 						playerAnswer = ui.answerInput.getText();
-						gameStory.playerAnswerInput = playerAnswer;
+						gameStory.playerAnswerInput = playerAnswer.trim();
 						System.out.println("\nPlayer Answer is: " + gameStory.playerAnswerInput);
 						Story.dialogueTracker(nextDialogue);
 						ui.answerInput.setText("");
@@ -377,7 +403,7 @@ public class Game implements java.io.Serializable{
 		}
 		@Override
 		public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==MenuKeyEvent.VK_SPACE) {
+				if(e.getKeyCode()==KeyEvent.VK_SPACE) {
 					DiaTimer.setDelay(fastSpeed);
 				}
 				
@@ -429,9 +455,17 @@ public class Game implements java.io.Serializable{
 			dStorage.playerName = playerName;
 			dStorage.selectedGender = selected;
 
+			dStorage.crushGender = gender;
+			dStorage.crushGender1 = gender1;
+			dStorage.crushGender2 = gender2;
+			dStorage.crushGender3 = gender3;
+
 			dStorage.playerCP = playerStats.CP;
 			dStorage.playerXP = playerStats.XP;
 			dStorage.playermaxCP = playerStats.maxCP;
+			dStorage.playerLevel = playerStats.level;
+
+			dStorage.playerNeededXP = playerStats.neededXP;
 
 			dStorage.dialogueTracker = diatextTracker;
 			dStorage.playerDialogue = currentDialogue;
@@ -445,7 +479,11 @@ public class Game implements java.io.Serializable{
 			System.out.println();
 			System.out.println("SAVE COMPLETE:");
 			System.out.println("Player Name: " + dStorage.playerName);
-			System.out.println("CP: " + dStorage.playerCP + " | " + "XP: " + dStorage.playerXP + " | " + "GENDER: " + dStorage.selectedGender + " | ");
+			System.out.println("CP: " + dStorage.playerCP + " | " + "MAX CP: " + dStorage.playermaxCP + " | " + 
+								"XP: " + dStorage.playerXP + " | " + "GENDER: " + dStorage.selectedGender + " | " +
+								" | " + "SO Gender: " + dStorage.crushGender + "/" + dStorage.crushGender1 + "/" +
+								dStorage.crushGender2 + "/" + dStorage.crushGender3 + " | " +
+								"CURRENT LEVEL: " + dStorage.playerLevel);
 			System.out.println("Current Position: " + dStorage.playerDialogue + " | " 
 								+ "Dialogue Tracker Number: " + dStorage.dialogueTracker + " | "
 								+ "Next Position: " + dStorage.nextStoryDialogue);
@@ -476,9 +514,18 @@ public class Game implements java.io.Serializable{
 			playerName = dStorage.playerName;
 			
 			selected = dStorage.selectedGender;
+
+			gender = dStorage.crushGender;
+			gender1 = dStorage.crushGender1;
+			gender2 = dStorage.crushGender2;
+			gender3 = dStorage.crushGender3;
+
 			playerStats.CP = dStorage.playerCP;
 			playerStats.XP = dStorage.playerXP;
 			playerStats.maxCP = dStorage.playermaxCP;
+			playerStats.level = dStorage.playerLevel;
+
+			playerStats.neededXP = dStorage.playerNeededXP;
 
 			diatextTracker = dStorage.dialogueTracker;
 			currentDialogue = dStorage.playerDialogue;
@@ -491,7 +538,11 @@ public class Game implements java.io.Serializable{
 			System.out.println();
 			System.out.println("LOAD COMPLETE:");
 			System.out.println("Player Name: " + playerName);
-			System.out.println("CP: " + playerStats.CP + " | " + "XP: " + playerStats.XP + " | " + "GENDER: " + selected + " | ");
+			System.out.println("CP: " + playerStats.CP + " | " + "MAX CP: " + playerStats.maxCP + " | " + 
+								"XP: " + playerStats.XP + " | " + "GENDER: " + selected + " | " +
+								" | " + "SO Gender: " + gender + "/" + gender1 + "/" + gender2 + "/" +
+								gender3 + " | " +
+								"CURRENT LEVEL: " + playerStats.level);
 			System.out.println("Current Position: " + currentDialogue + " | " 
 								+ "Dialogue Tracker Number: " + diatextTracker 
 								+ " | " + "Next Position: " + nextDialogue);
@@ -523,7 +574,7 @@ public class Game implements java.io.Serializable{
 	
 	public void update(){
 		gameStory.name = playerName;
-		UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+		UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "/" + playerStats.neededXP + "<center><html>");
 		UserInterface.ChancePointsNumberLabel.setText("<html><center>" + playerStats.CP + "/" + playerStats.maxCP + "<center><html>");
 		Story.dialogueTracker(currentDialogue);
 	}

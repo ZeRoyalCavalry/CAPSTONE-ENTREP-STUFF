@@ -15,6 +15,7 @@ import mainPackage.Game.MouseHandler;
 import mainPackage.Game.NameHandler;
 
 import mainPackage.CutsceneMaker;
+import mainPackage.CutsceneManager;
 
 public class sceneOnePartEnd {
 	
@@ -23,62 +24,23 @@ public class sceneOnePartEnd {
 	playerStats player; storyLines lines; ImageManager images;
 	ChoiceHandler cHandler; MouseHandler mHandler; 
 	KeyboardHandler kbHandler; NameHandler nHandler;
-	CutsceneMaker cutScene;
+	CutsceneMaker cutScene; CutsceneManager csm;
 
     String answer;
 
 	public sceneOnePartEnd(Game game, UserInterface ui, TransitionClass sceneChanger, soundManager sm,
-						playerStats player, storyLines lines, ImageManager imgManage, int screenWidth, int screenHeight)
+						playerStats player, storyLines lines, ImageManager imgManage, int screenWidth, int screenHeight, CutsceneManager csmanager)
 	{
 		this.game = game; this.ui = ui; this.sceneChanger = sceneChanger; this.sm = sm;
-		this.player = player; this.lines = lines; this.images = imgManage; 
-	}
-
-	String motherSprite = "momSprite.png";
-
-	public void livingRoomCutsceneLoad(){
-		sceneChanger.showDialogue();
-		ui.npcName.setText("<html><font color=\"#FF00FF\">Mom<font><html>");
-		CutsceneMaker livingRoomCutscene = new CutsceneMaker("livingRoom.jpg", motherSprite, "placeholder.png", 
-												"placeholder.png", 0.75f, 1.0f, 0.0f, 0.0f);
-			ui.bgPanel.remove(gameStory.bgHolder);
-			ui.bgPanel.add(CutsceneMaker.image);
-			ui.bgPanel.setVisible(true);
-			ui.mainTextPanel.setVisible(true);
-			ui.playerStatsPanel.setVisible(true);
-			player.checkLevel();
-	}
-    public void homeBathRoomCutsceneLoad(){
-		sceneChanger.showDialogue();
-		ui.npcName.setText("<html><font color=\"#FF00FF\">Mom<font><html>");
-		CutsceneMaker homeBathRoomCutscene = new CutsceneMaker("homeRestroom.png", "placeholder.png", "placeholder.png", "placeholder.png", 
-																1.0f, 0.0f, 0.0f, 0.0f);
-			ui.bgPanel.remove(gameStory.bgHolder);
-			ui.bgPanel.add(CutsceneMaker.image);
-			ui.bgPanel.setVisible(true);
-			ui.mainTextPanel.setVisible(true);
-			ui.playerStatsPanel.setVisible(true);
-			player.checkLevel();
-	}
-	public void blackScreen(){
-		sceneChanger.showDialogue();
-		ui.npcName.setText(null);
-		CutsceneMaker blackScreen = new CutsceneMaker("blackscreen.png", "placeholder.png", "placeholder.png", "placeholder.png", 
-														1.0f, 0.0f, 0.0f, 0.0f);
-			ui.bgPanel.remove(gameStory.bgHolder);
-			ui.bgPanel.add(CutsceneMaker.image);
-			ui.bgPanel.setVisible(true);
-			ui.mainTextPanel.setVisible(true);
-			ui.playerStatsPanel.setVisible(true);
-			player.checkLevel();
+		this.player = player; this.lines = lines; this.images = imgManage; csm = csmanager;
 	}
 
 	//End of Scene/Episode Transition
 	public void endStart1(){
 		game.currentDialogue = "endStart1";
 		game.diatextTracker = 73;
-		motherSprite = "momSpriteTeaching.png";
-		livingRoomCutsceneLoad();
+		csm.motherSprite = "momSpriteTeaching.png";
+		csm.livingRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 			game.nextDialogue = "endStart2";
@@ -86,7 +48,7 @@ public class sceneOnePartEnd {
 	public void endStart2(){
 		game.currentDialogue = "endStart2";
 		game.diatextTracker = 74;
-		blackScreen();
+		csm.blackScreen();
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
 			game.nextDialogue = "endStart2to3";
@@ -105,7 +67,7 @@ public class sceneOnePartEnd {
 	public void endStart3(){
 		game.currentDialogue = "endStart3";
 		game.diatextTracker = 75;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.npcName.setText(null);
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
@@ -117,7 +79,7 @@ public class sceneOnePartEnd {
 		game.currentDialogue = "endQuestion1";
 		game.currentQuestion = "endQuestion1";
 		game.questiontextTracker = 21;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.npcName.setText(null);
 		ui.dialogueBox.setText(null);
 		ui.dialoguePanel.setVisible(false);
@@ -139,25 +101,25 @@ public class sceneOnePartEnd {
 	public void endQuestion1Right(){
 		game.currentDialogue = "endQuestion1Right";
 		game.diatextTracker = 76;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 				gameStory.increaseCP = 1;
 				playerStats.XP+=5;
 				gameStory.selectedRight();
-			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+					UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "/" + playerStats.neededXP + "<center><html>");
 
 			game.nextDialogue = "endQuestion2";
 	}
 	public void endQuestion1Wrong(){
 		game.currentDialogue = "endQuestion1Wrong";
 		game.diatextTracker = 77;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 				gameStory.decreaseCP = 1;
 				gameStory.selectedWrong();
-			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+						UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "/" + playerStats.neededXP + "<center><html>");
 
 			game.nextDialogue = "endQuestion2";
 	}
@@ -167,7 +129,7 @@ public class sceneOnePartEnd {
 		game.currentDialogue = "endQuestion2";
 		game.currentQuestion = "endQuestion2";
 		game.questiontextTracker = 22;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.npcName.setText(null);
 		ui.dialogueBox.setText(null);
 		ui.dialoguePanel.setVisible(false);
@@ -189,25 +151,25 @@ public class sceneOnePartEnd {
 	public void endQuestion2Right(){
 		game.currentDialogue = "endQuestion2Right";
 		game.diatextTracker = 78;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 				gameStory.increaseCP = 1;
 				playerStats.XP+=3;
 				gameStory.selectedRight();
-			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+					UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "/" + playerStats.neededXP + "<center><html>");
 
 			game.nextDialogue = "sceneOneEnds1";
 	}
 	public void endQuestion2Wrong(){
 		game.currentDialogue = "endQuestion2Wrong";
 		game.diatextTracker = 79;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 				gameStory.decreaseCP = 1;
 				gameStory.selectedWrong();
-			UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "<center><html>");
+						UserInterface.XPNumberLabel.setText("<html><center>" + playerStats.XP + "/" + playerStats.neededXP + "<center><html>");
 
 			game.nextDialogue = "sceneOneEnds1";
 	}
@@ -216,13 +178,14 @@ public class sceneOnePartEnd {
 	public void sceneOneEnds1(){
 		game.currentDialogue = "sceneOneEnds1";
 		game.diatextTracker = 80;
-		homeBathRoomCutsceneLoad();
+		csm.homeBathRoomCutsceneLoad();
 		ui.npcName.setText(null);
 		ui.mainTextArea.setFont(game.narrationFont);
 		game.startDialogue();
 			game.nextDialogue = "sceneOneEnds2";
 	}
 	public void sceneOneEnds2(){
+		csm.blackScreen();
 		sm.se.setFile8(sm.brushteethsfx);
 		sm.se.brushteethSFX.start();
 			gameStory.pauseTime = 9000;
@@ -234,13 +197,13 @@ public class sceneOnePartEnd {
 		game.currentDialogue = "sceneOneEnds2";
 		if(playerStats.CP>= 8){
 			game.diatextTracker = 81;
-			motherSprite = "momSpriteTeaching.png";
+			csm.motherSprite = "momSpriteTeaching.png";
 		}
 		else{
 			game.diatextTracker = 82;
-			motherSprite = "MomSpriteTalking.png";
+			csm.motherSprite = "MomSpriteTalking.png";
 		}
-		livingRoomCutsceneLoad();
+		csm.livingRoomCutsceneLoad();
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 			game.nextDialogue = "sceneOneEndEnd";
@@ -249,7 +212,7 @@ public class sceneOnePartEnd {
 		game.currentDialogue = "sceneOneEndEnd";
 		game.diatextTracker = 83;
 		ui.mainTextArea.setFont(game.narrationFont);
-		blackScreen();
+		csm.blackScreen();
 		game.startDialogue();
 			sm.se.setFile7(sm.doorsfx);
 			sm.se.doorSFX.start();
