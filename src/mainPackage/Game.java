@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Timer;
 import javax.swing.event.MenuKeyEvent;
@@ -158,7 +159,15 @@ public class Game implements java.io.Serializable{
 						sm.se.playButtonSFX();
 						Story.dialogueTracker(nextDialogue);
 						break;
-						
+
+					case "openSettings":
+						ui.settingsMenu.show(UserInterface.gameWindow, ui.alignSetMenuX, ui.alignSetMenuY);
+						break;
+							case "exit":
+								WindowEvent closeWindow = new WindowEvent(UserInterface.gameWindow, WindowEvent.WINDOW_CLOSING);
+								Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+								break;
+
 					case "male":
 						selected = "HE";
 						gender = "She"; 
@@ -279,7 +288,6 @@ public class Game implements java.io.Serializable{
 				try {
 					doc.insertString(doc.getLength(), letterGen, questionText);
 				} catch (BadLocationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -313,7 +321,6 @@ public class Game implements java.io.Serializable{
 				try {
 					doc.insertString(doc.getLength(), letterGen, questionText);
 				} catch (BadLocationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -406,7 +413,6 @@ public class Game implements java.io.Serializable{
 				if(e.getKeyCode()==KeyEvent.VK_SPACE) {
 					DiaTimer.setDelay(fastSpeed);
 				}
-				
 				if(enableKeys == 1) {
 					if(e.getKeyCode() == 'z' || e.getKeyCode() == 'Z') {
 						click++;

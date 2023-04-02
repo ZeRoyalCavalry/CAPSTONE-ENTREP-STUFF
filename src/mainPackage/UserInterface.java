@@ -20,12 +20,14 @@ import mainPackage.Game.SaveLoadHandler;
 import javax.swing.border.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -39,7 +41,7 @@ public class UserInterface implements java.io.Serializable{
 						introPanel, maleSelectPanel, femaleSelectPanel, nonSelectPanel, SpritePanel,
 						submitAnswerPanel, westPanel, characterNamePanel, instructionsPanel, 
 						notesPanel, closeMenuPanel, saveNotesPanel, notesMenu, notesNamePanel, LevelUpTextPanel,
-						gameoverScreen, MQGOPanel, restartBTNPanel, quitBTNPanel;
+						gameoverScreen, MQGOPanel, restartBTNPanel, quitBTNPanel, settingBTNPanel;
 
 		public JLabel titleLabel, subtitleLabel, bgPic, introGIF, XPLabel, characterSprite, 
 						ChancePointsLabel, characterNamen, npcName, notesNameLabel, gameoverText,
@@ -51,7 +53,12 @@ public class UserInterface implements java.io.Serializable{
 						choice1, choice2, choice3, choice4, saveButton, loadButton,
 						maleButton, femaleButton, inclusiveButton, submitInputBTN,
 						instructions, notesBTN, closeNotesBTN, saveNotesBTN, exitLevelUpBoxBTN,
-						restartBTN, quitBTN;
+						restartBTN, quitBTN, settingsButton;
+
+		public int alignSetMenuX, alignSetMenuY;
+
+		public JPopupMenu settingsMenu;
+		public JMenuItem exitOptionItem;
 
 		public JTextPane mainTextArea, LevelUpTextArea;
 		public JTextArea notesTextArea;
@@ -89,6 +96,11 @@ public class UserInterface implements java.io.Serializable{
 			
 			//Quit Button Panel Scaling
 			int alignQBX = (int)Math.round((screenWidth/1.6) - (buttonPanelWidth/2.7)); int alignQBY = (int)Math.round(screenHeight/1.6);
+
+			//Settings Button Panel 
+			int settingBTNWidth = 27, settingBTNHeight = 50;
+			int alignSetBTNPanelX = (int)Math.round(screenWidth/1.05); int alignSetBTNPanelY = (int)Math.round(screenHeight/12);
+			alignSetMenuX = (int)Math.round(screenWidth/1.095); alignSetMenuY = (int)Math.round(screenHeight/7.8);
 
 			//Sex/Gender Select Panels Scaling
 			int alignMBX = (int)Math.round((screenWidth/2) - (buttonPanelWidth/2)); int alignMBY = (int)Math.round(screenHeight/5.50);
@@ -144,13 +156,6 @@ public class UserInterface implements java.io.Serializable{
 			//Save Notes Panel Scaling alignSMPanelX, alignSMPanelY, saveNotesWidth, saveMenuHeight
 			int saveNotesWidth = 150; int saveMenuHeight = 70;
 			int alignSMPanelX = (int)Math.round(screenWidth/1.75); int alignSMPanelY = (int)Math.round(screenHeight/1.20);
-
-			//Level Up Text Panel
-			int LUTPWidth = 800, LUTPHeight = 300;
-			int alignLUTPX = (int)Math.round((screenWidth/2) - (LUTPWidth/2)); int alignLUTPY = (int)Math.round((screenHeight/2) - (LUTPHeight/2));
-			//Level Up Text Pane
-			int LUTAWidth = 700, LUTAHeight = 200;
-			int alignLUTAX = (int)Math.round((screenWidth/2) - (LUTAWidth/2)); int alignLUTAY = (int)Math.round((screenHeight/2) - (LUTAHeight/2));
 
 			//Game Over Panel
 			int GameOverWidth = 1400, GameOverHeight = 150;
@@ -646,39 +651,29 @@ public class UserInterface implements java.io.Serializable{
 				saveNotesBTN.setActionCommand("saveNotes");
 					saveNotesPanel.add(saveNotesBTN);
 						gameWindow.add(saveNotesPanel);
-				
-			//Level Up Text Area Holder
-			LevelUpTextPanel = new JPanel();
-				//mainTextPanel.setBounds(120,160,1300,250);
-				LevelUpTextPanel.setBounds(alignLUTPX, alignLUTPY, LUTPWidth, LUTPHeight);
-				LevelUpTextPanel.setBackground(Color.BLACK);
-				LevelUpTextPanel.setBorder(outlinePanel);
-				LevelUpTextPanel.setOpaque(false);
-				LevelUpTextPanel.setLayout(new BorderLayout(0,0));
-					gameWindow.add(LevelUpTextPanel);	
-		
-			//Level Up Text Area
-			LevelUpTextArea = new JTextPane();
-        		LevelUpTextArea.setText("YOU HAVE LEVELED UP TO: \nLEVEL " +  playerStats.level
-                                        + "\nYOUR MAXIMUM CP IS NOW: \n" + playerStats.CP + "/" + playerStats.maxCP);
-					//mainTextArea.setBounds(150,185,1200,230);
-					LevelUpTextArea.setBounds(alignLUTAX,alignLUTAY,LUTAWidth,LUTAHeight);
-					LevelUpTextArea.setBackground(Color.black);
-					LevelUpTextArea.setForeground(Color.white);
-					LevelUpTextArea.setFont(subtitleFont);
-						//mainTextArea.setLineWrap(true);
-						//mainTextArea.setWrapStyleWord(true);
-						LevelUpTextArea.setEditable(false);
-					LevelUpTextPanel.add(LevelUpTextArea, BorderLayout.CENTER);
-		
-				//Level Up Exit Button
-				exitLevelUpBoxBTN = new JButton();
-				exitLevelUpBoxBTN.setText("X");
-					exitLevelUpBoxBTN.setForeground(Color.BLACK);
-					exitLevelUpBoxBTN.setFont(normalFont);
-					exitLevelUpBoxBTN.addActionListener(cHandler);
-					exitLevelUpBoxBTN.setActionCommand("closeLvlUp");
-				LevelUpTextPanel.add(exitLevelUpBoxBTN, BorderLayout.SOUTH);
+
+			//Setting Menu
+			settingBTNPanel = new JPanel();
+				settingBTNPanel.setBounds(alignSetBTNPanelX, alignSetBTNPanelY, settingBTNWidth, settingBTNHeight);
+				settingBTNPanel.setBackground(null);
+				settingBTNPanel.setOpaque(false);
+
+					ImageIcon settingsIcon = new ImageIcon(getClass().getClassLoader().getResource("setting.png"));
+					settingsButton = new JButton(settingsIcon);
+						settingsButton.setBackground(null);
+						settingsButton.setOpaque(false);
+						settingsButton.setFocusPainted(false);
+						settingsButton.setBorderPainted(false);
+							settingsButton.addActionListener(cHandler);
+							settingsButton.setActionCommand("openSettings");
+						settingBTNPanel.add(settingsButton);
+					gameWindow.add(settingBTNPanel);
+			
+			settingsMenu = new JPopupMenu("Settings");
+				exitOptionItem = new JMenuItem("<html><center>EXIT GAME<center><html>");
+					exitOptionItem.addActionListener(cHandler);
+					exitOptionItem.setActionCommand("exit");
+						settingsMenu.add(exitOptionItem);
 
 			gameWindow.add(playerStatsPanel);
 			gameWindow.add(choicePanel);
@@ -686,9 +681,14 @@ public class UserInterface implements java.io.Serializable{
 				gameWindow.pack();
 				gameWindow.setAlwaysOnTop(true);
 				gameWindow.setVisible(true);	
-				setFullScreen();
+				//settingsMenu.show(gameWindow, alignSetMenuX, alignSetMenuY);
+				//setFullScreen();
 		}
 		public void setFullScreen(){
+			gameWindow.setVisible(false);
+			gameWindow.dispose();
 			device.setFullScreenWindow(gameWindow);
+			gameWindow.setUndecorated(true);
+			gameWindow.setVisible(true);
 		}
 }

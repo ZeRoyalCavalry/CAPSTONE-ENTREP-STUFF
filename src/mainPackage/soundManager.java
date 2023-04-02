@@ -14,6 +14,7 @@ public class soundManager implements java.io.Serializable {
 	public soundEffect se = new soundEffect();
 	public bgSceneMusic bgsMusic = new bgSceneMusic();
 
+	float volume;
 	FloatControl fc;
 	
 	//ALL SOUUND EFFECTS AND MUSIC ARE FREE TO USE
@@ -197,15 +198,16 @@ public class soundManager implements java.io.Serializable {
 				ingameBGMusic = AudioSystem.getClip();
 				ingameBGMusic.open(ingamebgMusicName);
 				fc = (FloatControl)ingameBGMusic.getControl(FloatControl.Type.MASTER_GAIN);
-				fc.setValue((float) 0.10);
 			}
 			catch(Exception e){
 				System.out.println("ERROR LOADING MUSIC");
 			}
 		}
 		public void playInGameMusic() {
+			volume = -20.0f;
 			ingameBGMusic.setFramePosition(0);
 			ingameBGMusic.start();
+			fc.setValue(volume);
 		}
 		public void loopInGameMusic() {
 			ingameBGMusic.loop(Clip.LOOP_CONTINUOUSLY);

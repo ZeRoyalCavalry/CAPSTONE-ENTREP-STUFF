@@ -12,8 +12,7 @@ public class TransitionClass implements java.io.Serializable {
 	}
 		public void introSequence(){
 			ui.introPanel.setVisible(true);
-			
-			ui.LevelUpTextPanel.setVisible(false);
+
 			ui.notesNamePanel.setVisible(false);
 			ui.notesPanel.setVisible(false);
 			ui.saveNotesPanel.setVisible(false);
@@ -37,7 +36,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.quitBTNPanel.setVisible(false);
 		}
 		public void showTitleScreen(){
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.notesNamePanel.setVisible(false);
 			ui.notesPanel.setVisible(false);
 			ui.saveNotesPanel.setVisible(false);
@@ -66,7 +64,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.bgPanel.add(ui.bgPic);	
 		}	
 		public void showName() {
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.mainTextPanel.setVisible(true);
 			ui.nameInputPanel.setVisible(true);
 
@@ -91,7 +88,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.quitBTNPanel.setVisible(false);
 		}
 		public void inputAnswer() {
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.mainTextPanel.setVisible(true);
 			ui.submitAnswerPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
@@ -116,7 +112,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.quitBTNPanel.setVisible(false);
 		}
 		public void genderSelect(){
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.maleSelectPanel.setVisible(true);
 			ui.femaleSelectPanel.setVisible(true);
 			ui.nonSelectPanel.setVisible(true);
@@ -142,7 +137,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.quitBTNPanel.setVisible(false);
 		}
 		public void showDialogue(){	
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 
@@ -170,11 +164,10 @@ public class TransitionClass implements java.io.Serializable {
 		}
 
 		public void showChoices() {
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.mainTextPanel.setVisible(true);
 			ui.choicePanel.setVisible(true);
-			ui.playerStatsPanel.setVisible(true);
-			
+			ui.playerStatsPanel.setVisible(true);			
+
 			ui.notesNamePanel.setVisible(false);
 			ui.notesPanel.setVisible(false);
 			ui.saveNotesPanel.setVisible(false);
@@ -197,9 +190,8 @@ public class TransitionClass implements java.io.Serializable {
 			choicePanelRecognizer++;
 		}
 		public void showInstructions(){
-			ui.LevelUpTextPanel.setVisible(false);
-			ui.instructionsPanel.setVisible(true);
-			
+			ui.instructionsPanel.setVisible(true);			
+
 			ui.notesNamePanel.setVisible(false);
 			ui.notesPanel.setVisible(false);
 			ui.saveNotesPanel.setVisible(false);
@@ -223,7 +215,6 @@ public class TransitionClass implements java.io.Serializable {
 		}
 
 		public void showNotes(){
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.notesPanel.setVisible(true);
 			ui.closeMenuPanel.setVisible(true);
 			ui.saveNotesPanel.setVisible(true);
@@ -248,7 +239,6 @@ public class TransitionClass implements java.io.Serializable {
 			ui.quitBTNPanel.setVisible(false);
 		}
 		public void closeNotes(){
-			ui.LevelUpTextPanel.setVisible(false);
 			ui.mainTextPanel.setVisible(true);
 			ui.playerStatsPanel.setVisible(true);
 			ui.bgPanel.setVisible(true);
@@ -284,7 +274,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.quitBTNPanel.setVisible(true);
 
 			ui.introPanel.setVisible(false);
-			ui.LevelUpTextPanel.setVisible(false);
+
 			ui.notesNamePanel.setVisible(false);
 			ui.notesPanel.setVisible(false);
 			ui.saveNotesPanel.setVisible(false);
