@@ -7,7 +7,7 @@ public class playerStats implements java.io.Serializable{
     TransitionClass changeScene;
 
     //Showable  Stats
-	public static int CP, XP, maxCP, level = 1, neededXP = 15;
+	public static int CP, XP, maxCP, level = 1, neededXP = 20;
     public static double multiplier = 2.3;
 
     //Text Generation Part

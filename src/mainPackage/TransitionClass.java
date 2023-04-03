@@ -6,6 +6,7 @@ public class TransitionClass implements java.io.Serializable {
 	Game g;
 	gameStory Story;
 	public int choicePanelRecognizer = 0;
+	public int inputAnswerPanelRecognizer = 0;
 
 	public TransitionClass(Game game, UserInterface UI){
 		g = game; ui = UI;
@@ -110,6 +111,8 @@ public class TransitionClass implements java.io.Serializable {
 			ui.MQGOPanel.setVisible(false);
 			ui.restartBTNPanel.setVisible(false);
 			ui.quitBTNPanel.setVisible(false);
+
+			choicePanelRecognizer++;
 		}
 		public void genderSelect(){
 			ui.maleSelectPanel.setVisible(true);
@@ -187,7 +190,7 @@ public class TransitionClass implements java.io.Serializable {
 			ui.restartBTNPanel.setVisible(false);
 			ui.quitBTNPanel.setVisible(false);
 
-			choicePanelRecognizer++;
+			inputAnswerPanelRecognizer++;
 		}
 		public void showInstructions(){
 			ui.instructionsPanel.setVisible(true);			
@@ -244,6 +247,9 @@ public class TransitionClass implements java.io.Serializable {
 			ui.bgPanel.setVisible(true);
 			if(choicePanelRecognizer >= 1){
 				ui.choicePanel.setVisible(true);
+			}
+			if(inputAnswerPanelRecognizer >= 1){
+				ui.answerInput.setVisible(true);
 			}
 			ui.notesNamePanel.setVisible(false);
 			ui.instructionsPanel.setVisible(false);

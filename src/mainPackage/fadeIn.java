@@ -52,6 +52,5 @@ public class fadeIn extends JPanel implements ActionListener {
             Game.enableKeys = 1;
         }
         repaint();
-    }
-    
+    }   
 }

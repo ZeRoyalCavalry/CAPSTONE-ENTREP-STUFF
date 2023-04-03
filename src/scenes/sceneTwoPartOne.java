@@ -197,7 +197,7 @@ public class sceneTwoPartOne {
 		game.currentDialogue = "crushBusStopEventTalk1";
 		game.diatextTracker = 103;
 		csm.crushBusStopCutsceneLoad();
-		ui.mainTextArea.setFont(game.narrationFont);
+		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 			game.nextDialogue = "crushBusStopEventTalk2";
 	}
@@ -318,6 +318,7 @@ public class sceneTwoPartOne {
 		game.currentDialogue = "crushBusStopEventTalk15";
 		game.diatextTracker = 117;
 		csm.crushBusStopCutsceneLoad();
+		ui.npcName.setText(storyLines.SOName);
 		ui.mainTextArea.setFont(game.normalFont);
 		game.startDialogue();
 			game.nextDialogue = "crushBusStopEventTalk16";

@@ -8,13 +8,14 @@ import scenes.sceneOnePartOne;
 import scenes.sceneOnePartTwo;
 import scenes.sceneTwoPartOne;
 import scenes.sceneTwoPartTwo;
+import scenes.sceneTwoPartThree;
 
 import java.io.Serializable;
 
 public class gameStory implements Serializable{
 	
 	introScene intro; sceneOnePartOne scOne; sceneOnePartTwo scOne2; sceneOnePartEnd scOneEnd;
-	sceneTwoPartOne scTwo1;
+	sceneTwoPartOne scTwo1; sceneTwoPartTwo scTwo2; sceneTwoPartThree scTwo3;
 	
 	Game game; UserInterface ui;
 	TransitionClass sceneChanger; soundManager sm;
@@ -25,13 +26,7 @@ public class gameStory implements Serializable{
 		public static int increaseCP = 0,  increaseXP = 0, decreaseCP = 0;
 		public int number = 0, reviewCorrect = 0, questionSelector = 0, questionRecognizer = 0;
 
-		public static String name, 
-							gender = Game.gender, 
-							gender1 = Game.gender1, 
-							gender2 = Game.gender2, 
-							gender3 = Game.gender3, 
-							SOName = Game.SOName,
-							SOSprite = Game.SOSprite;
+		public static String name;
 		public static String playerAnswerInput;
 		
 		public static JLabel bgHolder = new JLabel();
@@ -39,10 +34,11 @@ public class gameStory implements Serializable{
 
 	public gameStory(Game g, UserInterface UI, TransitionClass sc, soundManager SM, playerStats pStats, ImageManager imgManage, 
 					introScene intro2, sceneOnePartOne homeOne, sceneOnePartTwo homeTwo, sceneOnePartEnd homeEnd, 
-					sceneTwoPartOne walkOne, sceneTwoPartTwo walkTwo) {	
+					sceneTwoPartOne walkOne, sceneTwoPartTwo walkTwo, sceneTwoPartThree walkThree) {	
 				game = g; ui = UI; sceneChanger = sc; sm = SM; player = pStats; images = imgManage; 
 				
-				intro = intro2; scOne = homeOne; scOne2 = homeTwo; scOneEnd = homeEnd; scTwo1 = walkOne;
+				intro = intro2; scOne = homeOne; scOne2 = homeTwo; scOneEnd = homeEnd;
+				scTwo1 = walkOne; scTwo2 = walkTwo; scTwo3 = walkThree;
 	}
 	
 	public void startStats(){
@@ -199,6 +195,7 @@ public class gameStory implements Serializable{
 		case "sceneOneEnds2": scOneEnd.sceneOneEnds2(); break;
 		case "sceneOneEndEnd": scOneEnd.sceneOneEndEnd(); break;
 
+		//Scene Two Begins here
 		case "walkToSchool1": scTwo1.walkToSchool1(); break;
 		case "walkToSchool2": scTwo1.walkToSchool2(); break;
 		case "walkToSchool3": scTwo1.walkToSchool3(); break;
@@ -209,6 +206,7 @@ public class gameStory implements Serializable{
 		case "walkToSchool8": scTwo1.walkToSchool8(); break;
 		case "walkToSchool9": scTwo1.walkToSchool9(); break;
 
+		case "crushBusStopEventStarted": scTwo1.crushBusStopEventStarted(); break;
 		case "crushBusStopEvent1": scTwo1.crushBusStopEvent1(); break;
 		case "crushBusStopEvent2": scTwo1.crushBusStopEvent2(); break;
 		case "crushBusStopEvent3": scTwo1.crushBusStopEvent3(); break;
@@ -237,6 +235,120 @@ public class gameStory implements Serializable{
 		case "crushBusStopEventTalk15": scTwo1.crushBusStopEventTalk15(); break;
 		case "crushBusStopEventTalk16": scTwo1.crushBusStopEventTalk16(); break;
 
+		case "crushConvenienceStoreEventStart": scTwo2.crushConvenienceStoreEventStart(); break;
+
+		case "crushConvenienceStoreEventTalk": scTwo2.crushConvenienceStoreEventTalk(); break;
+		case "crushConvenienceStoreEventTalk1": scTwo2.crushConvenienceStoreEventTalk1(); break;
+		case "crushConvenienceStoreEventTalk2": scTwo2.crushConvenienceStoreEventTalk2(); break;
+		case "crushConvenienceStoreEventTalk3": scTwo2.crushConvenienceStoreEventTalk3(); break;
+		case "crushConvenienceStoreEventTalk4": scTwo2.crushConvenienceStoreEventTalk4(); break;
+		case "crushConvenienceStoreEventTalk5": scTwo2.crushConvenienceStoreEventTalk5(); break;
+		case "crushConvenienceStoreEventTalk6": scTwo2.crushConvenienceStoreEventTalk6(); break;
+		case "crushConvenienceStoreEventTalk7": scTwo2.crushConvenienceStoreEventTalk7(); break;
+		case "crushConvenienceStoreEventTalk8": scTwo2.crushConvenienceStoreEventTalk8(); break;
+
+		case "crushConvenienceStoreEventTalkEnd": scTwo2.crushConvenienceStoreEventTalkEnd(); break;
+		case "crushConvenienceStoreEventTalkEnd1": scTwo2.crushConvenienceStoreEventTalkEnd1(); break;
+
+		case "crushConvenienceStoreEventWait": scTwo2.crushConvenienceStoreEventWait(); break;
+		case "crushConvenienceStoreEventWait1": scTwo2.crushConvenienceStoreEventWait1(); break;
+		case "crushConvenienceStoreEventWait2": scTwo2.crushConvenienceStoreEventWait2(); break;
+
+		case "crushConvenienceStoreEventNotes": scTwo2.crushConvenienceStoreEventNotes(); break;
+		case "crushConvenienceStoreEventNotes1": scTwo2.crushConvenienceStoreEventNotes1(); break;
+		case "crushConvenienceStoreEventNotes2": scTwo2.crushConvenienceStoreEventNotes2(); break;
+		case "crushConvenienceStoreEventNotes3": scTwo2.crushConvenienceStoreEventNotes3(); break;
+		case "crushConvenienceStoreEventNotes4": scTwo2.crushConvenienceStoreEventNotes4(); break;
+		case "crushConvenienceStoreEventNotes5": scTwo2.crushConvenienceStoreEventNotes5(); break;
+
+		case "crushConvenienceStorePreFifthLessonTalk": scTwo2.crushConvenienceStorePreFifthLessonTalk(); break;
+		case "crushConvenienceStorePreFifthLessonTalk1": scTwo2.crushConvenienceStorePreFifthLessonTalk1(); break;
+		case "crushConvenienceStorePreFifthLessonTalk2": scTwo2.crushConvenienceStorePreFifthLessonTalk2(); break;
+		case "crushConvenienceStorePreFifthLessonTalk3": scTwo2.crushConvenienceStorePreFifthLessonTalk3(); break;
+		case "crushConvenienceStorePreFifthLessonTalk4": scTwo2.crushConvenienceStorePreFifthLessonTalk4(); break;
+		case "crushConvenienceStorePreFifthLessonTalk5": scTwo2.crushConvenienceStorePreFifthLessonTalk5(); break;
+		case "crushConvenienceStorePreFifthLessonTalk6": scTwo2.crushConvenienceStorePreFifthLessonTalk6(); break;
+		case "crushConvenienceStorePreFifthLessonTalk7": scTwo2.crushConvenienceStorePreFifthLessonTalk7(); break;
+		case "crushConvenienceStorePreFifthLessonTalk8": scTwo2.crushConvenienceStorePreFifthLessonTalk8(); break;
+		case "crushConvenienceStorePreFifthLessonTalk9": scTwo2.crushConvenienceStorePreFifthLessonTalk9(); break;
+		case "crushConvenienceStorePreFifthLessonTalk10": scTwo2.crushConvenienceStorePreFifthLessonTalk10(); break;
+		case "crushConvenienceStorePreFifthLessonTalkEnd": scTwo2.crushConvenienceStorePreFifthLessonTalkEnd(); break;
+
+		case "crushConvenienceStoreFifthLessonStart": scTwo2.crushConvenienceStoreFifthLessonStart(); break;
+		case "crushConvenienceStoreFifthLesson1": scTwo2.crushConvenienceStoreFifthLesson1(); break;
+		case "crushConvenienceStoreFifthLesson2": scTwo2.crushConvenienceStoreFifthLesson2(); break;
+		case "crushConvenienceStoreFifthLesson3": scTwo2.crushConvenienceStoreFifthLesson3(); break;
+		case "crushConvenienceStoreFifthLesson4": scTwo2.crushConvenienceStoreFifthLesson4(); break;
+		case "crushConvenienceStoreFifthLesson5": scTwo2.crushConvenienceStoreFifthLesson5(); break;
+		case "crushConvenienceStoreFifthLesson6": scTwo2.crushConvenienceStoreFifthLesson6(); break;
+		case "crushConvenienceStoreFifthLesson7": scTwo2.crushConvenienceStoreFifthLesson7(); break;
+		case "crushConvenienceStoreFifthLessonEnd": scTwo2.crushConvenienceStoreFifthLessonEnd(); break;
+
+		case "crushConvenienceStoreFifthLessonQuestion1": scTwo2.crushConvenienceStoreFifthLessonQuestion1(); break;
+			case "crushConvenienceStoreFifthLessonQuestion1Load": scTwo2.crushConvenienceStoreFifthLessonQuestion1Load(); break;
+			case "crushConvenienceStoreFifthLessonQuestion1Right": scTwo2.crushConvenienceStoreFifthLessonQuestion1Right(); break;
+			case "crushConvenienceStoreFifthLessonQuestion1Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion1Wrong(); break;
+		
+		case "crushConvenienceStoreFifthLessonQuestion2": scTwo2.crushConvenienceStoreFifthLessonQuestion2(); break;
+			case "crushConvenienceStoreFifthLessonQuestion2Load": scTwo2.crushConvenienceStoreFifthLessonQuestion2Load(); break;
+			case "crushConvenienceStoreFifthLessonQuestion2Right": scTwo2.crushConvenienceStoreFifthLessonQuestion2Right(); break;
+			case "crushConvenienceStoreFifthLessonQuestion2Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion2Wrong(); break;
+		
+		case "crushConvenienceStoreFifthLessonQuestion3": scTwo2.crushConvenienceStoreFifthLessonQuestion3(); break;
+			case "crushConvenienceStoreFifthLessonQuestion3Load": scTwo2.crushConvenienceStoreFifthLessonQuestion3Load(); break;
+			case "crushConvenienceStoreFifthLessonQuestion3Right": scTwo2.crushConvenienceStoreFifthLessonQuestion3Right(); break;
+			case "crushConvenienceStoreFifthLessonQuestion3Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion3Wrong(); break;
+
+		case "crushConvenienceStoreFifthLessonQuestion4": scTwo2.crushConvenienceStoreFifthLessonQuestion4(); break;
+			case "crushConvenienceStoreFifthLessonQuestion4Load": scTwo2.crushConvenienceStoreFifthLessonQuestion4Load(); break;
+			case "crushConvenienceStoreFifthLessonQuestion4Right": scTwo2.crushConvenienceStoreFifthLessonQuestion4Right(); break;
+			case "crushConvenienceStoreFifthLessonQuestion4Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion4Wrong(); break;
+		
+		case "crushConvenienceStoreFifthLessonQuestion5": scTwo2.crushConvenienceStoreFifthLessonQuestion5(); break;
+			case "crushConvenienceStoreFifthLessonQuestion5Load": scTwo2.crushConvenienceStoreFifthLessonQuestion5Load(); break;
+			case "crushConvenienceStoreFifthLessonQuestion5Right": scTwo2.crushConvenienceStoreFifthLessonQuestion5Right(); break;
+			case "crushConvenienceStoreFifthLessonQuestion5Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion5Wrong(); break;
+
+		case "crushConvenienceStoreFifthLessonQuestionsEnd": scTwo2.crushConvenienceStoreFifthLessonQuestionsEnd(); break;
+		case "crushConvenienceStoreFifthLessonBreak": scTwo2.crushConvenienceStoreFifthLessonBreak(); break;
+
+		case "crushConvenienceStoreSixthLessonStart": scTwo2.crushConvenienceStoreSixthLessonStart(); break;
+		case "crushConvenienceStoreSixthLesson1": scTwo2.crushConvenienceStoreSixthLesson1(); break;
+		case "crushConvenienceStoreSixthLesson2": scTwo2.crushConvenienceStoreSixthLesson2(); break;
+		case "crushConvenienceStoreSixthLesson3": scTwo2.crushConvenienceStoreSixthLesson3(); break;
+		case "crushConvenienceStoreSixthLesson4": scTwo2.crushConvenienceStoreSixthLesson4(); break;
+		case "crushConvenienceStoreSixthLesson5": scTwo2.crushConvenienceStoreSixthLesson5(); break;
+		case "crushConvenienceStoreSixthLesson6": scTwo2.crushConvenienceStoreSixthLesson6(); break;
+		case "crushConvenienceStoreSixthLesson7": scTwo2.crushConvenienceStoreSixthLesson7(); break;
+		case "crushConvenienceStoreSixthLesson8": scTwo2.crushConvenienceStoreSixthLesson8(); break;
+		case "crushConvenienceStoreSixthLesson9": scTwo2.crushConvenienceStoreSixthLesson9(); break;
+		case "crushConvenienceStoreSixthLesson10": scTwo2.crushConvenienceStoreSixthLesson10(); break;
+		
+		case "crushConvenienceStoreSixthLesson11": scTwo3.crushConvenienceStoreSixthLesson11(); break;
+		case "crushConvenienceStoreSixthLesson12": scTwo3.crushConvenienceStoreSixthLesson12(); break;
+		case "crushConvenienceStoreSixthLesson13": scTwo3.crushConvenienceStoreSixthLesson13(); break;
+		case "crushConvenienceStoreSixthLesson14": scTwo3.crushConvenienceStoreSixthLesson14(); break;
+		case "crushConvenienceStoreSixthLesson15": scTwo3.crushConvenienceStoreSixthLesson15(); break;
+		case "crushConvenienceStoreSixthLesson16": scTwo3.crushConvenienceStoreSixthLesson16(); break;
+		case "crushConvenienceStoreSixthLesson17": scTwo3.crushConvenienceStoreSixthLesson17(); break;
+		case "crushConvenienceStoreSixthLesson18": scTwo3.crushConvenienceStoreSixthLesson18(); break;
+
+		case "crushConvenienceStoreSixthLessonDisrupt": scTwo3.crushConvenienceStoreSixthLessonDisrupt(); break;
+		case "crushConvenienceStoreSixthLessonDisrupt1": scTwo3.crushConvenienceStoreSixthLessonDisrupt1(); break;
+		case "crushConvenienceStoreSixthLessonDisrupt2": scTwo3.crushConvenienceStoreSixthLessonDisrupt2(); break;
+		case "crushConvenienceStoreSixthLessonDisrupt3": scTwo3.crushConvenienceStoreSixthLessonDisrupt3(); break;
+		case "crushConvenienceStoreSixthLessonDisrupt4": scTwo3.crushConvenienceStoreSixthLessonDisrupt4(); break;
+
+		case "crushConvenienceStoreSixthLesson19": scTwo3.crushConvenienceStoreSixthLesson19(); break;
+		case "crushConvenienceStoreSixthLesson20": scTwo3.crushConvenienceStoreSixthLesson20(); break;
+		case "crushConvenienceStoreSixthLesson21": scTwo3.crushConvenienceStoreSixthLesson21(); break;
+		case "crushConvenienceStoreSixthLesson22": scTwo3.crushConvenienceStoreSixthLesson22(); break;
+		case "crushConvenienceStoreSixthLesson23": scTwo3.crushConvenienceStoreSixthLesson23(); break;
+
+		case "crushConvenienceStoreSixthLessonQuestion1": scTwo3.crushConvenienceStoreSixthLessonQuestion1(); break;
+			case "crushConvenienceStoreSixthLessonQuestion1Load": scTwo3.crushConvenienceStoreSixthLessonQuestion1Load(); break;
+			case "crushConvenienceStoreSixthLessonQuestion1Right": scTwo3.crushConvenienceStoreSixthLessonQuestion1Right(); break;
+			case "crushConvenienceStoreSixthLessonQuestion1Wrong": scTwo3.crushConvenienceStoreSixthLessonQuestion1Wrong(); break;
 	}
 }
 
@@ -310,6 +422,31 @@ public class gameStory implements Serializable{
 					case "endQuestion2Right": scOneEnd.endQuestion2Right(); break;
 					case "endQuestion2Wrong": scOneEnd.endQuestion2Wrong(); break;
 	
+				
+			case "crushConvenienceStoreFifthLessonQuestion1": scTwo2.crushConvenienceStoreFifthLessonQuestion1(); break;
+				case "crushConvenienceStoreFifthLessonQuestion1Load": scTwo2.crushConvenienceStoreFifthLessonQuestion1Load(); break;
+				case "crushConvenienceStoreFifthLessonQuestion1Right": scTwo2.crushConvenienceStoreFifthLessonQuestion1Right(); break;
+				case "crushConvenienceStoreFifthLessonQuestion1Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion1Wrong(); break;
+	
+			case "crushConvenienceStoreFifthLessonQuestion2": scTwo2.crushConvenienceStoreFifthLessonQuestion2(); break;
+				case "crushConvenienceStoreFifthLessonQuestion2Load": scTwo2.crushConvenienceStoreFifthLessonQuestion2Load(); break;
+				case "crushConvenienceStoreFifthLessonQuestion2Right": scTwo2.crushConvenienceStoreFifthLessonQuestion2Right(); break;
+				case "crushConvenienceStoreFifthLessonQuestion2Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion2Wrong(); break;
+	
+			case "crushConvenienceStoreFifthLessonQuestion3": scTwo2.crushConvenienceStoreFifthLessonQuestion3(); break;
+				case "crushConvenienceStoreFifthLessonQuestion3Load": scTwo2.crushConvenienceStoreFifthLessonQuestion3Load(); break;
+				case "crushConvenienceStoreFifthLessonQuestion3Right": scTwo2.crushConvenienceStoreFifthLessonQuestion3Right(); break;
+				case "crushConvenienceStoreFifthLessonQuestion3Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion3Wrong(); break;
+
+			case "crushConvenienceStoreFifthLessonQuestion4": scTwo2.crushConvenienceStoreFifthLessonQuestion4(); break;
+				case "crushConvenienceStoreFifthLessonQuestion4Load": scTwo2.crushConvenienceStoreFifthLessonQuestion4Load(); break;
+				case "crushConvenienceStoreFifthLessonQuestion4Right": scTwo2.crushConvenienceStoreFifthLessonQuestion4Right(); break;
+				case "crushConvenienceStoreFifthLessonQuestion4Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion4Wrong(); break;
+	
+			case "crushConvenienceStoreFifthLessonQuestion5": scTwo2.crushConvenienceStoreFifthLessonQuestion4(); break;
+				case "crushConvenienceStoreFifthLessonQuestion5Load": scTwo2.crushConvenienceStoreFifthLessonQuestion5Load(); break;
+				case "crushConvenienceStoreFifthLessonQuestion5Right": scTwo2.crushConvenienceStoreFifthLessonQuestion5Right(); break;
+				case "crushConvenienceStoreFifthLessonQuestion5Wrong": scTwo2.crushConvenienceStoreFifthLessonQuestion5Wrong(); break;
 		}
 	}
 	public static void selectedRight(){

@@ -13,9 +13,8 @@ public class CutsceneManager {
 	ChoiceHandler cHandler; MouseHandler mHandler; 
 	KeyboardHandler kbHandler; NameHandler nHandler;
 	
-    public String motherSprite = "momSprite.png";
-    public String SOSprite = gameStory.SOSprite;
-    public String crushName = "???";
+    public String motherSprite = "momSprite.png", spriteToLoad = "placeholder.png", crushName = "???";
+	public static String SOSprite = "placeholder.png";
 
 	public CutsceneManager(Game game, UserInterface ui, TransitionClass sceneChanger, soundManager sm,
 						playerStats player, storyLines lines, ImageManager images, int screenWidth, int screenHeight)
@@ -42,7 +41,7 @@ public class CutsceneManager {
 // HOME BEDROOM CUTSCENE
 public void bedroomCutsceneLoad(){
     sceneChanger.showDialogue();
-    CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", "placeholder.png", "placeholder.png", 
+    CutsceneMaker bedroomCutscene = new CutsceneMaker("bedroom.png", "placeholder.png", "placeholder.png", spriteToLoad, 
                                                         1.0f, 0.0f, 0.0f, 0.0f);
         ui.bgPanel.remove(gameStory.bgHolder);
         ui.bgPanel.add(CutsceneMaker.image);
@@ -70,7 +69,7 @@ public void bedroomCutsceneLoad(){
     public void homeBathRoomCutsceneLoad(){
 		sceneChanger.showDialogue();
 		ui.npcName.setText("<html><font color=\"#FF00FF\">Mom<font><html>");
-		CutsceneMaker homeBathRoomCutscene = new CutsceneMaker("homeRestroom.png", "placeholder.png", "placeholder.png", "placeholder.png", 
+		CutsceneMaker homeBathRoomCutscene = new CutsceneMaker("homeRestroom.png", "placeholder.png", "placeholder.png", spriteToLoad, 
 																1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
@@ -83,7 +82,7 @@ public void bedroomCutsceneLoad(){
 // CITY CUTSCENE
 	public void cityCutsceneLoad(){
 		sceneChanger.showDialogue();
-		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", "placeholder.png", "placeholder.png", 
+		CutsceneMaker cityCutscene = new CutsceneMaker("temp3.jpg", "placeholder.png", "placeholder.png", spriteToLoad, 
 															1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
@@ -98,7 +97,7 @@ public void bedroomCutsceneLoad(){
 		ui.npcName.setText(null);
 		sceneChanger.showDialogue();
 		CutsceneMaker city1Cutscene = new CutsceneMaker("city1.jpg", "placeholder.png", "placeholder.png", 
-                                                            "placeholder.png", 1.0f, 0.0f, 0.0f, 0.0f);
+														spriteToLoad, 1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -110,7 +109,7 @@ public void bedroomCutsceneLoad(){
 		ui.npcName.setText(null);
 		sceneChanger.showDialogue();
 		CutsceneMaker city1DarkCutscene = new CutsceneMaker("city1.jpg", "placeholder.png", "placeholder.png", 
-															"placeholder.png", 1.0f, 0.35f, 0.0f, 0.0f);
+															spriteToLoad, 1.0f, 0.35f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -122,7 +121,7 @@ public void bedroomCutsceneLoad(){
 		ui.npcName.setText(null);
 		sceneChanger.showDialogue();
 		CutsceneMaker city1RainCutscene = new CutsceneMaker("city1.jpg", "placeholder.png", "buncee_raineffect.gif", 
-															"placeholder.png", 1.0f, 0.35f, 0.0f, 0.0f);
+															spriteToLoad, 1.0f, 0.35f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -135,8 +134,8 @@ public void bedroomCutsceneLoad(){
     public void city2CutsceneLoad(){
 		ui.npcName.setText(null);
 		sceneChanger.showDialogue();
-		CutsceneMaker city2Cutscene = new CutsceneMaker("city2.jpg", "placeholder.png", "placeholder.png", 
-                                                            "placeholder.png", 1.0f, 0.0f, 0.0f, 0.0f);
+		CutsceneMaker city2Cutscene = new CutsceneMaker("city2.png", "placeholder.png", "placeholder.png", 
+														spriteToLoad, 1.0f, 0.0f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -147,8 +146,8 @@ public void bedroomCutsceneLoad(){
 	public void city2DarkCutsceneLoad(){
 		ui.npcName.setText(null);
 		sceneChanger.showDialogue();
-		CutsceneMaker city2DarkCutscene = new CutsceneMaker("city2.jpg", "placeholder.png", "placeholder.png", 
-															"placeholder.png", 1.0f, 0.35f, 0.0f, 0.0f);
+		CutsceneMaker city2DarkCutscene = new CutsceneMaker("city2.png", "placeholder.png", "placeholder.png", 
+															spriteToLoad, 1.0f, 0.35f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -159,8 +158,8 @@ public void bedroomCutsceneLoad(){
     public void city2RainCutsceneLoad(){
 		ui.npcName.setText(null);
 		sceneChanger.showDialogue();
-		CutsceneMaker city2RainCutscene = new CutsceneMaker("city2.jpg", "placeholder.png", "buncee_raineffect.gif", 
-															"placeholder.png", 1.0f, 0.35f, 0.0f, 0.0f);
+		CutsceneMaker city2RainCutscene = new CutsceneMaker("city2.png", "placeholder.png", "buncee_raineffect.gif", 
+															spriteToLoad, 1.0f, 0.35f, 0.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -174,7 +173,7 @@ public void bedroomCutsceneLoad(){
 		ui.npcName.setText(null);
 		sceneChanger.showDialogue();
 		CutsceneMaker busStopCutscene = new CutsceneMaker("busstop.png", "placeholder.png", 
-															"buncee_raineffect.gif", "placeholder.png",  1.0f, 0.75f, 1.0f, 0.0f);
+															"buncee_raineffect.gif", spriteToLoad,  1.0f, 0.75f, 1.0f, 0.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -186,7 +185,7 @@ public void bedroomCutsceneLoad(){
         ui.npcName.setText(crushName);
 		sceneChanger.showDialogue();
 		CutsceneMaker crushBusStopCutscene = new CutsceneMaker("busstop.png", "placeholder.png", 
-                                                            "buncee_raineffect.gif", gameStory.SOSprite, 1.0f, 1.0f, 1.0f, 1.0f);
+                                                            "buncee_raineffect.gif", SOSprite, 1.0f, 1.0f, 1.0f, 1.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -196,11 +195,23 @@ public void bedroomCutsceneLoad(){
 	}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // CONVENIENCE STORE CUTSCENES
-    public void ConvenienceStoreCutsceneLoad(){
+	public void ConvenienceStoreCutsceneLoad(){
+		ui.npcName.setText(null);
+		sceneChanger.showDialogue();
+		CutsceneMaker ConvenienceStoreCutscene = new CutsceneMaker("constore.png", "placeholder.png", 
+															"placeholder.png", "placeholder.png",  1.0f, 0.0f, 0.0f, 0.0f);
+			ui.bgPanel.remove(gameStory.bgHolder);
+			ui.bgPanel.add(CutsceneMaker.image);
+			ui.bgPanel.setVisible(true);
+			ui.mainTextPanel.setVisible(true);
+			ui.playerStatsPanel.setVisible(true);
+			player.checkLevel();
+	}
+    public void crushConvenienceStoreCutsceneLoad(){
         ui.npcName.setText(null);
 		sceneChanger.showDialogue();
-		CutsceneMaker ConVenienceStoreCutscene = new CutsceneMaker("constore.png", "placeholder.png", 
-															"placeholder.png", gameStory.SOSprite,  1.0f, 0.0f, 0.0f, 0.0f);
+		CutsceneMaker CrushConvenienceStoreCutscene = new CutsceneMaker("constore.png", "placeholder.png", 
+															"placeholder.png", SOSprite,  1.0f, 0.0f, 0.0f, 1.0f);
 			ui.bgPanel.remove(gameStory.bgHolder);
 			ui.bgPanel.add(CutsceneMaker.image);
 			ui.bgPanel.setVisible(true);
@@ -208,5 +219,4 @@ public void bedroomCutsceneLoad(){
 			ui.playerStatsPanel.setVisible(true);
 			player.checkLevel();
     }
-
 }

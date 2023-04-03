@@ -705,8 +705,6 @@ public class sceneOnePartTwo {
             ui.mainTextArea.setText("");
             ui.dialogueBox.setText(null);
         game.calculateTimer.start();
-        
-    
             game.nextDialogue = "ThirdFourthLessonReview5Load";
     }
     public void ThirdFourthLessonReview5Load(){
@@ -753,7 +751,6 @@ public class sceneOnePartTwo {
             gameStory.decreaseCP = 2;
             gameStory.selectedWrong();
             game.startDialogue();
-
                 game.nextDialogue = "ThirdFourthLessonReview5";
     }
 

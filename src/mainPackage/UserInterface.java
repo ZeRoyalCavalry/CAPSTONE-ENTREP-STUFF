@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
@@ -181,7 +182,7 @@ public class UserInterface implements java.io.Serializable{
 			//introPanel.setBackground(Color.black);
 				introGIF = new JLabel();
 				introGIF.setBounds(0,-1, screenWidth, screenHeight);
-						ImageIcon gameIntro = new ImageIcon(getClass().getClassLoader().getResource("gameIntro.gif"));
+						ImageIcon gameIntro = new ImageIcon(getClass().getClassLoader().getResource("newGameIntro.gif"));
 								Image gameGIF = gameIntro.getImage();
 								Image resizedIntro = gameGIF.getScaledInstance(screenWidth, screenHeight, Image.SCALE_DEFAULT);
 								gameIntro = new ImageIcon(resizedIntro);
@@ -290,7 +291,7 @@ public class UserInterface implements java.io.Serializable{
 				//bgPanel.setBackground(Color.black);
 					bgPic = new JLabel();
 					bgPic.setBounds(0,0, screenWidth, screenHeight);
-						ImageIcon titlePic = new ImageIcon(getClass().getClassLoader().getResource("titlescreenOfficial.png"));
+						ImageIcon titlePic = new ImageIcon(getClass().getClassLoader().getResource("titlescreen.png"));
 								Image titleImage = titlePic.getImage();
 								Image resizedTitle = titleImage.getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH);
 								titlePic = new ImageIcon(resizedTitle);
@@ -387,6 +388,12 @@ public class UserInterface implements java.io.Serializable{
 					mainTextArea.addMouseListener(mHandler);
 					mainTextArea.addKeyListener(kbHandler);
 				mainTextPanel.add(mainTextArea, BorderLayout.CENTER);
+
+			SwingUtilities.invokeLater(new Runnable(){
+				public void run(){
+					mainTextArea.requestFocus();
+				}
+			});
 
 			//Non-playable Character Name/ NPC Name Panel
 				characterNamePanel = new JPanel();
@@ -655,7 +662,7 @@ public class UserInterface implements java.io.Serializable{
 			//Setting Menu
 			settingBTNPanel = new JPanel();
 				settingBTNPanel.setBounds(alignSetBTNPanelX, alignSetBTNPanelY, settingBTNWidth, settingBTNHeight);
-				settingBTNPanel.setBackground(null);
+				//settingBTNPanel.setBackground(null);
 				settingBTNPanel.setOpaque(false);
 
 					ImageIcon settingsIcon = new ImageIcon(getClass().getClassLoader().getResource("setting.png"));

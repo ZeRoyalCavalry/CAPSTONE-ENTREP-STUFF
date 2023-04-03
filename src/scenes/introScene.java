@@ -55,13 +55,18 @@ public class introScene {
 		game.nextDialogue = "instructions";
 	}
 	public void instructions(){
+		game.saveAction();
 		Game.enableKeys = 1;
 		ui.npcName.setText(null);
 		game.diatextTracker = 0;
 		ui.bgPanel.setBackground(Color.BLACK);
 		game.currentDialogue = "instructions";
-		game.nextDialogue = "intro1";
-		//game.nextDialogue = "firstLessonQuestion";
+		//game.nextDialogue = "intro1"; test1
+		//game.nextDialogue = "gbedroomExit12"; //test2
+		//game.nextDialogue = "firstLessonQuestion"; test3
+		//game.nextDialogue = "crushBusStopEventStarted"; test4
+		//game.nextDialogue = "crushConvenienceStoreEventStart";
+		game.nextDialogue = "crushConvenienceStoreFifthLessonQuestionsEnd";
 	}
 	public void intro1Game(){//A world a new
 		ui.npcName.setText(null);
